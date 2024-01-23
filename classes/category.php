@@ -10,12 +10,21 @@ class Category
         $this->name = $name;
     }
 
+    private function validate(){
+        return $this->name;
+    }
+
     public function createCategory($conn)
     {
-        $sql = "insert into categories(name) values(:name);";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindValue(":name", $this->name, PDO::PARAM_STR);
-        return $stmt->execute();
+        if($this->validate()){
+            $sql = "insert into categories(name) values(:name);";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindValue(":name", $this->name, PDO::PARAM_STR);
+            return $stmt->execute();
+        }else{
+            return false;
+        }
+        
     }
 
     public function deleteCategory($conn, $id)
@@ -37,20 +46,37 @@ class Category
 
     public function getCategory($conn)
     {
-        $sql = "select * from categories";
-        $stmt = $conn->prepare($sql);
-        $stmt->setFetchMode(PDO::FETCH_CLASS, "Category");
-        $category = $stmt->fetch();
+        try{
+            $sql = "select * from categories";
+            $stmt = $conn->prepare($sql);
+            $stmt->setFetchMode(PDO::FETCH_CLASS, "Category");
+            if($stmt->execute()){
+                $categories = $stmt->fetchAll();
+                return $categories;
+            }
+
+        }catch(PDOException $e){
+            echo $e->getMessage();
+            return null;
+        }
     }
 
     public function getCategoryById($conn, $id)
     {
-        $sql = "select * from categories where id = :id";
-        $stmt = $conn->prepare($sql);
-        $stmt->bindValue(":id", $id, PDO::PARAM_INT);
-        $stmt->execute();
-        $category = $stmt->fetch();
-        return $category;
+        try{
+            $sql = "select * from categories where id = :id";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+            $stmt->setFetchMode(PDO::FETCH_CLASS, "Category");
+            if($stmt->execute()){
+                $categories = $stmt->fetch();
+                return $categories;
+            }
+        }catch(PDOException $e){
+            echo $e->getMessage();
+            return false;
+        }
+        
     }
 
     public function getId()
