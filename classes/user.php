@@ -30,14 +30,27 @@ class User
     //     }
     // }
 
+    // public function __construct($name = null, $email = null, $phone = null, $address = null, $password = null)
+    // {
+    //     $this->name = $name;
+    //     $this->email = $email;
+    //     $this->phone = $phone;
+    //     $this->address = $address;
+    //     $this->password = $password;
+    // }
     public function __construct($name = null, $email = null, $phone = null, $address = null, $password = null)
     {
-        $this->name = $name;
-        $this->email = $email;
-        $this->phone = $phone;
-        $this->address = $address;
-        $this->password = $password;
+        if($name = '' && $email = '' && $phone = '' && $address = '' && $password = ''){
+            $this->name = $name;
+            $this->email = $email;
+            $this->phone = $phone;
+            $this->address = $address;
+            $this->password = $password;
+        }
     }
+
+    
+
     protected function validate()
     {
         $rs = $this->name != '' && $this->email != '' && $this->phone != '' && $this->address != '' && $this->password != '';
@@ -51,6 +64,9 @@ class User
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
         $stmt->execute();
         $user = $stmt->fetch();
+        echo '<pre>';
+        print_r($user);
+        echo '</pre>';
 
         if ($user) {
             $hash = $user->password;
@@ -76,7 +92,7 @@ class User
                 // echo "Biến name: " . $this->name; // test
                 return $stmt->execute();
             } else {
-                echo "Lỗi không hợp lệ";
+                echo "Lỗi không hợp lệ <br>";
                 return false;
             }
         } catch (PDOException $e) {
