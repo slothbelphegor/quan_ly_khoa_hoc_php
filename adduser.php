@@ -47,6 +47,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="js/script.js"></script>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/jquery/1.12.4/jquery.min.js"></script>
+    <script scr="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
     <title>Quan Ly Khoa Hoc</title>
 </head>
 
@@ -61,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </p>
             <p>
                 <label for="email">Email:</label>
-                <input name="email" id="email" type="text" placeholder="Email">
+                <input name="email" id="email" type="email" placeholder="Email">
             </p>
             <p>
                 <label for="phone">Phone:</label>
@@ -74,6 +76,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p>
                 <label for="password">Password:</label>
                 <input name="password" id="password" type="password" placeholder="Password">
+            </p>
+            <p>
+                <label for="repassword">Confirm Password:</label>
+                <input name="repassword" id="repassword" type="password" placeholder="Confirm Password">
             </p>
             <p>
                 <input class="submitbtn" type="submit" value="Save">
