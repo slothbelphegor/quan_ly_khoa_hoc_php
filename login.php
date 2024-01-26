@@ -5,12 +5,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $password = $_POST["password"];
 
-    // echo $name ." ".$email." ".$phone." ".$address. " " .$password . "<br>";
-
     if ($email != '' && $password != '') {
         $conn = require "inc/db.php";
         $rs = User::authenticate($conn, $email, $password);
         if ($rs) {
+            Auth::login();
+            if(isset($_SESSION["logged_in"])){
+                echo "Đã có session <br>";
+            }
             echo "Đăng nhập thành công";
         } else {
             echo "Sai tài khoản hoặc mật khẩu";
@@ -45,6 +47,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </p>
             <p>
                 <input type="submit" value="Đăng nhập">
+            </p>
+            <p>
+                <a class="forgot" href="forgot_password.php">Quên mật khẩu?</a>
             </p>
         </fieldset>
     </form>
