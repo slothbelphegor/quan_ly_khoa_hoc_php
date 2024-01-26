@@ -38,18 +38,38 @@ class User
     //     $this->address = $address;
     //     $this->password = $password;
     // }
+    // public function __construct($name = null, $email = null, $phone = null, $address = null, $password = null)
+    // {
+    //     if($name = '' && $email = '' && $phone = '' && $address = '' && $password = ''){
+    //         $this->name = $name;
+    //         $this->email = $email;
+    //         $this->phone = $phone;
+    //         $this->address = $address;
+    //         $this->password = $password;
+    //     }
+    // }
+
     public function __construct($name = null, $email = null, $phone = null, $address = null, $password = null)
     {
-        if($name = '' && $email = '' && $phone = '' && $address = '' && $password = ''){
+        // Gán giá trị cho thuộc tính chỉ khi giá trị đó hợp lệ
+        if ($name !== null) {
             $this->name = $name;
+        }
+        if ($email !== null) {
             $this->email = $email;
+        }
+        if ($phone !== null) {
             $this->phone = $phone;
+        }
+        if ($address !== null) {
             $this->address = $address;
+        }
+        if ($password !== null) {
             $this->password = $password;
         }
     }
 
-    
+
 
     protected function validate()
     {

@@ -45,6 +45,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/script.js"></script>
+    <link rel="stylesheet" href="css/style.css">
     <title>Quan Ly Khoa Hoc</title>
 </head>
 
@@ -67,15 +69,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </p>
             <p>
                 <label for="address">Address:</label>
-                <input name="address" id="address" type="address" placeholder="Address">
+                <input name="address" id="address" type="text" placeholder="Address">
             </p>
             <p>
                 <label for="password">Password:</label>
                 <input name="password" id="password" type="password" placeholder="Password">
             </p>
             <p>
-                <input type="submit" value="Save">
-                <input type="reset" value="Cancel">
+                <input class="submitbtn" type="submit" value="Save">
+                <input class="resetbtn" type="reset" value="Cancel">
             </p>
         </fieldset>
     </form>
