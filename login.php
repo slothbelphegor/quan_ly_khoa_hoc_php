@@ -1,5 +1,7 @@
 <?php
 require "inc/init.php";
+require "inc/function.php";
+layouts("header");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
@@ -56,3 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </body>
 
 </html>
+
+<?
+layouts("footer");
+?>
