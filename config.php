@@ -4,9 +4,10 @@
 // Ngày: 18/01/2024
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'lms');
-define('DB_USER', 'root');
+// Default user root
+define('DB_USER', 'ct06');
 // Default password 'mysql' 
-define('DB_PASS', 'mysql');
+define('DB_PASS', '123456');
 // define('DEBUG', true);
 
 define('WEB_HOST', 'http://'.$_SERVER['HTTP_HOST']);
