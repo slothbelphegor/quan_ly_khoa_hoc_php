@@ -32,8 +32,8 @@ class Database
             $conn = new PDO($dsn, $this->db_user, $this->db_pass);
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $conn;
-        } catch (Exception $ex) {
-            echo $ex->getMessage();
+        } catch (Exception $e) {
+            echo $e->getMessage();
             exit;
         }
     }
@@ -50,5 +50,6 @@ class Database
         
         public function close($conn) {
             $conn = null;
-        }*/
+        }
+    */
 }
