@@ -19,58 +19,16 @@ class User
         $this->name = $name;
     }
 
-
-    // public function __construct($name = '', $email = '', $phone = '', $address = '', $password = ''){
-    //     if($name = '' && $email = '' && $phone = '' && $address = '' && $password = ''){
-    //         $this->name = $name;
-    //         $this->email = $email;
-    //         $this->phone = $phone;
-    //         $this->address = $address;
-    //         $this->password = $password;
-    //     }
-    // }
-
-    // public function __construct($name = null, $email = null, $phone = null, $address = null, $password = null)
-    // {
-    //     $this->name = $name;
-    //     $this->email = $email;
-    //     $this->phone = $phone;
-    //     $this->address = $address;
-    //     $this->password = $password;
-    // }
-    // public function __construct($name = null, $email = null, $phone = null, $address = null, $password = null)
-    // {
-    //     if($name = '' && $email = '' && $phone = '' && $address = '' && $password = ''){
-    //         $this->name = $name;
-    //         $this->email = $email;
-    //         $this->phone = $phone;
-    //         $this->address = $address;
-    //         $this->password = $password;
-    //     }
-    // }
-
-    public function __construct($name = null, $email = null, $phone = null, $address = null, $password = null)
+    // Default Constructor
+    public function __construct($name, $email, $phone, $address, $password)
     {
-        // Gán giá trị cho thuộc tính chỉ khi giá trị đó hợp lệ
-        if ($name !== null) {
-            $this->name = $name;
-        }
-        if ($email !== null) {
-            $this->email = $email;
-        }
-        if ($phone !== null) {
-            $this->phone = $phone;
-        }
-        if ($address !== null) {
-            $this->address = $address;
-        }
-        if ($password !== null) {
-            $this->password = $password;
-        }
+        $this->name = $name;
+        $this->email = $email;
+        $this->phone = $phone;
+        $this->address = $address;
+        $this->password = $password;
     }
-
-
-
+    
     protected function validate()
     {
         $rs = $this->name != '' && $this->email != '' && $this->phone != '' && $this->address != '' && $this->password != '';
@@ -81,9 +39,10 @@ class User
         $sql = "select * from users where email = :email";
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(":email", $email, PDO::PARAM_STR);
-        $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
+        // $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
         $stmt->execute();
-        $user = $stmt->fetch();
+        // fetch() will return Array -> Using fetchObject to collect
+        $user = $stmt->fetchObject();
         echo '<pre>';
         print_r($user);
         echo '</pre>';
