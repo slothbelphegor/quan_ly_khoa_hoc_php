@@ -7,7 +7,7 @@ require "inc/init.php";
 $conn = require "inc/db.php";
 if ($conn) {
     echo "Kết nối thành công database<br>";
-    $rs = User::authenticate($conn, "test7@example.com", "test7");
+    $rs = User::authenticate($conn, "test1@example.com", "test1");
     if ($rs) {
         echo "Đăng nhập thành công";
     } else {

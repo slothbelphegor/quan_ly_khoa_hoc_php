@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 26, 2024 at 09:54 AM
+-- Generation Time: Jan 27, 2024 at 03:42 AM
 -- Server version: 8.0.31
 -- PHP Version: 7.4.33
 
@@ -147,13 +147,13 @@ INSERT INTO `users` (`id`, `name`, `email`, `phone`, `address`, `password`, `is_
 (10, 'Lisa Jackson', 'lisajackson@example.com', '5555555555', '888 Willow Street', '$2y$10$tE2W5P5y67e9Ae5Al4e8TOQ7VdtNUySMe2u0l8xGTZoc9.1JESQcS', 1, 2),
 (11, 'Sarah Thompson', 'sarahthompson@example.com', '6666666666', '222 Park Street', '$2y$10$wWBaIGQZA1.ZGhC9JzZOue0mmvvrqwasBzHeh3rbgNuMcHlXD0tDe', 1, 2),
 (12, '123', '123', '', '123', '123', 1, 2),
-(13, '123', 'root', '123', '123', '$2y$10$dmjMi.MRkido/NJiN1J1n.cbyseccLLOpQJduHPSMlcRyK4OZ2tGG', 1, 2),
+(13, '123', 'root@example.com', '123', '123', '$2y$10$dmjMi.MRkido/NJiN1J1n.cbyseccLLOpQJduHPSMlcRyK4OZ2tGG', 1, 2),
 (15, 'Vi Du', 'email@example.com', '0123456654', 'hcmc', '$2y$10$P7LyqfSu40yZeI5b8pO3y.S8D0jVt695ZZTa.o0WtR62fINSJHyMm', 1, 2),
 (17, 'test1', 'test1@example.com', '0987456321', 'test1', '$2y$10$ByEK/4EPcewKapexb0dpVeTOFmb5.x3NlSNBfcIxksa.vlbneu3pG', 1, 2),
-(18, 'test2', 'test2', '0456879213', 'test2', '$2y$10$Ilyc9xG3nP50Jq1QARYYk.R8GG94li/fO8Q288fSMZFYHVLh2IpQq', 1, 2),
-(19, 'test3', 'test3', 'test3', 'test3', '$2y$10$QKmhiMEv1pvxF8HjgswVo.gq4VZwfVFKnTd8O92ABKGgZNhtdC3Na', 1, 2),
-(20, 'test4', 'test4', 'test4', 'test4', '$2y$10$jQFCt2eqRm6eFepa6c5aAuE5QfctVvgdi96ZYYn6mlJMGSnA.ghmS', 1, 2),
-(21, 'test5', 'test5', 'test5', 'test5', '$2y$10$g725TPcaIRWNE8cuKLja4ep7m7XDfOafjepwMnpEi4Cs.au9ceK/C', 1, 2),
+(18, 'test2', 'test2@example.com', '0456879213', 'test2', '$2y$10$Ilyc9xG3nP50Jq1QARYYk.R8GG94li/fO8Q288fSMZFYHVLh2IpQq', 1, 2),
+(19, 'test3', 'test3@example.com', 'test3', 'test3', '$2y$10$QKmhiMEv1pvxF8HjgswVo.gq4VZwfVFKnTd8O92ABKGgZNhtdC3Na', 1, 2),
+(20, 'test4', 'test4@example.com', 'test4', 'test4', '$2y$10$jQFCt2eqRm6eFepa6c5aAuE5QfctVvgdi96ZYYn6mlJMGSnA.ghmS', 1, 2),
+(21, 'test5', 'test5@example.com', 'test5', 'test5', '$2y$10$g725TPcaIRWNE8cuKLja4ep7m7XDfOafjepwMnpEi4Cs.au9ceK/C', 1, 2),
 (32, 'test6', 'test6@example.com', 'test6', 'test6', '$2y$10$4kbujTSuo0w7KTlGeIIN2.YvDdtAQej7tPrk65EjATxi.LlA2FhOy', 1, 2),
 (33, 'test7', 'test7@example.com', 'test7', 'test7', '$2y$10$WDPZCD2YZpSSWIws.fgiYeN3ooojs8pJd5eyhQWo6NWGgpfFqqJVG', 1, 2);
 

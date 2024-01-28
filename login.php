@@ -1,6 +1,5 @@
 <?php
 require "inc/init.php";
-require "inc/function.php";
 layouts("header");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -52,6 +51,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </p>
             <p>
                 <a class="forgot" href="forgot_password.php">Quên mật khẩu?</a>
+            </p>
+            <p>
+                <a class="forgot" href="register.php">Chưa có tài khoản? Đăng ký</a>
             </p>
         </fieldset>
     </form>

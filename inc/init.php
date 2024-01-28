@@ -9,4 +9,5 @@ spl_autoload_register(
     }
 );
 require dirname(__DIR__) . "/config.php";
+require dirname(__DIR__) . "/inc/function.php";
 if (session_id() === "") session_start();
