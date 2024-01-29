@@ -51,10 +51,6 @@ $(document).ready(function () {
     },
   });
 });
-jQuery.validator.setDefaults({
-  debug: true,
-  success: "valid",
-});
 $(document).ready(function () {
   // Thêm logic kiểm tra ở đây
   $("#frmADDUSER").validate({
@@ -105,7 +101,40 @@ $(document).ready(function () {
   });
 });
 
+$(document).ready(function () {
+  $("#frmLOGIN").validate({
+    rules: {
+      identifier: "required",
+      password:"required"
+    },
+    messages: {
+      identifier: "Vui lòng nhập email hoặc số điện thoại",
+      password: "Vui lòng nhập mật khẩu"
+    },
+    submitHandler: function (form) {
+      $.ajax({
+        url: "login.php",
+        type: "POST",
+        data: $(form).serialize(),
+        success: function (response) {
+          $("#frmLOGIN").hide();
+          $(".success-message").text(response).show();
+          redirectToIndex();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.error("Lỗi:", textStatus, errorThrown);
+          $(".error-message").text("Lỗi không xác định").show();
+        },
+      });
+    },
+  });
+});
+
 // hàm chuyển trang dăng nhập sau khi đăng ký thành công
 function redirectToLogin() {
   window.location.href = "login.php";
+}
+
+function redirectToIndex() {
+  window.location.href = "index.php";
 }

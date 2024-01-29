@@ -71,6 +71,17 @@ class User
         // return false;
     }
 
+    public static function getUserInfo($conn, $id)
+    {
+        $sql = "SELECT * FROM users WHERE id = :id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $user;
+    }
+
     public function addUser($conn)
     {
         try {
@@ -98,5 +109,4 @@ class User
             $conn = null;
         }
     }
-
 }
