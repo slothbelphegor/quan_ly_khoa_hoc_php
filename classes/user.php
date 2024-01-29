@@ -18,13 +18,15 @@ class User
     {
         $this->name = $name;
     }
-    public function __construct($name, $email, $phone, $address, $password)
+    public function __construct($name, $email, $phone, $address, $password, $is_active = 1, $role_id = 2)
     {
         $this->name = $name;
         $this->email = $email;
         $this->phone = $phone;
         $this->address = $address;
         $this->password = $password;
+        $this->is_active = $is_active;
+        $this->role_id = $role_id;
     }
     protected function validate()
     {
@@ -96,19 +98,5 @@ class User
             $conn = null;
         }
     }
-    //     echo $this->getName();
-    //     $sql = 'insert into users(name, email, phone, address, password) values(:name, :email, :phone, :address, :password);';
-    //     $stmt = $conn->prepare($sql);
-    //     $stmt->bindValue(":name", $this->name, PDO::PARAM_STR);
-    //     $stmt->bindValue(":email", $this->email, PDO::PARAM_STR);
-    //     $stmt->bindValue(":phone", $this->phone, PDO::PARAM_STR);
-    //     $stmt->bindValue(":address", $this->address, PDO::PARAM_STR);
-
-    //     $hash = password_hash($this->password, PASSWORD_DEFAULT);
-    //     $stmt->bindValue(":password", $hash, PDO::PARAM_STR);
-
-    //     return $stmt->execute();
-    // } 
-
 
 }

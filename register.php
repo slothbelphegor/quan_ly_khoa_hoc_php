@@ -1,3 +1,5 @@
+<!-- Day se la trang cua user register -->
+
 <?php
 
 require "inc/init.php";
@@ -49,15 +51,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-    <script src="js/script.js"></script>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js"></script>
 
     <title>Quan Ly Khoa Hoc</title>
 </head>
 
 <body>
     <h2>Register</h2>
-    <form id="frmREGISTER" name="frmREGISTER" method="post">
+    <form class="validation-form" id="frmREGISTER" name="frmREGISTER" method="post">
         <fieldset>
             <legend>User Information</legend>
             <p>
@@ -85,8 +87,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input name="repassword" id="repassword" type="password" placeholder="Confirm Password" data-rule-equalTo="#password">
             </p>
             <p>
-                <input class="resetbtn" type="reset" value="Cancel">
                 <input class="submitbtn" type="submit" value="Save">
+                <input class="resetbtn" type="reset" value="Cancel">
             </p>
             <p>
                 <a class="forgot" href="login.php">Đã có tài khoản? Đăng nhập</a>
