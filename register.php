@@ -12,7 +12,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $password = $_POST["password"];
     $repassword = $_POST["repassword"];
 
-    // echo $name ." ".$email." ".$phone." ".$address. " " .$password . "<br>";
+    if ($password !== $repassword) {
+        echo "Passwords do not match. Please try again.";
+        exit; // Prevent further processing
+    }
 
     if ($name != '' && $email != '' && $phone != '' && $address != '' && $password != '' && $repassword != '') {
         $conn = require "inc/db.php";
@@ -43,18 +46,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
     <script src="js/script.js"></script>
     <link rel="stylesheet" href="css/style.css">
-    <script src="https://cdn.jsdelivr.net/jquery/1.12.4/jquery.min.js"></script>
-    <script scr="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 
-    <!-- <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
-    <script scr="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/additional-methods.min.js"></script> -->
-
-    <!-- <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script> -->
     <title>Quan Ly Khoa Hoc</title>
 </head>
 
@@ -96,10 +93,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </p>
         </fieldset>
     </form>
-    
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
 </body>
 
 </html>
