@@ -31,11 +31,30 @@ class User
         $rs = $this->name != '' && $this->email != '' && $this->phone != '' && $this->address != '' && $this->password != '';
         return $rs;
     }
-    public static function authenticate($conn, $email, $password)
+    public static function authenticatebyemail($conn, $email, $password)
     {
         $sql = "select * from users where email = :email";
         $stmt = $conn->prepare($sql);
         $stmt->bindValue(":email", $email, PDO::PARAM_STR);
+        $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
+        $stmt->execute();
+        $user = $stmt->fetchObject();
+        echo '<pre>';
+        print_r($user);
+        echo '</pre>';
+
+        if ($user) {
+            $hash = $user->password;
+            return password_verify($password, $hash);
+        }
+        // return false;
+    }
+
+    public static function authenticatebyphone($conn, $phone, $password)
+    {
+        $sql = "select * from users where phone = :phone";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(":phone", $phone, PDO::PARAM_STR);
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
         $stmt->execute();
         $user = $stmt->fetchObject();

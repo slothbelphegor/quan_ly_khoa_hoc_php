@@ -7,11 +7,19 @@ require "inc/init.php";
 $conn = require "inc/db.php";
 if ($conn) {
     echo "Kết nối thành công database<br>";
-    $rs = User::authenticate($conn, "test1@example.com", "test1");
+    $identifier = "test";
+    $password = "test";
+    if(filter_var($identifier, FILTER_VALIDATE_EMAIL)){
+        $rs = User::authenticatebyemail($conn, $identifier, $password);
+    }else{
+        $rs = User::authenticatebyphone($conn, $identifier, $password);
+    }
+
     if ($rs) {
         echo "Đăng nhập thành công";
     } else {
-        die("Thông tin đăng nhập không đúng");
+        echo "Sai tài khoản hoặc mật khẩu";
     }
+
 }
 ?>

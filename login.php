@@ -3,12 +3,18 @@ require "inc/init.php";
 layouts("header");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST["email"];
+    $identifier = $_POST["identifier"];
+    // $email = $_POST["email"];
     $password = $_POST["password"];
 
-    if ($email != '' && $password != '') {
+    if ($identifier != '' && $password != '') {
         $conn = require "inc/db.php";
-        $rs = User::authenticate($conn, $email, $password);
+        if(filter_var($identifier, FILTER_VALIDATE_EMAIL)){
+            $rs = User::authenticatebyemail($conn, $identifier, $password);
+        }else{
+            $rs = User::authenticatebyphone($conn, $identifier, $password);
+        }
+
         if ($rs) {
             Auth::login();
             if(isset($_SESSION["logged_in"])){
@@ -29,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <!-- <script src="js/script.js"></script> -->
+    <script src="js/script.js"></script>
     <title>Quan ly khoa hoc</title>
 </head>
 
@@ -39,8 +45,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <fieldset>
             <legend>Login Page</legend>
             <p>
-                <label for="email">Email:</label>
-                <input name="email" id="email" type="email" placeholder="Email">
+                <label for="identifier">Email or Phone number:</label>
+                <input name="identifier" id="identifier" type="text" placeholder="Email or Phone number">
             </p>
             <p>
                 <label for="password">Password:</label>
