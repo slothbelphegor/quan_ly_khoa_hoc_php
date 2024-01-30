@@ -111,7 +111,8 @@ $(document).ready(function () {
       identifier: "Vui lòng nhập email hoặc số điện thoại",
       password: "Vui lòng nhập mật khẩu"
     },
-    submitHandler: function (form) {
+    submitHandler: function (form, event) {
+      event.preventDefault();
       $.ajax({
         url: "login.php",
         type: "POST",
@@ -129,6 +130,26 @@ $(document).ready(function () {
     },
   });
 });
+
+//Ham xu ly dang xuat
+$(document).ready(function() {
+  $("#logoutbtn").click(function() {
+    if (window.confirm("Bạn có muốn đăng xuất?")) {
+      $.ajax({
+        url: "logout.php",
+        method: "GET",
+        success: function(response) {
+          window.location.href = "index.php";
+        },
+        error: function(xhr, status, error) {
+          alert("Có lỗi xảy ra khi đăng xuất!");
+        }
+      });
+    }
+  });
+});
+
+
 
 // hàm chuyển trang dăng nhập sau khi đăng ký thành công
 function redirectToLogin() {
