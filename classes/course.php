@@ -10,6 +10,51 @@ class Course
     private $duration;
     private $category_id;
 
+
+    public function getName(){
+        return $this->name;
+    }
+    public function setName($name){
+        $this->name = $name;
+    }
+
+    public function getDescription(){
+        return $this->description;
+    }
+    public function setDescription($description){
+        $this->description = $description;
+    }
+    public function getPrice(){
+        return $this->price;
+    }
+    public function setPrice($price){
+        $this->price = $price;
+    }
+    public function getImage(){
+        return $this->image;
+    }
+    public function setImage($image){
+        $this->image = $image;
+    }
+    public function getVideo(){
+        return $this->video;
+    }
+    public function setVideo($video){
+        $this->video = $video;
+    }
+    public function getDuration(){
+        return $this->duration;
+    }
+    public function setDuration($duration){
+        $this->duration = $duration;
+    }
+    public function getCategoryId(){
+        return $this->category_id;
+    }
+    public function setCategoryId($category_id){
+        $this->category_id = $category_id;
+    }
+
     public function __construct($name, $description, $price, $image, $video, $duration, $category_id)
     {
         $this->name = $name;
@@ -50,15 +95,30 @@ class Course
     }
 
     // Truy vấn toàn bộ khóa học
+    // public static function getAll($conn)
+    // {
+    //     try {
+    //         $sql = "select * from courses order by name asc";
+    //         $stmt = $conn->prepare($sql);
+    //         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Course');
+    //         $stmt->execute();
+    //         if ($stmt->execute()) {
+    //             $courses = $stmt->fetchAll();
+    //             return $courses;
+    //         }
+    //     } catch (PDOException $e) {
+    //         echo $e->getMessage();
+    //         return null;
+    //     }
+    // }
     public static function getAll($conn)
     {
         try {
-            $sql = "select * from courses order by title asc";
+            $sql = "select * from courses order by name asc";
             $stmt = $conn->prepare($sql);
             $stmt->setFetchMode(PDO::FETCH_CLASS, 'Course');
-            $stmt->execute();
             if ($stmt->execute()) {
-                $courses = $stmt->fetchAll();
+                $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 return $courses;
             }
         } catch (PDOException $e) {
@@ -66,6 +126,7 @@ class Course
             return null;
         }
     }
+
 
     //Truy vấn bằng ID
     public function getByID($conn, $id)
@@ -91,7 +152,7 @@ class Course
     public static function getPaging($conn, $limit, $offset)
     {
         try {
-            $sql = "select * from courses order by title asc, author asc
+            $sql = "select * from courses order by name asc, author asc
                       limit :limit
                       offset :offset";
             $stmt = $conn->prepare($sql);
@@ -183,14 +244,14 @@ class Course
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);
             //$video có thể null
             $stmt->bindValue(
-                ':image',
+                ':video',
                 $video,
                 $video == null ? PDO::PARAM_NULL : PDO::PARAM_STR
             );
             $stmt->bindValue(
-                ':image',
-                $video,
-                $video == null ? PDO::PARAM_NULL : PDO::PARAM_STR
+                ':duration',
+                $duration,
+                $duration == null ? PDO::PARAM_NULL : PDO::PARAM_STR
             );
 
             return $stmt->execute();

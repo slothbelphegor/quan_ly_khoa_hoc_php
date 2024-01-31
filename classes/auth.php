@@ -11,7 +11,8 @@ class Auth
     public static function requireLogin()
     {
         if (!static::isLoggedIn()) {
-            die("Chua dang nhap? Vo day lam gi");
+            header('Location: login.php');
+            exit();
         }
     }
 

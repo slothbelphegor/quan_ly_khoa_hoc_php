@@ -35,9 +35,10 @@ $conn = require "inc/db.php";
         //     $rs = User::authenticatebyphone($conn, $identifier, $password);
         // }
 
-        if (isset($_SESSION['logged_in']) && isset($_SESSION['user_id']) === true) {
+        if (Auth::isLoggedIn() && isset($_SESSION['user_id']) === true) {
             echo "Chào mừng bạn đến với trang web! <br>";
             echo "<button id='logoutbtn'>Đăng xuất</button>";
+            echo "<a href='courses_management.php'>Các khoá học</a>";
         } else {
             echo "Xin chào, bạn chưa đăng nhập! <br>";
             echo "<a href='login.php'>Đăng nhập</a>";
