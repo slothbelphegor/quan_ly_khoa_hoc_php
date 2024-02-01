@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <legend>User Information</legend>
             <p>
                 <label for="name">Full name:</label>
-                <input name="name" id="name" type="text" placeholder="Full name">
+                <input name="name" id="name" type="text" placeholder="Full name" autofocus>
             </p>
             <p>
                 <label for="email">Email:</label>
