@@ -15,8 +15,6 @@ $conn = require "inc/db.php";
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js"></script>
-
     <title>Quản lý khoá học</title>
 </head>
 
@@ -53,6 +51,7 @@ $conn = require "inc/db.php";
 
     }
     ?>
+    <script src="js/script.js"></script>
 </body>
 
 </html>

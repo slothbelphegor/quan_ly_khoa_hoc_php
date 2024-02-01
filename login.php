@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <legend>Login Page</legend>
             <p>
                 <label for="identifier">Email or Phone number:</label>
-                <input name="identifier" id="identifier" type="text" placeholder="Email or Phone number">
+                <input name="identifier" id="identifier" type="text" placeholder="Email or Phone number" autofocus>
             </p>
             <p>
                 <label for="password">Password:</label>
