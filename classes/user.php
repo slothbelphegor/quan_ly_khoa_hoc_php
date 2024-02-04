@@ -45,11 +45,12 @@ class User
         print_r($user);
         echo '</pre>';
 
-        if ($user) {
-            $hash = $user->password;
-            return password_verify($password, $hash);
+        if ($user && password_verify($password, $user->password)) {
+            Auth::login();
+            $_SESSION["user_id"] = $user->id;
+            return true;
         }
-        // return false;
+        return false;
     }
 
     public static function authenticatebyphone($conn, $phone, $password)
@@ -64,11 +65,12 @@ class User
         print_r($user);
         echo '</pre>';
 
-        if ($user) {
-            $hash = $user->password;
-            return password_verify($password, $hash);
+        if ($user && password_verify($password, $user->password)) {
+            Auth::login();
+            $_SESSION["user_id"] = $user->id;
+            return true;
         }
-        // return false;
+        return false;
     }
 
     public static function getUserInfo($conn, $id)

@@ -16,11 +16,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if ($rs) {
-            Auth::login();
-            $_SESSION["user_id"] = $identifier;
+            // Auth::login();
+            // $_SESSION["user_id"] = $identifier;
             echo "Đăng nhập thành công";
+            header("Location: index.php");
         } else {
             echo "Sai tài khoản hoặc mật khẩu";
+            exit();
         }
     }
 }

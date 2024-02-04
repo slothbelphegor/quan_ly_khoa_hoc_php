@@ -118,7 +118,7 @@ $(document).ready(function () {
         type: "POST",
         data: $(form).serialize(),
         success: function (response) {
-          $("#frmLOGIN").hide();
+          // $("#frmLOGIN").hide();
           $(".success-message").text(response).show();
           redirectToIndex();
         },

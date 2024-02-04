@@ -8,40 +8,34 @@ $conn = require "inc/db.php";
 if (!$conn) {
     die("Kết nối không thành công:");
 }
-
+Auth::requireLogin();
 layouts();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $user_id = $_POST["user_id"];
-    $userOrders = Order::getUserOrders($conn, $user_id);
+$user_id = $_SESSION["user_id"];
+$userOrders = Order::getUserOrders($conn, $user_id);
 
-    if ($userOrders !== null) {
-        // Hiển thị danh sách đơn hàng
-        ?>
-        <h1>Danh sách đơn hàng của người dùng</h1>
-        <table>
-            <thead>
+if ($userOrders !== null) {
+?>
+    <h1>Danh sách đơn hàng của người dùng</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Tên người dùng</th>
+                <th>Tên khóa học</th>
+                <th>ID đơn hàng</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($userOrders as $order) : ?>
                 <tr>
-                    <th>Tên người dùng</th>
-                    <th>Tên khóa học</th>
-                    <th>ID đơn hàng</th>
+                    <td><?php echo $order['user_name']; ?></td>
+                    <td><?php echo $order['course_name']; ?></td>
+                    <td><?php echo $order['order_id']; ?></td>
                 </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($userOrders as $order) : ?>
-                    <tr>
-                        <td><?php echo $order['user_name']; ?></td>
-                        <td><?php echo $order['course_name']; ?></td>
-                        <td><?php echo $order['order_id']; ?></td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-        <?php
-    } else {
-        // Xử lý lỗi nếu không tìm thấy đơn hàng
-        echo "Lỗi: Không tìm thấy đơn hàng nào cho người dùng này.";
-    }
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <?php
 }
 
 ?>
@@ -61,11 +55,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <form action="" method="post">
+    <!-- <form action="" method="post">
         <label for="user_id">Nhập ID người dùng:</label>
         <input type="number" id="user_id" name="user_id" required>
         <button type="submit">Tìm kiếm</button>
-    </form>
+    </form> -->
 </body>
 
 
