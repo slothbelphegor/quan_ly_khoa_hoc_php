@@ -3,14 +3,14 @@
 require "inc/init.php";
 $conn = require "inc/db.php";
 
-Auth::requireLogin();
-
-layouts();
 
 // Kiểm tra kết nối
 if (!$conn) {
     die("Kết nối không thành công:");
 }
+Auth::requireLogin();
+
+layouts();
 
 // Lấy tất cả khóa học
 $courses = Course::getAll($conn);

@@ -151,5 +151,21 @@ class Order
         }
     }
 
+    public static function getUserOrders($conn, $user_id){
+        try {
+            $sql = "select u.name as user_name, c.name as course_name, o.id as order_id
+            from orders o
+            join courses c on o.course_id = c.id
+            join users u on o.user_id = u.id
+            where o.user_id = :user_id;";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':user_id', $user_id);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return null;
+        }
+    }
 
 }

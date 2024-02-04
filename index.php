@@ -15,6 +15,7 @@ $conn = require "inc/db.php";
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js"></script>
     <title>Quản lý khoá học</title>
 </head>
 
@@ -25,33 +26,19 @@ $conn = require "inc/db.php";
         echo "<pre>";
         print_r($_SESSION);
         echo "</pre>";
-        // $identifier = "test";
-        // $password = "test";
-        // if (filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
-        //     $rs = User::authenticatebyemail($conn, $identifier, $password);
-        // } else {
-        //     $rs = User::authenticatebyphone($conn, $identifier, $password);
-        // }
-
+        
         if (Auth::isLoggedIn() && isset($_SESSION['user_id']) === true) {
             echo "Chào mừng bạn đến với trang web! <br>";
-            echo "<button id='logoutbtn'>Đăng xuất</button>";
-            echo "<a href='courses_management.php'>Các khoá học</a>";
+            echo "<button id='logoutbtn'>Đăng xuất</button><br>";
+            echo "<a href='courses_management.php'>Các khoá học</a><br>";
+            echo "<a href='mylist.php'>Danh sách khoá học đã mua</a>";
         } else {
             echo "Xin chào, bạn chưa đăng nhập! <br>";
             echo "<a href='login.php'>Đăng nhập</a>";
         }
 
-        // if ($rs) {
-        //     echo "Đăng nhập thành công";
-        // } else {
-        //     echo "Sai tài khoản hoặc mật khẩu";
-        // }
-
-
     }
     ?>
-    <script src="js/script.js"></script>
 </body>
 
 </html>
