@@ -13,7 +13,7 @@ Auth::requireLogin();
 layouts();
 
 // Lấy tất cả khóa học
-$courses = Course::getAll($conn);
+$courses = Course::getAllCustom($conn);
 
 ?>
 
@@ -48,7 +48,7 @@ $courses = Course::getAll($conn);
                     <td><?php echo $course['image']; ?></td>
                     <td><?php echo $course['video']; ?></td>
                     <td><?php echo $course['duration']; ?></td>
-                    <td><?php echo $course['category_id']; ?></td>
+                    <td><?php echo $course['category_name']; ?></td>
                 </tr>
             <?php } ?>
         </tbody>

@@ -11,47 +11,61 @@ class Course
     private $category_id;
 
 
-    public function getName(){
+    public function getName()
+    {
         return $this->name;
     }
-    public function setName($name){
+    public function setName($name)
+    {
         $this->name = $name;
     }
 
-    public function getDescription(){
+    public function getDescription()
+    {
         return $this->description;
     }
-    public function setDescription($description){
+    public function setDescription($description)
+    {
         $this->description = $description;
     }
-    public function getPrice(){
+    public function getPrice()
+    {
         return $this->price;
     }
-    public function setPrice($price){
+    public function setPrice($price)
+    {
         $this->price = $price;
     }
-    public function getImage(){
+    public function getImage()
+    {
         return $this->image;
     }
-    public function setImage($image){
+    public function setImage($image)
+    {
         $this->image = $image;
     }
-    public function getVideo(){
+    public function getVideo()
+    {
         return $this->video;
     }
-    public function setVideo($video){
+    public function setVideo($video)
+    {
         $this->video = $video;
     }
-    public function getDuration(){
+    public function getDuration()
+    {
         return $this->duration;
     }
-    public function setDuration($duration){
+    public function setDuration($duration)
+    {
         $this->duration = $duration;
     }
-    public function getCategoryId(){
+    public function getCategoryId()
+    {
         return $this->category_id;
     }
-    public function setCategoryId($category_id){
+    public function setCategoryId($category_id)
+    {
         $this->category_id = $category_id;
     }
 
@@ -126,7 +140,23 @@ class Course
             return null;
         }
     }
-
+    public static function getAllCustom($conn)
+    {
+        try {
+            $sql = "select c.name, c.description, c.price, c.image, c.video, c.duration, categories.name as category_name
+            from courses c
+            join categories on c.category_id = categories.id";
+            $stmt = $conn->prepare($sql);
+            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Course');
+            if ($stmt->execute()) {
+                $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $courses;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return null;
+        }
+    }
 
     //Truy vấn bằng ID
     public function getByID($conn, $id)
