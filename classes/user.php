@@ -48,6 +48,7 @@ class User
         if ($user && password_verify($password, $user->password)) {
             Auth::login();
             $_SESSION["user_id"] = $user->id;
+            $_SESSION["role_id"] = $user->role_id;
             return true;
         }
         return false;
@@ -68,6 +69,7 @@ class User
         if ($user && password_verify($password, $user->password)) {
             Auth::login();
             $_SESSION["user_id"] = $user->id;
+            $_SESSION["role_id"] = $user->role_id;
             return true;
         }
         return false;
