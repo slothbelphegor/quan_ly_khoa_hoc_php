@@ -32,55 +32,56 @@ $courses = Course::getAllCustom($conn);
 </head>
 
 <body>
-    <form action="buy_course.php" method="post">
-        <table>
-            <thead>
+    <table>
+        <thead>
+            <tr>
+                <th>Tên</th>
+                <th>Mô tả</th>
+                <th>Giá</th>
+                <th>Hình ảnh</th>
+                <th>Video</th>
+                <th>Thời lượng</th>
+                <th>Loại khóa học</th>
+                <?php if (Auth::isLoggedIn() && $_SESSION['role_id'] == 2) : ?>
+                    <th>Mua khóa học</th>
+                <?php elseif (Auth::isLoggedIn() && $_SESSION['role_id'] == 1) : ?>
+                    <th>Chức năng</th>
+                <?php endif; ?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($courses as $course) : ?>
                 <tr>
-                    <th>Tên</th>
-                    <th>Mô tả</th>
-                    <th>Giá</th>
-                    <th>Hình ảnh</th>
-                    <th>Video</th>
-                    <th>Thời lượng</th>
-                    <th>Loại khóa học</th>
+                    <td><?php echo $course['name']; ?></td>
+                    <td><?php echo $course['description']; ?></td>
+                    <td><?php echo $course['price']; ?></td>
+                    <td><?php echo $course['image']; ?></td>
+                    <td><?php echo $course['video']; ?></td>
+                    <td><?php echo $course['duration']; ?></td>
+                    <td><?php echo $course['category_name']; ?></td>
                     <?php if (Auth::isLoggedIn() && $_SESSION['role_id'] == 2) : ?>
-                        <th>Mua khóa học</th>
+                        <td>
+                            <button value="<? echo $course['id'] ?>" name="id" id="btnBuyCourse">Mua khoá học</button>
+                        </td>
                     <?php elseif (Auth::isLoggedIn() && $_SESSION['role_id'] == 1) : ?>
-                        <th>Chức năng</th>
+                        <td>
+                            <button value="<? echo $course['id'] ?>" name="id" id="btnChangeCourse">Sửa khoá học</button>
+                            <button value="<? echo $course['id'] ?>" name="id" id="btnDeleteCourse">Xoá khoá học</button>
+                        </td>
                     <?php endif; ?>
                 </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($courses as $course) : ?>
-                    <tr>
-                        <td><?php echo $course['name']; ?></td>
-                        <td><?php echo $course['description']; ?></td>
-                        <td><?php echo $course['price']; ?></td>
-                        <td><?php echo $course['image']; ?></td>
-                        <td><?php echo $course['video']; ?></td>
-                        <td><?php echo $course['duration']; ?></td>
-                        <td><?php echo $course['category_name']; ?></td>
-                        <?php if (Auth::isLoggedIn() && $_SESSION['role_id'] == 2) : ?>
-                            <td>
-                                <input type="text" name="<? echo $course['id'] ?>" value="Mua khoá học">
-                                <input type="button" name="<? echo $course['id'] ?>" value="Mua khoá học">
-                            </td>
-                        <?php elseif (Auth::isLoggedIn() && $_SESSION['role_id'] == 1) : ?>
-                            <td>
-                                <?php echo "admin"; ?>
-                            </td>
-                        <?php endif; ?>
-                    </tr>
-                <? endforeach; ?>
-            </tbody>
-        </table>
-    </form>
+            <? endforeach; ?>
+        </tbody>
+    </table>
     <button id='logoutbtn'>Đăng xuất</button>
 </body>
 
 </html>
 
 <?php
+// echo "<pre>";
+// print_r($_POST);
+// echo "</pre>";
 Database::close($conn);
 layouts("footer");
 ?>

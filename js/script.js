@@ -123,8 +123,20 @@ $(document).ready(function () {
           redirectToIndex();
         },
         error: function (jqXHR, textStatus, errorThrown) {
-          console.error("Lỗi:", textStatus, errorThrown);
-          $(".error-message").text("Lỗi không xác định").show();
+          if (jqXHR.responseJSON && jqXHR.responseJSON.error) {
+            $(".error-message").text(jqXHR.responseJSON.error).show();
+          } else {
+            switch (jqXHR.status) {
+              case 401:
+                $(".error-message")
+                  .text("Tài khoản hoặc mật khẩu không chính xác")
+                  .show();
+                break;
+              default:
+                console.error("Lỗi:", textStatus, errorThrown);
+                $(".error-message").text("Lỗi không xác định").show();
+            }
+          }
         },
       });
     },
@@ -157,3 +169,56 @@ function redirectToLogin() {
 function redirectToIndex() {
   window.location.href = "index.php";
 }
+
+const buyCourseBtns = document.querySelectorAll("#buy-course-btn");
+
+buyCourseBtns.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    const course_id = btn.dataset.course_id;
+
+    // Gửi thông tin khóa học đến server bằng Ajax
+    axios
+      .post("/buy_course.php", {
+        course_id,
+      })
+      .then((res) => {
+        // Xử lý phản hồi từ server
+        if (res.data.success) {
+          // Hiển thị thông báo thành công và cập nhật giao diện
+          alert("Mua khóa học thành công!");
+          // Cập nhật giao diện để cho biết người dùng đã sở hữu khóa học
+        } else {
+          // Hiển thị thông báo lỗi
+          alert("Mua khóa học thất bại!");
+        }
+      })
+      .catch((err) => {
+        // Hiển thị thông báo lỗi
+        alert("Có lỗi xảy ra khi mua khóa học!");
+      });
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  var buttons = document.querySelectorAll("#btnBuyCourse");
+  buttons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      // Lấy giá trị id của khóa học từ thuộc tính value của nút
+      var courseId = this.value;
+      // Chuyển hướng sang trang buy_course.php với tham số id
+      window.location.href = "buy_course.php?id=" + courseId;
+    });
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  var buttons = document.querySelectorAll("#btnDeleteCourse");
+  buttons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      // Lấy giá trị id của khóa học từ thuộc tính value của nút
+      var courseId = this.value;
+      // Chuyển hướng sang trang buy_course.php với tham số id
+      window.location.href = "delete_course.php?id=" + courseId;
+    });
+  });
+});
