@@ -143,7 +143,7 @@ class Course
     public static function getAllCustom($conn)
     {
         try {
-            $sql = "select c.name, c.description, c.price, c.image, c.video, c.duration, categories.name as category_name
+            $sql = "select c.id, c.name, c.description, c.price, c.image, c.video, c.duration, categories.name as category_name
             from courses c
             join categories on c.category_id = categories.id";
             $stmt = $conn->prepare($sql);
@@ -159,7 +159,7 @@ class Course
     }
 
     //Truy vấn bằng ID
-    public function getByID($conn, $id)
+    public static function getByID($conn, $id)
     {
         try {
             $sql = "select * from courses where id=:id";
@@ -167,7 +167,7 @@ class Course
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);
             $stmt->setFetchMode(PDO::FETCH_CLASS, 'Course');
             if ($stmt->execute()) {
-                $course = $stmt->fetch();
+                $course = $stmt->fetchObject();
                 return $course;
             }
         } catch (PDOException $e) {
@@ -235,14 +235,29 @@ class Course
         try {
             $sql = "delete from courses where id=:id";
             $stmt = $conn->prepare($sql);
+            var_dump($stmt);
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);
             return $stmt->execute();
+
         } catch (PDOException $e) {
             $e->getMessage();
             return false;
         }
     }
+    public function deleteThis($conn)
+    {
+        try {
+            $sql = "delete from courses where id=:id";
+            $stmt = $conn->prepare($sql);
+            var_dump($stmt);
+            $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+            return $stmt->execute();
 
+        } catch (PDOException $e) {
+            $e->getMessage();
+            return false;
+        }
+    }
     //Đổi hình minh họa (hoặc thêm nếu chưa có)
     public function updateImage($conn, $id, $image)
     {
