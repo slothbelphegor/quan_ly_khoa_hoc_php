@@ -35,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $order = new Order($user_id, $course_id, $total_amount, "complete");
     if ($order->addOrder($conn)) {
         echo "<script>alert('Mua khoá học thành công')</script>";
+        // header("Location: courses_management.php");
     } else {
         echo "Lỗi không thêm thành công";
     }
