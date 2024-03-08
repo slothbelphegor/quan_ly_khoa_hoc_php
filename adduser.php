@@ -13,27 +13,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $is_active = $_POST["is_active"];
     $role_id = $_POST["role_id"];
 
-    // if (!is_numeric($is_active)) {
-    //     echo "Giá trị `is_active` không hợp lệ!";
-    //     exit;
-    // }
-
-    // if (!is_numeric($role_id)) {
-    //     echo "Giá trị `role_id` không hợp lệ!";
-    //     exit;
-    // }
-
     if ($name != '' && $email != '' && $phone != '' && $address != '' && $password != '') {
         $conn = require "inc/db.php";
         // Tao object user thuoc class User
         $user = new User($name, $email, $phone, $address, $password, $is_active, $role_id);
 
-        echo "<pre>";
-        print_r($user);
-        echo "</pre>";
-        // $user->test($conn);
         try {
-            // echo $user->getName();
             if ($user->addUser($conn)) {
                 echo "Them thanh cong r yeeeeeeeeeee!";
             } else {
