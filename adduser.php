@@ -31,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<pre>";
         print_r($user);
         echo "</pre>";
+        // $user->test($conn);
         try {
             // echo $user->getName();
             if ($user->addUser($conn)) {
@@ -62,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <h2>Add New User</h2>
-    <form class="validation-form" id="frmADDUSER" name="frmADDUSER" method="post">
+    <form class="validation-form" id="frmADDUSER" name="afrmADDUSER" method="post">
         <fieldset>
             <legend>User Information</legend>
             <p>

@@ -18,7 +18,7 @@ class User
     {
         $this->name = $name;
     }
-    public function __construct($name, $email, $phone, $address, $password, $is_active = 1, $role_id = 2)
+    public function __construct($name , $email, $phone, $address, $password, $is_active = 1, $role_id = 2)
     {
         $this->name = $name;
         $this->email = $email;
@@ -86,17 +86,22 @@ class User
         return $user;
     }
 
+    public function test($conn){
+        echo $this->role_id;
+    }
+
     public function addUser($conn)
     {
         try {
             if ($this->validate()) {
-
-                $sql = 'insert into users(name, email, phone, address, password) values(:name, :email, :phone, :address, :password);';
+                $sql = 'insert into users(name, email, phone, address, password, is_active, role_id) values(:name, :email, :phone, :address, :password, :is_active, :role_id);';
                 $stmt = $conn->prepare($sql);
                 $stmt->bindValue(":name", $this->name, PDO::PARAM_STR);
                 $stmt->bindValue(":email", $this->email, PDO::PARAM_STR);
                 $stmt->bindValue(":phone", $this->phone, PDO::PARAM_STR);
                 $stmt->bindValue(":address", $this->address, PDO::PARAM_STR);
+                $stmt->bindValue(":is_active", $this->is_active, PDO::PARAM_INT);
+                $stmt->bindValue(":role_id", $this->role_id, PDO::PARAM_INT);
 
                 $hash = password_hash($this->password, PASSWORD_DEFAULT);
                 $stmt->bindValue(":password", $hash, PDO::PARAM_STR);
