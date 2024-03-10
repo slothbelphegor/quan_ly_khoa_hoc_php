@@ -39,7 +39,6 @@ $courses = Course::getAllCustom($conn);
                 <th>Mô tả</th>
                 <th>Giá</th>
                 <th>Hình ảnh</th>
-                <th>Video</th>
                 <th>Thời lượng</th>
                 <th>Loại khóa học</th>
                 <?php if (Auth::isLoggedIn() && $_SESSION['role_id'] == 2) : ?>
@@ -56,7 +55,6 @@ $courses = Course::getAllCustom($conn);
                     <td><?php echo $course['description']; ?></td>
                     <td><?php echo $course['price']; ?></td>
                     <td><?php echo $course['image']; ?></td>
-                    <td><?php echo $course['video']; ?></td>
                     <td><?php echo $course['duration']; ?></td>
                     <td><?php echo $course['category_name']; ?></td>
                     <?php if (Auth::isLoggedIn() && $_SESSION['role_id'] == 2) : ?>
@@ -73,7 +71,13 @@ $courses = Course::getAllCustom($conn);
             <? endforeach; ?>
         </tbody>
     </table>
-    <button id='logoutbtn'>Đăng xuất</button>
+    <div>
+        <button id='logoutbtn'>Đăng xuất</button>
+        <?php if (Auth::isLoggedIn() && $_SESSION['role_id'] == 1) : ?>
+            <button id='addcoursebtn'>Thêm khoá học</button>
+        <?php endif; ?>
+    </div>
+
 </body>
 
 </html>

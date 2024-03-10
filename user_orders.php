@@ -20,17 +20,19 @@ if ($userOrders !== null) {
     <table>
         <thead>
             <tr>
+                <th>ID đơn hàng</th>
                 <th>Tên người dùng</th>
                 <th>Tên khóa học</th>
-                <th>ID đơn hàng</th>
+                <th>Video</th>
             </tr>
         </thead>
         <tbody>
             <?php foreach ($userOrders as $order) : ?>
                 <tr>
+                    <td><?php echo $order['order_id']; ?></td>
                     <td><?php echo $order['user_name']; ?></td>
                     <td><?php echo $order['course_name']; ?></td>
-                    <td><?php echo $order['order_id']; ?></td>
+                    <td><?php echo $order['course_video']; ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
