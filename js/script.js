@@ -144,22 +144,22 @@ $(document).ready(function () {
 });
 
 //Ham xu ly dang xuat
-$(document).ready(function () {
-  $("#logoutbtn").click(function () {
-    if (window.confirm("Bạn có muốn đăng xuất?")) {
-      $.ajax({
-        url: "logout.php",
-        method: "GET",
-        success: function (response) {
-          redirectToIndex();
-        },
-        error: function (xhr, status, error) {
-          alert("Có lỗi xảy ra khi đăng xuất!");
-        },
-      });
-    }
-  });
-});
+// $(document).ready(function () {
+//   $("#logoutbtn").click(function () {
+//     if (window.confirm("Bạn có muốn đăng xuất?")) {
+//       $.ajax({
+//         url: "logout.php",
+//         method: "GET",
+//         success: function (response) {
+//           redirectToIndex();
+//         },
+//         error: function (xhr, status, error) {
+//           alert("Có lỗi xảy ra khi đăng xuất!");
+//         },
+//       });
+//     }
+//   });
+// });
 
 // hàm chuyển trang dăng nhập sau khi đăng ký thành công
 function redirectToLogin() {
@@ -222,3 +222,73 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  var addCourseBtn = document.getElementById("addcoursebtn");
+  if (addCourseBtn) {
+    addCourseBtn.addEventListener("click", function () {
+      // Chuyển hướng người dùng đến trang addcourse.php
+      window.location.href = "addcourse.php";
+    });
+  }
+});
+
+// ham xu ly nut dang xuat
+document.addEventListener('DOMContentLoaded', function() {
+  var logoutBtn = document.getElementById('logoutbtn');
+  if (logoutBtn) {
+      logoutBtn.addEventListener('click', function() {
+          // Xác nhận trước khi đăng xuất
+          var confirmLogout = confirm("Bạn có muốn đăng xuất?");
+          if (confirmLogout) {
+              // Chuyển hướng người dùng đến trang logout.php
+              window.location.href = 'logout.php';
+          }
+      });
+  }
+});
+
+// document.addEventListener('DOMContentLoaded', function () {
+//   var form = document.getElementById('frmLOGIN');
+
+//   form.addEventListener('submit', function (event) {
+//       event.preventDefault();
+
+//       var identifier = document.getElementById('identifier').value;
+//       var password = document.getElementById('password').value;
+
+//       if (identifier === '' || password === '') {
+//           // Hiển thị thông báo lỗi nếu trường email hoặc mật khẩu không được nhập
+//           document.querySelector('.error-message').textContent = "Vui lòng nhập email hoặc số điện thoại và mật khẩu";
+//           document.querySelector('.error-message').style.display = "block";
+//           return;
+//       }
+
+//       var xhr = new XMLHttpRequest();
+//       xhr.open('POST', 'login.php', true);
+//       xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+//       xhr.onreadystatechange = function () {
+//           if (xhr.readyState === XMLHttpRequest.DONE) {
+//               if (xhr.status === 200) {
+//                   // Xử lý khi nhận được phản hồi từ server
+//                   var response = xhr.responseText;
+//                   document.querySelector('.success-message').textContent = response;
+//                   document.querySelector('.success-message').style.display = "block";
+//                   redirectToIndex();
+//               } else {
+//                   // Xử lý khi có lỗi từ server
+//                   var errorMessage = "";
+//                   if (xhr.status === 401) {
+//                       errorMessage = "Tài khoản hoặc mật khẩu không chính xác";
+//                   } else {
+//                       errorMessage = "Lỗi không xác định";
+//                   }
+//                   document.querySelector('.error-message').textContent = errorMessage;
+//                   document.querySelector('.error-message').style.display = "block";
+//               }
+//           }
+//       };
+//       var formData = new FormData(form);
+//       xhr.send(new URLSearchParams(formData).toString());
+//   });
+// });

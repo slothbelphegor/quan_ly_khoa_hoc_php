@@ -15,13 +15,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $rs = User::authenticatebyphone($conn, $identifier, $password);
         }
 
+        // if ($rs) {
+        //     // Auth::login();
+        //     // $_SESSION["user_id"] = $identifier;
+        //     echo "Đăng nhập thành công";
+        //     header("Location: index.php");
+        // } else {
+        //     echo "Sai tài khoản hoặc mật khẩu";
+        //     exit();
+        // }
+
         if ($rs) {
-            // Auth::login();
-            // $_SESSION["user_id"] = $identifier;
             echo "Đăng nhập thành công";
-            header("Location: index.php");
+            Auth::login();
+            $user_id = $_SESSION['user_id'];
+            echo "<script>window.location.href = 'index.php';</script>";
+            exit;   
         } else {
-            echo "Sai tài khoản hoặc mật khẩu";
+            echo "<script>alert('Thông tin đăng nhập không chính xác!');</script>";
             exit();
         }
     }
@@ -62,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <a class="forgot" href="forgot_password.php">Quên mật khẩu?</a>
             </p>
             <p>
-                <a class="forgot" href="register.php">Chưa có tài khoản? Đăng ký</a>
+                <a class="register" href="register.php">Chưa có tài khoản? Đăng ký</a>
             </p>
         </fieldset>
     </form>

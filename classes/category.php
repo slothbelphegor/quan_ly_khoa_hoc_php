@@ -44,7 +44,7 @@ class Category
         return $stmt->execute();
     }
 
-    public function getCategory($conn)
+    public static function getCategory($conn)
     {
         try{
             $sql = "select * from categories";

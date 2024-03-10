@@ -54,7 +54,13 @@ $courses = Course::getAllCustom($conn);
                     <td><?php echo $course['name']; ?></td>
                     <td><?php echo $course['description']; ?></td>
                     <td><?php echo $course['price']; ?></td>
-                    <td><?php echo $course['image']; ?></td>
+                    <td>
+                        <? if ($course['image'] && file_exists("uploads/" . $course['image'])) : ?>
+                            <img src="uploads/<? echo $course['image'] ?>" width="80" height="80">
+                        <? else : ?>
+                            <img src="images/noimage.png" width="80" height="80">
+                        <? endif; ?>
+                    </td>
                     <td><?php echo $course['duration']; ?></td>
                     <td><?php echo $course['category_name']; ?></td>
                     <?php if (Auth::isLoggedIn() && $_SESSION['role_id'] == 2) : ?>
