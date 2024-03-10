@@ -51,7 +51,7 @@ class Category
             $stmt = $conn->prepare($sql);
             $stmt->setFetchMode(PDO::FETCH_CLASS, "Category");
             if($stmt->execute()){
-                $categories = $stmt->fetchAll();
+                $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 return $categories;
             }
 
