@@ -32,7 +32,7 @@ if ($userOrders !== null) {
                     <td><?php echo $order['order_id']; ?></td>
                     <td><?php echo $order['user_name']; ?></td>
                     <td><?php echo $order['course_name']; ?></td>
-                    <td><?php echo $order['course_video']; ?></td>
+                    <td> <a href='<?php echo $order['course_video']; ?>'>Link</a></td>            
                 </tr>
             <?php endforeach; ?>
         </tbody>
