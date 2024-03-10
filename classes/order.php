@@ -153,7 +153,7 @@ class Order
 
     public static function getUserOrders($conn, $user_id){
         try {
-            $sql = "select u.name as user_name, c.name as course_name, o.id as order_id
+            $sql = "select u.name as user_name, c.name as course_name, o.id as order_id, c.video as course_video
             from orders o
             join courses c on o.course_id = c.id
             join users u on o.user_id = u.id
