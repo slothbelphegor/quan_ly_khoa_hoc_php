@@ -63,7 +63,7 @@ require 'inc/header.php';
                 <input name="video" id="video" type="text" value='<?=htmlspecialchars($course->video)?>' />
             </p>
             <p class='row'>
-                <label for="duration">Price: </label>
+                <label for="duration">Duration: </label>
                 <span class='error'>*</span>
                 <input name="duration" id="duration" type="text" value='<?=htmlspecialchars($course->duration)?>' />
             </p>

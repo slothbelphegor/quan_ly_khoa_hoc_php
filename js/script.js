@@ -235,7 +235,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  var addCourseBtn = document.getElementById("addcoursebtn");
+  var addCourseBtn = document.getElementById("#addcoursebtn");
   if (addCourseBtn) {
     addCourseBtn.addEventListener("click", function () {
       // Chuyển hướng người dùng đến trang addcourse.php
@@ -244,7 +244,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 document.addEventListener("DOMContentLoaded", function () {
-  var addCourseBtn = document.getElementById("btnEditImage");
+  var addCourseBtn = document.getElementById("#btnEditImage");
   if (addCourseBtn) {
     addCourseBtn.addEventListener("click", function () {
       var courseId = this.value;

@@ -71,6 +71,7 @@ $courses = Course::getAllCustom($conn);
                         <td>
                             <button value="<? echo $course['id'] ?>" name="id" id="btnChangeCourse">Sửa khoá học</button>
                             <button value="<? echo $course['id'] ?>" name="id" id="btnDeleteCourse">Xoá khoá học</button>
+                            <button value="<? echo $course['id'] ?>" name="id" id="btnEditImage">Sửa hình</button>
                         </td>
                     <?php endif; ?>
                 </tr>
