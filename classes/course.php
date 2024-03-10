@@ -1,16 +1,16 @@
 <?php
 class Course
 {
-    private $id;
-    private $name;
-    private $description;
-    private $price;
-    private $image;
-    private $video;
-    private $duration;
-    private $category_id;
+    public $id;
+    public $name;
+    public $description;
+    public $price;
+    public $image;
+    public $video;
+    public $duration;
+    public $category_id;
 
-    private $deleted;
+    public $deleted;
 
 
     public function getName()
@@ -71,7 +71,8 @@ class Course
         $this->category_id = $category_id;
     }
 
-    public function __construct($name, $description, $price, $image, $video, $duration, $category_id, $deleted = false)
+    public function __construct($name = null, $description = null, $price = null, $image = null, 
+    $video = null, $duration = null, $category_id = null, $deleted = false)
     {
         $this->name = $name;
         $this->description = $description;
@@ -170,9 +171,9 @@ class Course
             $sql = "select * from courses where id=:id";
             $stmt = $conn->prepare($sql);
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);
-            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Course');
+            $stmt->setFetchMode(PDO::FETCH_INTO, new Course());
             if ($stmt->execute()) {
-                $course = $stmt->fetchObject();
+                $course = $stmt->fetch();
                 return $course;
             }
         } catch (PDOException $e) {
@@ -264,18 +265,18 @@ class Course
     }
 
     //Đổi hình minh họa (hoặc thêm nếu chưa có)
-    public function updateImage($conn, $id, $image)
+    public function updateImage($conn)
     {
         try {
             $sql = "update courses
                     set image=:image where id=:id";
             $stmt = $conn->prepare($sql);
-            $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+            $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
             //$image có thể null
             $stmt->bindValue(
                 ':image',
-                $image,
-                $image == null ? PDO::PARAM_NULL : PDO::PARAM_STR
+                $this->image,
+                $this->image == null ? PDO::PARAM_NULL : PDO::PARAM_STR
             );
             return $stmt->execute();
         } catch (PDOException $e) {
