@@ -224,6 +224,18 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+  var buttons = document.querySelectorAll("#btnChangeCourse");
+  buttons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      // Lấy giá trị id của khóa học từ thuộc tính value của nút
+      var courseId = this.value;
+      // Chuyển hướng sang trang buy_course.php với tham số id
+      window.location.href = "editcourse.php?id=" + courseId;
+    });
+  });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
   var addCourseBtn = document.getElementById("addcoursebtn");
   if (addCourseBtn) {
     addCourseBtn.addEventListener("click", function () {
