@@ -229,7 +229,6 @@ document.addEventListener("DOMContentLoaded", function () {
     button.addEventListener("click", function () {
       // Lấy giá trị id của khóa học từ thuộc tính value của nút
       var courseId = this.value;
-      // Chuyển hướng sang trang buy_course.php với tham số id
       window.location.href = "editcourse.php?id=" + courseId;
     });
   });
@@ -241,6 +240,15 @@ document.addEventListener("DOMContentLoaded", function () {
     addCourseBtn.addEventListener("click", function () {
       // Chuyển hướng người dùng đến trang addcourse.php
       window.location.href = "addcourse.php";
+    });
+  }
+});
+document.addEventListener("DOMContentLoaded", function () {
+  var addCourseBtn = document.getElementById("btnEditImage");
+  if (addCourseBtn) {
+    addCourseBtn.addEventListener("click", function () {
+      var courseId = this.value;
+      window.location.href = "editimage.php?id=" + courseId;
     });
   }
 });
