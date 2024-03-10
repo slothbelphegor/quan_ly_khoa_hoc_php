@@ -10,6 +10,8 @@ class Course
     private $duration;
     private $category_id;
 
+    private $deleted;
+
 
     public function getName()
     {
@@ -69,7 +71,7 @@ class Course
         $this->category_id = $category_id;
     }
 
-    public function __construct($name, $description, $price, $image, $video, $duration, $category_id)
+    public function __construct($name, $description, $price, $image, $video, $duration, $category_id, $deleted = false)
     {
         $this->name = $name;
         $this->description = $description;
@@ -78,6 +80,8 @@ class Course
         $this->video = $video;
         $this->duration = $duration;
         $this->category_id = $category_id;
+        $this->deleted = $deleted;
+
     }
 
     // Mỗi khóa học tối thiểu phải có tên, mô tả, giá bán và mã phân loại 
@@ -145,7 +149,8 @@ class Course
         try {
             $sql = "select c.id, c.name, c.description, c.price, c.image, c.video, c.duration, categories.name as category_name
             from courses c
-            join categories on c.category_id = categories.id";
+            join categories on c.category_id = categories.id 
+            where c.deleted = false";
             $stmt = $conn->prepare($sql);
             $stmt->setFetchMode(PDO::FETCH_CLASS, 'Course');
             if ($stmt->execute()) {
@@ -233,8 +238,9 @@ class Course
     public function deleteByID($conn, $id)
     {
         try {
-            $sql = "delete from courses where id=:id";
+            $sql = "update courses set deleted = true";
             $stmt = $conn->prepare($sql);
+            print $this;
             var_dump($stmt);
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);
             return $stmt->execute();
@@ -244,20 +250,19 @@ class Course
             return false;
         }
     }
-    public function deleteThis($conn)
+    public static function markAsDeleted($conn, $course_id)
     {
         try {
-            $sql = "delete from courses where id=:id";
+            $sql = "update courses set deleted = true where id = :id";
             $stmt = $conn->prepare($sql);
-            var_dump($stmt);
-            $stmt->bindValue(':id', $this->id, PDO::PARAM_INT);
+            $stmt->bindValue(":id", $course_id, PDO::PARAM_INT);
             return $stmt->execute();
-
         } catch (PDOException $e) {
             $e->getMessage();
             return false;
         }
     }
+
     //Đổi hình minh họa (hoặc thêm nếu chưa có)
     public function updateImage($conn, $id, $image)
     {

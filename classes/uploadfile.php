@@ -58,7 +58,7 @@ class Uploadfile
                 $fileToHost = 'uploads/' . $fullname;
                 $i++;
             }
-            
+
             $fileTmp = $_FILES['file']['tmp_name'];
             if (move_uploaded_file($fileTmp, $fileToHost)) {
                 return $fullname;
