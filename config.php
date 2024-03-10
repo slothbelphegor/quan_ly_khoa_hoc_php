@@ -12,3 +12,6 @@ define('DB_PASS', '123456');
 
 define('WEB_HOST', 'http://' . $_SERVER['HTTP_HOST']);
 define('WEB_PATH', __DIR__);
+
+define('FILE_MAX_SIZE', 2 * 1024 * 1024);
+define('FILE_TYPE', ['image/gif', 'image/png', 'image/jpeg', 'image/jpg']);
