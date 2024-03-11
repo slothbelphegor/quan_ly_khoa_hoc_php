@@ -211,17 +211,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  var buttons = document.querySelectorAll("#btnDeleteCourse");
-  buttons.forEach(function (button) {
-    button.addEventListener("click", function () {
-      // Lấy giá trị id của khóa học từ thuộc tính value của nút
-      var courseId = this.value;
-      // Chuyển hướng sang trang buy_course.php với tham số id
-      window.location.href = "delete_course.php?id=" + courseId;
-    });
-  });
-});
+
 
 document.addEventListener("DOMContentLoaded", function () {
   var buttons = document.querySelectorAll("#btnChangeCourse");
@@ -268,7 +258,20 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
-
+document.addEventListener("DOMContentLoaded", function () {
+  var buttons = document.querySelectorAll("#btnDeleteCourse");
+  buttons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      var confirmDEL = confirm("SURE!?");
+      if (confirmDEL) {
+        // Lấy giá trị id của khóa học từ thuộc tính value của nút
+        var courseId = this.value;
+        // Chuyển hướng sang trang buy_course.php với tham số id
+        window.location.href = "delete_course.php?id=" + courseId;
+      }
+    });
+  });
+});
 // document.addEventListener('DOMContentLoaded', function () {
 //   var form = document.getElementById('frmLOGIN');
 
