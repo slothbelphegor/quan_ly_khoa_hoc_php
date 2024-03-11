@@ -244,27 +244,28 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 document.addEventListener("DOMContentLoaded", function () {
-  var addCourseBtn = document.getElementById("#btnEditImage");
-  if (addCourseBtn) {
-    addCourseBtn.addEventListener("click", function () {
+  var buttons = document.querySelectorAll("#btnEditImage");
+  buttons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      // Lấy giá trị id của khóa học từ thuộc tính value của nút
       var courseId = this.value;
       window.location.href = "editimage.php?id=" + courseId;
     });
-  }
+  });
 });
 
 // ham xu ly nut dang xuat
-document.addEventListener('DOMContentLoaded', function() {
-  var logoutBtn = document.getElementById('logoutbtn');
+document.addEventListener("DOMContentLoaded", function () {
+  var logoutBtn = document.getElementById("logoutbtn");
   if (logoutBtn) {
-      logoutBtn.addEventListener('click', function() {
-          // Xác nhận trước khi đăng xuất
-          var confirmLogout = confirm("Bạn có muốn đăng xuất?");
-          if (confirmLogout) {
-              // Chuyển hướng người dùng đến trang logout.php
-              window.location.href = 'logout.php';
-          }
-      });
+    logoutBtn.addEventListener("click", function () {
+      // Xác nhận trước khi đăng xuất
+      var confirmLogout = confirm("Bạn có muốn đăng xuất?");
+      if (confirmLogout) {
+        // Chuyển hướng người dùng đến trang logout.php
+        window.location.href = "logout.php";
+      }
+    });
   }
 });
 
