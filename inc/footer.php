@@ -7,5 +7,7 @@
 </head>
 <body>
     <h2>day la footer</h2>
+    <marquee direction="left"><img src="images/flipped felix.gif" width="125"></marquee>
+
 </body>
 </html>

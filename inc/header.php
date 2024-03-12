@@ -8,6 +8,8 @@
 </head>
 
 <body>
+    <marquee direction="right"><img src="images/felix.gif" width="125"></marquee>
+
     <h2>day la header</h2>
 </body>
 
