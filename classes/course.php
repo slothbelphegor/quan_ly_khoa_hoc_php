@@ -9,7 +9,6 @@ class Course
     public $video;
     public $duration;
     public $category_id;
-
     public $deleted;
 
 

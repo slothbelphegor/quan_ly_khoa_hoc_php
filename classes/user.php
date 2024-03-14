@@ -41,9 +41,6 @@ class User
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
         $stmt->execute();
         $user = $stmt->fetchObject();
-        echo '<pre>';
-        print_r($user);
-        echo '</pre>';
 
         if ($user && password_verify($password, $user->password)) {
             Auth::login();
@@ -62,9 +59,6 @@ class User
         $stmt->setFetchMode(PDO::FETCH_CLASS, 'User');
         $stmt->execute();
         $user = $stmt->fetchObject();
-        echo '<pre>';
-        print_r($user);
-        echo '</pre>';
 
         if ($user && password_verify($password, $user->password)) {
             Auth::login();

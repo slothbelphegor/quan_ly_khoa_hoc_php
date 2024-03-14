@@ -100,7 +100,7 @@ $(document).ready(function () {
     },
   });
 });
-
+/*
 $(document).ready(function () {
   $("#frmLOGIN").validate({
     rules: {
@@ -111,38 +111,38 @@ $(document).ready(function () {
       identifier: "Vui lòng nhập email hoặc số điện thoại",
       password: "Vui lòng nhập mật khẩu",
     },
-    submitHandler: function (form, event) {
-      event.preventDefault();
-      $.ajax({
-        url: "login.php",
-        type: "POST",
-        data: $(form).serialize(),
-        success: function (response) {
-          // $("#frmLOGIN").hide();
-          $(".success-message").text(response).show();
-          redirectToIndex();
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-          if (jqXHR.responseJSON && jqXHR.responseJSON.error) {
-            $(".error-message").text(jqXHR.responseJSON.error).show();
-          } else {
-            switch (jqXHR.status) {
-              case 401:
-                $(".error-message")
-                  .text("Tài khoản hoặc mật khẩu không chính xác")
-                  .show();
-                break;
-              default:
-                console.error("Lỗi:", textStatus, errorThrown);
-                $(".error-message").text("Lỗi không xác định").show();
-            }
-          }
-        },
-      });
-    },
+    // submitHandler: function (form, event) {
+    //   event.preventDefault();
+    //   $.ajax({
+    //     url: "login.php",
+    //     type: "POST",
+    //     data: $(form).serialize(),
+    //     success: function (response) {
+    //       // $("#frmLOGIN").hide();
+    //       $(".success-message").text(response).show();
+    //       redirectToIndex();
+    //     },
+    //     error: function (jqXHR, textStatus, errorThrown) {
+    //       if (jqXHR.responseJSON && jqXHR.responseJSON.error) {
+    //         $(".error-message").text(jqXHR.responseJSON.error).show();
+    //       } else {
+    //         switch (jqXHR.status) {
+    //           case 401:
+    //             $(".error-message")
+    //               .text("Tài khoản hoặc mật khẩu không chính xác")
+    //               .show();
+    //             break;
+    //           default:
+    //             console.error("Lỗi:", textStatus, errorThrown);
+    //             $(".error-message").text("Lỗi không xác định").show();
+    //         }
+    //       }
+    //     },
+    //   });
+    // },
   });
 });
-
+*/
 //Ham xu ly dang xuat
 // $(document).ready(function () {
 //   $("#logoutbtn").click(function () {
