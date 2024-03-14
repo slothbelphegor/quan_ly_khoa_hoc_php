@@ -51,13 +51,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link rel="stylesheet" href="css/style.css">
     <script src="js/script.js"></script>
     <title>Quan ly khoa hoc</title>
+
 </head>
 
 <body>
-    <h2>Login Page</h2>
     <form id="frmLOGIN" name="frmLOGIN" action="" method="post">
         <fieldset>
-            <legend>Login Page</legend>
             <p>
                 <label for="identifier">Email or Phone number:</label>
                 <input name="identifier" id="identifier" type="text" placeholder="Email or Phone number" autofocus>

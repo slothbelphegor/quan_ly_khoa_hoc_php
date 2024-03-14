@@ -2,7 +2,7 @@
 <?php
 
 require "inc/init.php";
-layouts();
+layouts("header");  
 $conn = require "inc/db.php";
 
 ?>
@@ -18,21 +18,23 @@ $conn = require "inc/db.php";
     <link rel="stylesheet" href="css/style.css">
     <script src="js/script.js"></script>
     <title>Quản lý khoá học</title>
+
+    
 </head>
 
 <body>
     <?
     if ($conn) {
-        echo "Kết nối thành công database<br>";
+        /*echo "Kết nối thành công database<br>";
         echo "<pre>";
         print_r($_SESSION);
-        echo "</pre>";
+        echo "</pre>";*/
         
         if (Auth::isLoggedIn() && isset($_SESSION['user_id']) === true) {
             echo "Chào mừng bạn đến với trang web! <br>";
             echo "<button id='logoutbtn'>Đăng xuất</button><br>";
-            echo "<a href='courses_management.php'>Các khoá học</a><br>";
-            echo "<a href='user_orders.php'>Danh sách khoá học đã mua</a>";
+            /*echo "<a href='courses_management.php'>Các khoá học</a><br>";
+            echo "<a href='user_orders.php'>Danh sách khoá học đã mua</a>";*/
         } else {
             echo "Xin chào, bạn chưa đăng nhập! <br>";
             echo "<a href='login.php'>Đăng nhập</a>";
@@ -40,8 +42,8 @@ $conn = require "inc/db.php";
 
     }
     ?>
-</body>
 
+</body>
 </html>
 
 <? layouts("footer"); ?>
