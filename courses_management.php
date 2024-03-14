@@ -1,19 +1,22 @@
-<!-- Sẽ còn chỉnh sửa nhiều, mục đích là để biết cách vào database-->
-<?php
+<?
 require "inc/init.php";
 $conn = require "inc/db.php";
-
 
 // Kiểm tra kết nối
 if (!$conn) {
     die("Kết nối không thành công:");
 }
+
 // Auth::requireLogin();
 
 layouts();
 
-// Lấy tất cả khóa học
-$courses = Course::getAllCustom($conn);
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
+    $search = $_GET['search'];
+    $courses = Course::searchCourse($conn, $search);
+} else {
+    $courses = Course::getAllCustom($conn);
+}
 
 ?>
 
@@ -21,17 +24,13 @@ $courses = Course::getAllCustom($conn);
 <html lang="vi">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js"></script>
-    <title>Danh sách khóa học</title>
 </head>
 
 <body>
+    <form action="" method="get">
+        <input type="text" name="search" id="search" placeholder="Tìm kiếm khóa học">
+        <button type="submit">Tìm kiếm</button>
+    </form>
     <table>
         <thead>
             <tr>
@@ -78,21 +77,10 @@ $courses = Course::getAllCustom($conn);
             <? endforeach; ?>
         </tbody>
     </table>
-    <div>
-        <button id='logoutbtn'>Đăng xuất</button>
-        <?php if (Auth::isLoggedIn() && $_SESSION['role_id'] == 1) : ?>
-            <button id='addcoursebtn'>Thêm khoá học</button>
-        <?php endif; ?>
-    </div>
-
+    <?php
+    Database::close($conn);
+    layouts("footer");
+    ?>
 </body>
 
 </html>
-
-<?php
-// echo "<pre>";
-// print_r($_POST);
-// echo "</pre>";
-Database::close($conn);
-layouts("footer");
-?>
