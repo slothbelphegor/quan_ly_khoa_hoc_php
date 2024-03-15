@@ -187,9 +187,13 @@ class Course
     public static function getPaging($conn, $limit, $offset)
     {
         try {
-            $sql = "select * from courses order by name asc, author asc
-                      limit :limit
-                      offset :offset";
+            $sql = "select c.id, c.name, c.description, c.price, c.image, c.video, c.duration, categories.name as category_name
+            from courses c
+            join categories on c.category_id = categories.id 
+            where c.deleted = false
+            order by c.name asc
+            limit :limit
+            offset :offset";
             $stmt = $conn->prepare($sql);
             //limit: số record mỗi lần select
             $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
@@ -198,7 +202,33 @@ class Course
             $stmt->setFetchMode(PDO::FETCH_CLASS, 'Course');
             $stmt->execute();
             if ($stmt->execute()) {
-                $books = $stmt->fetchAll();
+                $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $books;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return null;
+        }
+    }
+
+    public static function getPagingAll($conn, $limit, $offset)
+    {
+        try {
+            $sql = "select c.id, c.name, c.description, c.price, c.image, c.video, c.duration, categories.name as category_name
+            from courses c
+            join categories on c.category_id = categories.id 
+            order by c.name asc
+            limit :limit
+            offset :offset";
+            $stmt = $conn->prepare($sql);
+            //limit: số record mỗi lần select
+            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+            //offset: select từ record thứ mấy
+            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Course');
+            $stmt->execute();
+            if ($stmt->execute()) {
+                $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 return $books;
             }
         } catch (PDOException $e) {
@@ -313,6 +343,18 @@ class Course
 
     //Hàm đếm số records
     public static function count($conn)
+    {
+
+        try {
+            $sql = "select count(id) from courses where deleted = false";
+            return $conn->query($sql)->fetchColumn();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return -1;
+        }
+    }
+
+    public static function countAll($conn)
     {
 
         try {

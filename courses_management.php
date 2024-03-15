@@ -12,8 +12,21 @@ if (!$conn) {
 
 layouts();
 
+$conn = require 'inc/db.php';
+$total = $_SESSION['role_id'] == 1 ? Course::countAll($conn) : Course::count($conn);
+$limit = 3;
+$currentpage = $_GET['page'] ?? 1;
+$config = [
+    'total' => $total,
+    'limit' => $limit,
+    'full' => false,
+
+];
+$courses = $_SESSION['role_id'] == 1 ? 
+            Course::getPagingAll($conn, $limit, ($currentpage - 1) * $limit) :
+            Course::getPaging($conn, $limit, ($currentpage - 1) * $limit);
 // Lấy tất cả khóa học
-$courses = Course::getAllCustom($conn);
+//$courses = Course::getAllCustom($conn);
 
 ?>
 
@@ -84,6 +97,13 @@ $courses = Course::getAllCustom($conn);
             <button id='addcoursebtn'>Thêm khoá học</button>
         <?php endif; ?>
     </div>
+
+    <div class='content'>
+    <?php
+        $page = new Pagination($config);
+        echo $page->getPagination();
+    ?>
+</div>
 
 </body>
 
