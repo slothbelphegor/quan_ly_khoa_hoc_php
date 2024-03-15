@@ -153,7 +153,7 @@ class Course
     public static function getAllCustom($conn)
     {
         try {
-            $sql = "select c.id, c.name, c.description, c.price, c.image, c.video, c.duration, categories.name as category_name
+            $sql = "select c.id, c.name, c.description, c.price, c.image, c.video, c.duration, categories.name as category_name, c.deleted
             from courses c
             join categories on c.category_id = categories.id 
             where c.deleted = false";
@@ -258,6 +258,65 @@ class Course
             return false;
         }
     }
+
+    public static function isCourseInOrders($conn, $course_id)
+    {
+        try {
+            $sql = "select exists (select 1 from orders where course_id = :course_id) as course_exists";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindValue(":course_id", $course_id, PDO::PARAM_INT);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return (bool) $result['course_exists']; //true nếu course_id có trong orders, ngược lại trả về false
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
+
+    public static function deleteCourse($conn, $course_id)
+    {
+        try {
+            $sql = "delete from courses where id = :id";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindValue(":id", $course_id, PDO::PARAM_INT);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
+
+    public static function delCourse($conn, $course_id)
+    {
+        try {
+            if (self::isCourseInOrders($conn, $course_id)) {
+                // Nếu course_id tồn tại trong bảng orders, chỉ cập nhật trạng thái deleted của course
+                return self::markAsDeleted($conn, $course_id);
+            } else {
+                // Nếu course_id không tồn tại trong bảng orders, xóa cứng course
+                return self::deleteCourse($conn, $course_id);
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
+
+    public static function markAsNotDeleted($conn, $course_id)
+    {
+        try {
+            $sql = "update courses set deleted = false where id = :id";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindValue(":id", $course_id, PDO::PARAM_INT);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            $e->getMessage();
+            return false;
+        }
+    }
+
     public static function markAsDeleted($conn, $course_id)
     {
         try {
@@ -335,13 +394,13 @@ class Course
     public static function searchCourse($conn, $search)
     {
         try {
-            $sql = "select c.id, c.name, c.description, c.price, c.image, c.video, c.duration, categories.name as category_name
+            $sql = "select c.id, c.name, c.description, c.price, c.image, c.video, c.duration, categories.name as category_name, c.deleted
                   from courses c
                   join categories on c.category_id = categories.id
                   where (c.name like :search_term or c.description like :search_term)
-                  and c.deleted = false";
+                  and (c.deleted = false";
             if ($_SESSION['role_id'] == 1) {
-                $sql .= " or c.deleted = true";
+                $sql .= " or c.deleted = true)";
             }
             $stmt = $conn->prepare($sql);
             $stmt->bindValue(':search_term', "%$search%", PDO::PARAM_STR);

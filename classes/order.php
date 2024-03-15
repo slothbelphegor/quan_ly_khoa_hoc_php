@@ -23,21 +23,49 @@ class Order
     }
 
     // Thêm đơn đặt mua
+    // public function addOrder($conn)
+    // {
+    //     if ($this->validate()) {
+    //         $sql = "insert into orders(user_id,course_id,total_amount,status) 
+    //                 values (:user_id,:course_id,:total_amount,:status)";
+    //         $stmt = $conn->prepare($sql);
+    //         $stmt->bindValue(':user_id', $this->user_id, PDO::PARAM_STR);
+    //         $stmt->bindValue(':course_id', $this->course_id, PDO::PARAM_STR);
+    //         $stmt->bindValue(':total_amount', $this->total_amount, PDO::PARAM_INT);
+    //         $stmt->bindValue(':status', $this->status, PDO::PARAM_STR);
+    //         return $stmt->execute();
+    //     } else {
+    //         return false;
+    //     }
+    // }
+
     public function addOrder($conn)
     {
-        if ($this->validate()) {
-            $sql = "insert into orders(user_id,course_id,total_amount,status) 
-                    values (:user_id,:course_id,:total_amount,:status)";
-            $stmt = $conn->prepare($sql);
-            $stmt->bindValue(':user_id', $this->user_id, PDO::PARAM_STR);
-            $stmt->bindValue(':course_id', $this->course_id, PDO::PARAM_STR);
-            $stmt->bindValue(':total_amount', $this->total_amount, PDO::PARAM_INT);
-            $stmt->bindValue(':status', $this->status, PDO::PARAM_STR);
-            return $stmt->execute();
+        $course_id = $_GET['id'];
+        $course = Course::getById($conn, $course_id);
+        // echo '<pre>';
+        // print_r($course);
+        // echo '</pre>';
+        echo $course->deleted . '<br>';
+        if ($course && !$course->deleted) {
+            // Nếu khóa học không bị ẩn, thêm đơn hàng
+            if ($this->validate()) {
+                $sql = "INSERT INTO orders (user_id, course_id, total_amount, status) 
+                    VALUES (:user_id, :course_id, :total_amount, :status)";
+                $stmt = $conn->prepare($sql);
+                $stmt->bindValue(':user_id', $this->user_id, PDO::PARAM_STR);
+                $stmt->bindValue(':course_id', $this->course_id, PDO::PARAM_STR);
+                $stmt->bindValue(':total_amount', $this->total_amount, PDO::PARAM_INT);
+                $stmt->bindValue(':status', $this->status, PDO::PARAM_STR);
+                return $stmt->execute();
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
     }
+
 
     // Truy vấn toàn bộ đơn mua
     public static function getAll($conn)
@@ -78,30 +106,30 @@ class Order
     // Hàm phân trang
     /*Chọn record cho trang thứ n: select * from db limit page_size, offset start
       Công thức tính start: start = (current_page - 1) * page_size */
-      public static function getPaging($conn, $limit, $offset)
-      {
-          try {
-              $sql = "select * from orders order by title asc, author asc
+    public static function getPaging($conn, $limit, $offset)
+    {
+        try {
+            $sql = "select * from orders order by title asc, author asc
                         limit :limit
                         offset :offset";
-              $stmt = $conn->prepare($sql);
-              //limit: số record mỗi lần select
-              $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-              //offset: select từ record thứ mấy
-              $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-              $stmt->setFetchMode(PDO::FETCH_CLASS, 'Order');
-              $stmt->execute();
-              if ($stmt->execute()) {
-                  $books = $stmt->fetchAll();
-                  return $books;
-              }
-          } catch (PDOException $e) {
-              echo $e->getMessage();
-              return null;
-          }
-      }
+            $stmt = $conn->prepare($sql);
+            //limit: số record mỗi lần select
+            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+            //offset: select từ record thứ mấy
+            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Order');
+            $stmt->execute();
+            if ($stmt->execute()) {
+                $books = $stmt->fetchAll();
+                return $books;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return null;
+        }
+    }
 
-      // Sửa thông tin khóa học
+    // Sửa thông tin khóa học
     public function updateOrder($conn)
     {
         try {
@@ -139,19 +167,20 @@ class Order
     }
 
     //Hàm đếm số records
-    public static function count($conn) {
+    public static function count($conn)
+    {
 
         try {
             $sql = "select count(id) from orders";
             return $conn->query($sql)->fetchColumn();
-        }
-        catch (PDOException $e) {
+        } catch (PDOException $e) {
             echo $e->getMessage();
             return -1;
         }
     }
 
-    public static function getUserOrders($conn, $user_id){
+    public static function getUserOrders($conn, $user_id)
+    {
         try {
             $sql = "select u.name as user_name, c.name as course_name, o.id as order_id, c.video as course_video
             from orders o
@@ -167,5 +196,4 @@ class Order
             return null;
         }
     }
-
 }

@@ -15,13 +15,14 @@ if (isset($_GET['id'])) {
     Dialog::show('Input ID, please');
     return;
 }
+
 // Auth::requireLogin();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    if (Course::delCourse($conn, $id)) {
-        echo "<script>alert('Đã xoá khoá học')</script>";
+    if (Course::markAsDeleted($conn, $id)) {
+        Dialog::show('Đã ẩn khoá học');
         echo "<script>window.location.href = 'courses_management.php'</script>";
     } else {
-        echo "<script>alert('Xoá khoá học không thành công')</script>";
+        Dialog::show('Ẩn khoá học không thành công');
     }
 }
