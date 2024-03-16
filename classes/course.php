@@ -70,9 +70,16 @@ class Course
         $this->category_id = $category_id;
     }
 
-    public function __construct($name = null, $description = null, $price = null, $image = null, 
-    $video = null, $duration = null, $category_id = null, $deleted = false)
-    {
+    public function __construct(
+        $name = null,
+        $description = null,
+        $price = null,
+        $image = null,
+        $video = null,
+        $duration = null,
+        $category_id = null,
+        $deleted = false
+    ) {
         $this->name = $name;
         $this->description = $description;
         $this->price = $price;
@@ -151,6 +158,9 @@ class Course
             from courses c
             join categories on c.category_id = categories.id 
             where c.deleted = false";
+            if ($_SESSION['role_id'] == 1) {
+                $sql .= " or deleted = true";
+            }
             $stmt = $conn->prepare($sql);
             $stmt->setFetchMode(PDO::FETCH_CLASS, 'Course');
             if ($stmt->execute()) {
@@ -177,6 +187,56 @@ class Course
             }
         } catch (PDOException $e) {
             echo $e->getMessage();
+            return null;
+        }
+    }
+
+    public static function searchCourse($conn, $search)
+    {
+        try {
+            $sql = "select c.id, c.name, c.description, c.price, c.image, c.video, c.duration, categories.name as category_name
+                  from courses c
+                  join categories on c.category_id = categories.id
+                  where (c.name like :search_term or c.description like :search_term)
+                  and (c.deleted = false";
+            if ($_SESSION['role_id'] == 1) {
+                $sql .= " or c.deleted = true)";
+            }
+            $stmt = $conn->prepare($sql);
+            $stmt->bindValue(':search_term', "%$search%", PDO::PARAM_STR);
+            $stmt->execute();
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        } catch (PDOException $ex) {
+            echo $ex->getMessage();
+            return null;
+        }
+    }
+
+    public static function searchCoursePaging($conn, $search, $limit, $offset)
+    {
+        try {
+            $sql = "select c.id, c.name, c.description, c.price, c.image, c.video, c.duration, categories.name as category_name
+                  from courses c
+                  join categories on c.category_id = categories.id
+                  where (c.name like :search_term or c.description like :search_term)
+                  and (c.deleted = false ";
+            if ($_SESSION['role_id'] == 1) {
+                $sql .= " or c.deleted = true) ";
+            }
+            $sql .= "limit :limit
+               offset :offset";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindValue(':search_term', "%$search%", PDO::PARAM_STR);
+            //limit: số record mỗi lần select
+            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+            //offset: select từ record thứ mấy
+            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+            $stmt->execute();
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        } catch (PDOException $ex) {
+            echo $ex->getMessage();
             return null;
         }
     }

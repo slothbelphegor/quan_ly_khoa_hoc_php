@@ -22,12 +22,20 @@ $config = [
     'full' => false,
 
 ];
-$courses = $_SESSION['role_id'] == 1 ? 
-            Course::getPagingAll($conn, $limit, ($currentpage - 1) * $limit) :
-            Course::getPaging($conn, $limit, ($currentpage - 1) * $limit);
+// $courses = $_SESSION['role_id'] == 1 ? 
+//             Course::getPagingAll($conn, $limit, ($currentpage - 1) * $limit) :
+//             Course::getPaging($conn, $limit, ($currentpage - 1) * $limit);
 // Lấy tất cả khóa học
 //$courses = Course::getAllCustom($conn);
-
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
+    $search = $_GET['search'];
+    $courses = Course::searchCoursePaging($conn, $search,$limit,($currentpage - 1) * $limit);
+   // $courses = Course::searchCourse($conn, $search);
+} else {
+    $courses = $_SESSION['role_id'] == 1 ? 
+    Course::getPagingAll($conn, $limit, ($currentpage - 1) * $limit) :
+    Course::getPaging($conn, $limit, ($currentpage - 1) * $limit);
+}
 ?>
 
 <!DOCTYPE html>
@@ -45,6 +53,10 @@ $courses = $_SESSION['role_id'] == 1 ?
 </head>
 
 <body>
+<form action="" method="get">
+        <input type="text" name="search" id="search" placeholder="Tìm kiếm khóa học">
+        <button type="submit">Tìm kiếm</button>
+    </form>
     <table>
         <thead>
             <tr>

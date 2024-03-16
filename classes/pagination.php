@@ -7,8 +7,8 @@ class Pagination
         'total' => 0, //tổng số record
         'limit' => 0, //số record trên 1 trang
         'full' => true, //trang có đầy record không
-        'querystring' => 'page' //biến trên url có thể là biến bất kì, sẽ trở thành biến page khi dc xử lý
-
+        'querystring' => 'page', //biến trên url có thể là biến bất kì, sẽ trở thành biến page khi dc xử lý
+        'search' => '' //cụm từ tìm kiếm
     ];
     
     public function __construct($config = [])
@@ -22,9 +22,22 @@ class Pagination
         if (!isset($config['querystring'])) {
             $config['querystring'] = 'page';
         }
+        if (isset($_GET['search'])) {
+            $config['search'] = $_GET['search'];
+        }
+        else $config['search'] = '';
         //đổi thành cấu hình do người dùng gửi vào
         $this->config = $config;
     }
+
+    private function addSearchToUrl() {
+        if (isset($_GET['search'])) {
+            $search = urlencode($this->config['search']);
+            return "&search=" . $search;
+        }
+        return '';
+    }
+
     // tính tổng số trang
     private function gettotalPage()
     {
@@ -66,6 +79,7 @@ class Pagination
                 $_SERVER['PHP_SELF'] . '?' . 
                 $this->config['querystring'] . '=' . 
                 ($this->getCurrentPage() - 1) . 
+                $this->addSearchToUrl() .
                 "'>Previous</a></li>";
     }
     //lấy trang sau
@@ -78,6 +92,7 @@ class Pagination
                 $_SERVER['PHP_SELF'] . '?' . //PHP_SELF: lấy tên trang hiện hành
                 $this->config['querystring'] . '=' . 
                 ($this->getCurrentPage() + 1) . 
+                $this->addSearchToUrl() .
                 "'>Next</a></li>"; 
     }
     //vẽ thanh chuyển trang
@@ -92,7 +107,6 @@ class Pagination
                         ($this->getCurrentPage()-3) : 1;
             $total = (($this->getCurrentPage() + 3) > $this->gettotalPage() ?
                     $this->gettotalPage() : ($this->getCurrentPage() + 3));
-            echo $this->config['total'] . " " . $this->config['limit'];
             for ($i = $current; $i <= $total; $i++) {
                 if ($i === $this->getCurrentPage()) {
                     $data .= '<li class="item"><a href="#" class="text">' . 
@@ -102,7 +116,9 @@ class Pagination
                     $data .= '<li class="item"><a class="text" href="' .
                     $_SERVER['PHP_SELF'] . "?" .
                     $this->config['querystring'] . '=' .
-                    $i . '">' . $i . '</a></li>';
+                    $i . 
+                    $this->addSearchToUrl() .
+                    '">' . $i . '</a></li>';
                 }
             }
             $data .= ($this->getCurrentPage() + 3) < $this->gettotalPage() ?
@@ -118,10 +134,13 @@ class Pagination
                     $data .= '<li class="item"><a class="text" href="' .
                             $_SERVER['PHP_SELF'] . '?' .
                             $this->config['querystring'] . '=' .
-                            $i . '">' . $i . '</a></li>';
+                            $i . 
+                            $this->addSearchToUrl() .
+                            '">' . $i . '</a></li>';
                 }
             }
         }
+        
         return '<ul class="main-nav">' . $this->getPrePage() . 
                 $data . $this->getNextPage() . '</ul>';
     }
