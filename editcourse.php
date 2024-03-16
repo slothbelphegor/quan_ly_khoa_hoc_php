@@ -3,6 +3,13 @@
 require 'inc/init.php';
 
 $conn = require "inc/db.php";
+
+Auth::requireLogin();
+
+if(!Auth::isAdmin()){
+    Redirect::to('index');
+}
+
 $categories = Category::getCategory($conn);
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -28,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     print_r($course);
     // gọi cập nhật
     if ($course->updateCourse($conn)) {
-        header("Location: courses_management.php");
+        Redirect::to('courses_management');
     }
 }
 

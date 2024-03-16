@@ -2,6 +2,11 @@
 require "inc/init.php";
 layouts("header");
 
+if (Auth::isLoggedIn()) {
+    header('Location: index.php');
+}
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $identifier = $_POST["identifier"];
     // $email = $_POST["email"];
@@ -12,17 +17,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (filter_var($identifier, FILTER_VALIDATE_EMAIL)) {
             $rs = User::authenticatebyemail($conn, $identifier, $password);
         } else {
-            $rs = User::authenticatebyphone($conn, $identifier, $password);
+            $rs = User::authenticatebyusername($conn, $identifier, $password);
         }
 
+        // if ($rs) {
+        //     echo "Đăng nhập thành công";
+        //     Auth::login();
+        //     $user_id = $_SESSION['user_id'];
+        //     header("Location: index.php");
+        //     exit;
+        // } else {
+        //     Dialog::show("Thong tin dang nhap khong chinh xac");
+        // }
+
         if ($rs) {
-            echo "Đăng nhập thành công";
-            Auth::login();
-            $user_id = $_SESSION['user_id'];
-            header("Location: index.php");
-            exit;
+            if (User::isUserActive($conn, $identifier)) { // Kiểm tra trạng thái active của tài khoản
+                echo "Đăng nhập thành công";
+                Auth::login();
+                $user_id = $_SESSION['user_id'];
+                Redirect::to('index');
+                exit;
+            } else {
+                Dialog::show("Tài khoản của bạn hiện không hoạt động. Vui lòng liên hệ quản trị viên.");
+            }
         } else {
-            Dialog::show("Thong tin dang nhap khong chinh xac");
+            Dialog::show("Thông tin đăng nhập không chính xác");
         }
     }
 }
@@ -32,8 +51,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <fieldset>
         <legend>Login Page</legend>
         <p>
-            <label for="identifier">Email or Phone number:</label>
-            <input name="identifier" id="identifier" type="text" placeholder="Email or Phone number" autofocus required>
+            <label for="identifier">Email or username:</label>
+            <input name="identifier" id="identifier" type="text" placeholder="Email or username" autofocus required>
         </p>
         <p>
             <label for="password">Password:</label>

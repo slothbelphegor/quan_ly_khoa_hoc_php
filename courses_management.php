@@ -7,13 +7,13 @@ if (!$conn) {
     die("Kết nối không thành công:");
 }
 
-// Auth::requireLogin();
+Auth::requireLogin();
 
 layouts();
 
 $conn = require 'inc/db.php';
 $total = $_SESSION['role_id'] == 1 ? Course::countAll($conn) : Course::count($conn);
-$limit = 3;
+$limit = PAGE_SIZE;
 $currentpage = $_GET['page'] ?? 1;
 $config = [
     'total' => $total,
@@ -28,12 +28,12 @@ $config = [
 //$courses = Course::getAllCustom($conn);
 if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
     $search = $_GET['search'];
-    $courses = Course::searchCoursePaging($conn, $search,$limit,($currentpage - 1) * $limit);
-   // $courses = Course::searchCourse($conn, $search);
+    $courses = Course::searchCoursePaging($conn, $search, $limit, ($currentpage - 1) * $limit);
+    // $courses = Course::searchCourse($conn, $search);
 } else {
-    $courses = $_SESSION['role_id'] == 1 ? 
-    Course::getPagingAll($conn, $limit, ($currentpage - 1) * $limit) :
-    Course::getPaging($conn, $limit, ($currentpage - 1) * $limit);
+    $courses = $_SESSION['role_id'] == 1 ?
+        Course::getPagingAll($conn, $limit, ($currentpage - 1) * $limit) :
+        Course::getPaging($conn, $limit, ($currentpage - 1) * $limit);
 }
 ?>
 
@@ -103,13 +103,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
     <?php else : ?>
         <p>Không tìm thấy kết quả phù hợp</p>
     <?php endif; ?>
-
     <div class='content'>
-    <?php
+        <?php
         $page = new Pagination($config);
         echo $page->getPagination();
-    ?>
-</div>
+        ?>
+    </div>
+
+    <?php if (Auth::isLoggedIn() && $_SESSION['role_id'] == 1) : ?>
+        <button id="addcoursebtn">Thêm khóa học</button>
+    <?php endif; ?>
+    
     <?php
     Database::close($conn);
     layouts("footer");

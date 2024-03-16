@@ -1,22 +1,28 @@
-<!-- Day se la trang cua admin, them tai khoan -->
 <?php
 
 require "inc/init.php";
+
+Auth::requireLogin();
+//Bắt buộc là admin mới vào được trang này. Nếu muốn thêm tài khoản admin thì comment lại
+if(!Auth::isAdmin()){
+    Redirect::to('index');
+}
+
 layouts();
 // Nhan nut submit r moi chay
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["name"];
     $email = $_POST["email"];
-    $phone = $_POST["phone"];
+    $username = $_POST["username"];
     $address = $_POST["address"];
     $password = $_POST["password"];
     $is_active = $_POST["is_active"];
     $role_id = $_POST["role_id"];
 
-    if ($name != '' && $email != '' && $phone != '' && $address != '' && $password != '') {
+    if ($name != '' && $email != '' && $username != '' && $address != '' && $password != '') {
         $conn = require "inc/db.php";
         // Tao object user thuoc class User
-        $user = new User($name, $email, $phone, $address, $password, $is_active, $role_id);
+        $user = new User($name, $email, $username, $address, $password, $is_active, $role_id);
 
         try {
             if ($user->addUser($conn)) {
@@ -60,8 +66,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input name="email" id="email" type="email" placeholder="Email">
             </p>
             <p>
-                <label for="phone">Phone:</label>
-                <input name="phone" id="phone" type="text" placeholder="Phone">
+                <label for="username">Username:</label>
+                <input name="username" id="username" type="text" placeholder="username">
             </p>
             <p>
                 <label for="address">Address:</label>

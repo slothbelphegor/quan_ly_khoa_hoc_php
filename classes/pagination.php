@@ -10,7 +10,7 @@ class Pagination
         'querystring' => 'page', //biến trên url có thể là biến bất kì, sẽ trở thành biến page khi dc xử lý
         'search' => '' //cụm từ tìm kiếm
     ];
-    
+
     public function __construct($config = [])
     {
         $condition1 = isset($config['limit']) && $config['limit'] < 0;
@@ -24,13 +24,13 @@ class Pagination
         }
         if (isset($_GET['search'])) {
             $config['search'] = $_GET['search'];
-        }
-        else $config['search'] = '';
+        } else $config['search'] = '';
         //đổi thành cấu hình do người dùng gửi vào
         $this->config = $config;
     }
 
-    private function addSearchToUrl() {
+    private function addSearchToUrl()
+    {
         if (isset($_GET['search'])) {
             $search = urlencode($this->config['search']);
             return "&search=" . $search;
@@ -57,92 +57,113 @@ class Pagination
             // kiểm tra người dùng có truyền vào số trang quá lớn không
             if ($t > $this->gettotalPage()) {
                 return (int)$this->gettotalPage();
-            }
-            else {
+            } else {
                 return $t;
             }
-        }
-        else {
+        } else {
             // không có querystring thì mặc định trang 1
             return 1;
         }
     }
-    
+
     //lấy trang trước
-    private function getPrePage() {
+    private function getPrePage()
+    {
         if ($this->getCurrentPage() === 1) {
             return;
         }
-      
+
         //PHP_SELF: lấy tên trang hiện hành
         return "<li class='item'><a class='text' href='" .
-                $_SERVER['PHP_SELF'] . '?' . 
-                $this->config['querystring'] . '=' . 
-                ($this->getCurrentPage() - 1) . 
-                $this->addSearchToUrl() .
-                "'>Previous</a></li>";
+            $_SERVER['PHP_SELF'] . '?' .
+            $this->config['querystring'] . '=' .
+            ($this->getCurrentPage() - 1) .
+            $this->addSearchToUrl() .
+            "'>Previous</a></li>";
     }
     //lấy trang sau
-    private function getNextPage() {
+    private function getNextPage()
+    {
         if ($this->getCurrentPage() >= $this->gettotalPage()) {
-    
+
             return;
         }
         return "<li class='item'><a class='text' href='" .
-                $_SERVER['PHP_SELF'] . '?' . //PHP_SELF: lấy tên trang hiện hành
-                $this->config['querystring'] . '=' . 
-                ($this->getCurrentPage() + 1) . 
-                $this->addSearchToUrl() .
-                "'>Next</a></li>"; 
+            $_SERVER['PHP_SELF'] . '?' . //PHP_SELF: lấy tên trang hiện hành
+            $this->config['querystring'] . '=' .
+            ($this->getCurrentPage() + 1) .
+            $this->addSearchToUrl() .
+            "'>Next</a></li>";
     }
     //vẽ thanh chuyển trang
-    public function getPagination() {
+    public function getPagination()
+    {
         $data = '';
         // giới hạn hay không?
         if (isset($this->config['full']) && $this->config['full'] === false) {
-            
-            $data .= ($this->getCurrentPage() - 3) > 1 ? 
-                    '<li class="item">...</li>' : '';
+
+            $data .= ($this->getCurrentPage() - 3) > 1 ?
+                '<li class="item">...</li>' : '';
             $current = ($this->getCurrentPage() - 3) > 0 ?
-                        ($this->getCurrentPage()-3) : 1;
+                ($this->getCurrentPage() - 3) : 1;
             $total = (($this->getCurrentPage() + 3) > $this->gettotalPage() ?
-                    $this->gettotalPage() : ($this->getCurrentPage() + 3));
+                $this->gettotalPage() : ($this->getCurrentPage() + 3));
             for ($i = $current; $i <= $total; $i++) {
                 if ($i === $this->getCurrentPage()) {
-                    $data .= '<li class="item"><a href="#" class="text">' . 
-                            $i . '</a></li>';
-                }
-                else {
+                    $data .= '<li class="item"><a href="#" class="text">' .
+                        $i . '</a></li>';
+                } else {
                     $data .= '<li class="item"><a class="text" href="' .
-                    $_SERVER['PHP_SELF'] . "?" .
-                    $this->config['querystring'] . '=' .
-                    $i . 
-                    $this->addSearchToUrl() .
-                    '">' . $i . '</a></li>';
+                        $_SERVER['PHP_SELF'] . "?" .
+                        $this->config['querystring'] . '=' .
+                        $i .
+                        $this->addSearchToUrl() .
+                        '">' . $i . '</a></li>';
                 }
             }
             $data .= ($this->getCurrentPage() + 3) < $this->gettotalPage() ?
-                    '<li class="item">...</li>' : '';
-        }
-        else {
+                '<li class="item">...</li>' : '';
+        } else {
             for ($i = 1; $i <= $this->gettotalPage(); $i++) {
                 if ($i === $this->getCurrentPage()) {
                     $data .= '<li class="item"><a class="text" href="#">' .
-                            $i . '</a></li>';
-                }
-                else {  
+                        $i . '</a></li>';
+                } else {
                     $data .= '<li class="item"><a class="text" href="' .
-                            $_SERVER['PHP_SELF'] . '?' .
-                            $this->config['querystring'] . '=' .
-                            $i . 
-                            $this->addSearchToUrl() .
-                            '">' . $i . '</a></li>';
+                        $_SERVER['PHP_SELF'] . '?' .
+                        $this->config['querystring'] . '=' .
+                        $i .
+                        $this->addSearchToUrl() .
+                        '">' . $i . '</a></li>';
                 }
             }
         }
-        
-        return '<ul class="main-nav">' . $this->getPrePage() . 
-                $data . $this->getNextPage() . '</ul>';
+        return '<ul class="main-nav">' . $this->getPrePage() .
+            $data . $this->getNextPage() . '</ul>';
     }
 }
+
 ?>
+<style>
+    .main-nav {
+        list-style: none;
+        padding: 0;
+    }
+
+    .main-nav .item {
+        display: inline-block;
+        margin-right: 5px;
+    }
+
+    .main-nav .item a {
+        text-decoration: none;
+        padding: 5px 10px;
+        border: 1px solid #ccc;
+        background-color: #f2f2f2;
+        color: #333;
+    }
+
+    .main-nav .item a:hover {
+        background-color: #ddd;
+    }
+</style>

@@ -30,8 +30,12 @@ $conn = require "inc/db.php";
         if (Auth::isLoggedIn() && isset($_SESSION['user_id']) === true) {
             echo "Chào mừng bạn đến với trang web! <br>";
             echo "<button id='logoutbtn'>Đăng xuất</button><br>";
+            echo "<a href='change_password.php'>Đổi mật khẩu</a><br>";
             echo "<a href='courses_management.php'>Các khoá học</a><br>";
-            echo "<a href='user_orders.php'>Danh sách khoá học đã mua</a>";
+            echo "<a href='user_orders.php'>Danh sách khoá học đã mua</a><br>";
+            if($_SESSION['role_id'] == 1) {
+                echo "<a href='user_management.php'>Quản lý người dùng</a>";
+            }
         } else {
             echo "Xin chào, bạn chưa đăng nhập! <br>";
             echo "<a href='login.php'>Đăng nhập</a>";

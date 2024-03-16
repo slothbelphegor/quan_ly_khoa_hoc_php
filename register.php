@@ -9,7 +9,7 @@ layouts();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["name"];
     $email = $_POST["email"];
-    $phone = $_POST["phone"];
+    $username = $_POST["username"];
     $address = $_POST["address"];
     $password = $_POST["password"];
     $repassword = $_POST["repassword"];
@@ -19,10 +19,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit; // Prevent further processing
     }
 
-    if ($name != '' && $email != '' && $phone != '' && $address != '' && $password != '' && $repassword != '') {
+    if ($name != '' && $email != '' && $username != '' && $address != '' && $password != '' && $repassword != '') {
         $conn = require "inc/db.php";
         // Tao object user thuoc class User
-        $user = new User($name, $email, $phone, $address, $password);
+        $user = new User($name, $email, $username, $address, $password);
         // $user->setName($name);
         // var_dump($user->name);
         echo "<pre>";
@@ -71,8 +71,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input name="email" id="email" type="email" placeholder="Email">
             </p>
             <p>
-                <label for="phone">Phone:</label>
-                <input name="phone" id="phone" type="text" placeholder="Phone">
+                <label for="username">Username:</label>
+                <input name="username" id="username" type="text" placeholder="username">
             </p>
             <p>
                 <label for="address">Address:</label>

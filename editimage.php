@@ -1,7 +1,10 @@
 <?
 require 'inc/init.php';
+Auth::requireLogin();
 
-//Auth::requireLogin();
+if(!Auth::isAdmin()){
+    Redirect::to('index');
+}
 // kiểm tra xem thật sự có id đó không (người dùng có thể can thiệp id)
 if (isset($_GET['id'])) {
     $conn = require 'inc/db.php';
@@ -37,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     // gỡ hình cũ khỏi server (vậy nên mới cần lấy tên hình cũ)
                     unlink("uploads/$oldimage");
                 }
-                header("Location: index.php");
+                Redirect::to('index');
             }
         }
     } catch (PDOException $e) {

@@ -2,26 +2,29 @@
 
 require 'inc/init.php';
 $conn = require 'inc/db.php';
+Auth::requireLogin();
 
+if(!Auth::isAdmin()){
+    Redirect::to('index');
+}
 if (isset($_GET['id'])) {
     $conn = require "inc/db.php";
     $id = $_GET['id'];
     $course = Course::getByID($conn, $id);
     if (!$course) {
-        header("Location: courses_management.php");
+        Redirect::to('courses_management');
         return;
     }
 } else {
     Dialog::show('Input ID, please');
     return;
 }
-// Auth::requireLogin();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (Course::delCourse($conn, $id)) {
-        echo "<script>alert('Đã xoá khoá học')</script>";
-        echo "<script>window.location.href = 'courses_management.php'</script>";
+        Dialog::show('Đã xoá khoá học');
+        Redirect::to('courses_management');
     } else {
-        echo "<script>alert('Xoá khoá học không thành công')</script>";
+        Dialog::show('Xoá khoá học không thành công');
     }
 }

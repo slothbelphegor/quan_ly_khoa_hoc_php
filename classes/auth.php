@@ -11,7 +11,7 @@ class Auth
     public static function requireLogin()
     {
         if (!static::isLoggedIn()) {
-            header('Location: login.php');
+            Redirect::to('login');
             exit();
         }
     }
@@ -31,5 +31,12 @@ class Auth
             setcookie(session_name(), '', time() - 42000, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
         }
         session_destroy();
+    }
+
+    public static function isAdmin(){
+        if(!($_SESSION['role_id'] == 1)){
+            return false;
+        }
+        return true;
     }
 }

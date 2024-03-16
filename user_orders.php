@@ -1,10 +1,9 @@
-<!-- Tạm thời là vậy -->
 <?php
 
 require "inc/init.php";
 $conn = require "inc/db.php";
 
-// Auth::requireLogin();
+Auth::requireLogin();
 if (!$conn) {
     die("Kết nối không thành công:");
 }
@@ -12,7 +11,7 @@ Auth::requireLogin();
 layouts();
 $user_id = $_SESSION["user_id"];
 $total = Order::countUserOrder($conn,$user_id);
-$limit = 3;
+$limit = PAGE_SIZE;
 $currentpage = $_GET['page'] ?? 1;
 $config = [
     'total' => $total,
