@@ -37,6 +37,7 @@ if ($userOrders !== null) {
             <?php endforeach; ?>
         </tbody>
     </table>
+    
     <?php
 }
 
