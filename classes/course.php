@@ -11,65 +11,6 @@ class Course
     public $category_id;
     public $deleted;
 
-
-    public function getName()
-    {
-        return $this->name;
-    }
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    public function getDescription()
-    {
-        return $this->description;
-    }
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    }
-    public function getPrice()
-    {
-        return $this->price;
-    }
-    public function setPrice($price)
-    {
-        $this->price = $price;
-    }
-    public function getImage()
-    {
-        return $this->image;
-    }
-    public function setImage($image)
-    {
-        $this->image = $image;
-    }
-    public function getVideo()
-    {
-        return $this->video;
-    }
-    public function setVideo($video)
-    {
-        $this->video = $video;
-    }
-    public function getDuration()
-    {
-        return $this->duration;
-    }
-    public function setDuration($duration)
-    {
-        $this->duration = $duration;
-    }
-    public function getCategoryId()
-    {
-        return $this->category_id;
-    }
-    public function setCategoryId($category_id)
-    {
-        $this->category_id = $category_id;
-    }
-
     public function __construct(
         $name = null,
         $description = null,
@@ -118,23 +59,6 @@ class Course
         }
     }
 
-    // Truy vấn toàn bộ khóa học
-    // public static function getAll($conn)
-    // {
-    //     try {
-    //         $sql = "select * from courses order by name asc";
-    //         $stmt = $conn->prepare($sql);
-    //         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Course');
-    //         $stmt->execute();
-    //         if ($stmt->execute()) {
-    //             $courses = $stmt->fetchAll();
-    //             return $courses;
-    //         }
-    //     } catch (PDOException $e) {
-    //         echo $e->getMessage();
-    //         return null;
-    //     }
-    // }
     public static function getAll($conn)
     {
         try {
@@ -196,10 +120,9 @@ class Course
             $sql = "select c.id, c.name, c.description, c.price, c.image, c.video, c.duration, categories.name as category_name
                   from courses c
                   join categories on c.category_id = categories.id
-                  where (c.name like :search_term or c.description like :search_term)
-                  and (c.deleted = false";
-            if ($_SESSION['role_id'] == 1) {
-                $sql .= " or c.deleted = true)";
+                  where (c.name like :search_term or c.description like :search_term)" ;
+            if (!$_SESSION['role_id'] == 1) {
+                $sql .= " and c.deleted = false )";
             }
             $stmt = $conn->prepare($sql);
             $stmt->bindValue(':search_term', "%$search%", PDO::PARAM_STR);
@@ -216,21 +139,19 @@ class Course
     {
         try {
             $sql = "select c.id, c.name, c.description, c.price, c.image, c.video, c.duration, 
-                categories.name as category_name, c.deleted
-                  from courses c
-                  join categories on c.category_id = categories.id
-                  where (c.name like :search_term or c.description like :search_term)
-                  and (c.deleted = false ";
-            if ($_SESSION['role_id'] == 1) {
-                $sql .= " or c.deleted = true) ";
+                    categories.name as category_name, c.deleted
+                    from courses c
+                    join categories ON c.category_id = categories.id
+                    where (c.name like :search_term or c.description like :search_term) ";
+            if (!$_SESSION['role_id'] == 1) {
+                $sql .= "and c.deleted = false ";
             }
             $sql .= "limit :limit
-               offset :offset";
+                     offset :offset";
+
             $stmt = $conn->prepare($sql);
             $stmt->bindValue(':search_term', "%$search%", PDO::PARAM_STR);
-            //limit: số record mỗi lần select
             $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-            //offset: select từ record thứ mấy
             $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
             $stmt->execute();
             $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -485,6 +406,4 @@ class Course
             return -1;
         }
     }
-
-    
 }

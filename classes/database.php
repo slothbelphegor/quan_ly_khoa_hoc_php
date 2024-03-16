@@ -41,16 +41,4 @@ class Database
     public static function close($conn) {
         $conn = null;
     }
-    /*public function query($sql, $conn) {
-            $stmt = $conn->prepare($sql);
-            $stmt->execute();
-            return $stmt;
-        }
-        
-        public function fetch($stmt) {
-            return $stmt->fetch(PDO::FETCH_ASSOC);
-        }
-        
-        
-    */
 }
