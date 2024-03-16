@@ -190,15 +190,71 @@ class Course
         }
     }
 
+    public static function searchCourse($conn, $search)
+    {
+        try {
+            $sql = "select c.id, c.name, c.description, c.price, c.image, c.video, c.duration, categories.name as category_name
+                  from courses c
+                  join categories on c.category_id = categories.id
+                  where (c.name like :search_term or c.description like :search_term)
+                  and (c.deleted = false";
+            if ($_SESSION['role_id'] == 1) {
+                $sql .= " or c.deleted = true)";
+            }
+            $stmt = $conn->prepare($sql);
+            $stmt->bindValue(':search_term', "%$search%", PDO::PARAM_STR);
+            $stmt->execute();
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        } catch (PDOException $ex) {
+            echo $ex->getMessage();
+            return null;
+        }
+    }
+
+    public static function searchCoursePaging($conn, $search, $limit, $offset)
+    {
+        try {
+            $sql = "select c.id, c.name, c.description, c.price, c.image, c.video, c.duration, 
+                categories.name as category_name, c.deleted
+                  from courses c
+                  join categories on c.category_id = categories.id
+                  where (c.name like :search_term or c.description like :search_term)
+                  and (c.deleted = false ";
+            if ($_SESSION['role_id'] == 1) {
+                $sql .= " or c.deleted = true) ";
+            }
+            $sql .= "limit :limit
+               offset :offset";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindValue(':search_term', "%$search%", PDO::PARAM_STR);
+            //limit: số record mỗi lần select
+            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+            //offset: select từ record thứ mấy
+            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+            $stmt->execute();
+            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $results;
+        } catch (PDOException $ex) {
+            echo $ex->getMessage();
+            return null;
+        }
+    }
+
     // Hàm phân trang
     /*Chọn record cho trang thứ n: select * from db limit page_size, offset start
       Công thức tính start: start = (current_page - 1) * page_size */
     public static function getPaging($conn, $limit, $offset)
     {
         try {
-            $sql = "select * from courses order by name asc, author asc
-                      limit :limit
-                      offset :offset";
+            $sql = "select c.id, c.name, c.description, c.price, c.image, c.video, c.duration, 
+            categories.name as category_name, c.deleted
+            from courses c
+            join categories on c.category_id = categories.id 
+            where c.deleted = false
+            order by c.name asc
+            limit :limit
+            offset :offset";
             $stmt = $conn->prepare($sql);
             //limit: số record mỗi lần select
             $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
@@ -207,7 +263,34 @@ class Course
             $stmt->setFetchMode(PDO::FETCH_CLASS, 'Course');
             $stmt->execute();
             if ($stmt->execute()) {
-                $books = $stmt->fetchAll();
+                $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $books;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return null;
+        }
+    }
+
+    public static function getPagingAll($conn, $limit, $offset)
+    {
+        try {
+            $sql = "select c.id, c.name, c.description, c.price, c.image, c.video, c.duration, 
+            categories.name as category_name, c.deleted
+            from courses c
+            join categories on c.category_id = categories.id 
+            order by c.name asc
+            limit :limit
+            offset :offset";
+            $stmt = $conn->prepare($sql);
+            //limit: số record mỗi lần select
+            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+            //offset: select từ record thứ mấy
+            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Course');
+            $stmt->execute();
+            if ($stmt->execute()) {
+                $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 return $books;
             }
         } catch (PDOException $e) {
@@ -383,6 +466,18 @@ class Course
     {
 
         try {
+            $sql = "select count(id) from courses where deleted = false";
+            return $conn->query($sql)->fetchColumn();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return -1;
+        }
+    }
+
+    public static function countAll($conn)
+    {
+
+        try {
             $sql = "select count(id) from courses";
             return $conn->query($sql)->fetchColumn();
         } catch (PDOException $e) {
@@ -391,25 +486,5 @@ class Course
         }
     }
 
-    public static function searchCourse($conn, $search)
-    {
-        try {
-            $sql = "select c.id, c.name, c.description, c.price, c.image, c.video, c.duration, categories.name as category_name, c.deleted
-                  from courses c
-                  join categories on c.category_id = categories.id
-                  where (c.name like :search_term or c.description like :search_term)
-                  and (c.deleted = false";
-            if ($_SESSION['role_id'] == 1) {
-                $sql .= " or c.deleted = true)";
-            }
-            $stmt = $conn->prepare($sql);
-            $stmt->bindValue(':search_term', "%$search%", PDO::PARAM_STR);
-            $stmt->execute();
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $results;
-        } catch (PDOException $ex) {
-            echo $ex->getMessage();
-            return null;
-        }
-    }
+    
 }

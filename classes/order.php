@@ -7,7 +7,7 @@ class Order
     private $total_amount;
     private $status;
 
-    public function __construct($user_id, $course_id, $total_amount, $status)
+    public function __construct($user_id = null, $course_id = null, $total_amount = null, $status = null)
     {
         $this->user_id = $user_id;
         $this->course_id = $course_id;
@@ -103,31 +103,31 @@ class Order
         }
     }
 
-    // Hàm phân trang
-    /*Chọn record cho trang thứ n: select * from db limit page_size, offset start
-      Công thức tính start: start = (current_page - 1) * page_size */
-    public static function getPaging($conn, $limit, $offset)
-    {
-        try {
-            $sql = "select * from orders order by title asc, author asc
-                        limit :limit
-                        offset :offset";
-            $stmt = $conn->prepare($sql);
-            //limit: số record mỗi lần select
-            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-            //offset: select từ record thứ mấy
-            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Order');
-            $stmt->execute();
-            if ($stmt->execute()) {
-                $books = $stmt->fetchAll();
-                return $books;
-            }
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-            return null;
-        }
-    }
+    // // Hàm phân trang
+    // /*Chọn record cho trang thứ n: select * from db limit page_size, offset start
+    //   Công thức tính start: start = (current_page - 1) * page_size */
+    // public static function getPaging($conn, $limit, $offset)
+    // {
+    //     try {
+    //         $sql = "select * from orders order by title asc, author asc
+    //                     limit :limit
+    //                     offset :offset";
+    //         $stmt = $conn->prepare($sql);
+    //         //limit: số record mỗi lần select
+    //         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+    //         //offset: select từ record thứ mấy
+    //         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+    //         $stmt->setFetchMode(PDO::FETCH_CLASS, 'Order');
+    //         $stmt->execute();
+    //         if ($stmt->execute()) {
+    //             $books = $stmt->fetchAll();
+    //             return $books;
+    //         }
+    //     } catch (PDOException $e) {
+    //         echo $e->getMessage();
+    //         return null;
+    //     }
+    // }
 
     // Sửa thông tin khóa học
     public function updateOrder($conn)
@@ -179,6 +179,24 @@ class Order
         }
     }
 
+    //Hàm đếm số records cho từng user cụ thể
+    public static function countUserOrder($conn, $user_id) {
+
+        try {
+            $sql = 'select count(o.id) from orders o
+                    join courses c on o.course_id = c.id  
+                    join users u on o.user_id = u.id
+                    where o.user_id = ' . $user_id;
+
+            return $conn->query($sql)->fetchColumn();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return -1;
+        }
+    }
+
+    
+
     public static function getUserOrders($conn, $user_id)
     {
         try {
@@ -196,4 +214,37 @@ class Order
             return null;
         }
     }
+
+    // Hàm phân trang
+    /*Chọn record cho trang thứ n: select * from db limit page_size, offset start
+      Công thức tính start: start = (current_page - 1) * page_size */
+      public static function getPaging($conn, $limit, $offset,$user_id)
+      {
+          try {
+              $sql = "select u.name as user_name, c.name as course_name, 
+              o.id as order_id, c.video as course_video
+              from orders o
+              join courses c on o.course_id = c.id
+              join users u on o.user_id = u.id
+              where o.user_id = :user_id
+                        limit :limit
+                        offset :offset";
+              $stmt = $conn->prepare($sql);
+              $stmt->bindParam(':user_id', $user_id);
+              //limit: số record mỗi lần select
+              $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+              //offset: select từ record thứ mấy
+              $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+              $stmt->setFetchMode(PDO::FETCH_CLASS, 'Order');
+              $stmt->execute();
+              if ($stmt->execute()) {
+                  $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                  return $books;
+              }
+          } catch (PDOException $e) {
+              echo $e->getMessage();
+              return null;
+          }
+      }
+
 }

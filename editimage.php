@@ -66,7 +66,7 @@ require "inc/header.php"; ?>
             </div>
             <div class="row">
                 <input class='btn' type='submit' value="Update" />
-                <input class='btn' type='button' value="Cancel" onClick='parent.location="index.php"' />
+                <input class='btn' type='button' value="Cancel" onClick='parent.location="courses_management.php"' />
 
             </div>
         </fieldset>

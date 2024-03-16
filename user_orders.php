@@ -10,9 +10,21 @@ if (!$conn) {
 }
 Auth::requireLogin();
 layouts();
-
 $user_id = $_SESSION["user_id"];
-$userOrders = Order::getUserOrders($conn, $user_id);
+$total = Order::countUserOrder($conn,$user_id);
+$limit = 3;
+$currentpage = $_GET['page'] ?? 1;
+$config = [
+    'total' => $total,
+    'limit' => $limit,
+    'full' => false,
+
+];
+
+
+
+//$userOrders = Order::getUserOrders($conn, $user_id);
+$userOrders = Order::getPaging($conn, $limit, ($currentpage - 1) * $limit, $user_id);
 
 if ($userOrders !== null) {
 ?>
@@ -37,7 +49,12 @@ if ($userOrders !== null) {
             <?php endforeach; ?>
         </tbody>
     </table>
-    
+    <div class='content'>
+    <?php
+        $page = new Pagination($config);
+        echo $page->getPagination();
+    ?>
+
     <?php
 }
 

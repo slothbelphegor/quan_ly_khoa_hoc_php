@@ -78,7 +78,7 @@ require 'inc/header.php';
             </p>
             <p class='row'>
                 <input class='btn' type="submit" value="Update" />
-                <input class='btn' type="reset" value="Cancel" />
+                <input class='btn' type="reset" value="Cancel" onClick='parent.location="courses_management.php"'/>
             </p>
         </fieldset>
     </form>
