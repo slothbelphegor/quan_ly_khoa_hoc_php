@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
 <body>
     <form action="" method="get">
         <input type="text" name="search" id="search" placeholder="Tìm kiếm khóa học">
-        <button type="submit">Tìm kiếm</button>
+        <button type="submit" class='btnSubmit'>Tìm kiếm</button>
     </form>
     <?php if (!empty($courses)) : ?>
         <table>
@@ -78,21 +78,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
                                 <img src="images/noimage.png" width="80" height="80">
                             <? endif; ?>
                         </td>
-                        <td><?php echo $course['duration']; ?></td>
-                        <td><?php echo $course['category_name']; ?></td>
+                        <td class='shortcell'><?php echo $course['duration']; ?></td>
+                        <td class='shortcell'><?php echo $course['category_name']; ?></td>
                         <?php if (Auth::isLoggedIn() && $_SESSION['role_id'] == 2) : ?>
-                            <td>
-                                <button value="<? echo $course['id'] ?>" name="id" id="btnBuyCourse">Mua khoá học</button>
+                            <td class='shortcell'>
+                                <button value="<? echo $course['id'] ?>" name="id" id="btnBuyCourse" class='btnCRUD'>Mua khoá học</button>
                             </td>
                         <?php elseif (Auth::isLoggedIn() && $_SESSION['role_id'] == 1) : ?>
-                            <td>
-                                <button value="<? echo $course['id'] ?>" name="id" id="btnChangeCourse">Sửa khoá học</button>
-                                <button value="<? echo $course['id'] ?>" name="id" id="btnDeleteCourse">Xoá khoá học</button>
-                                <button value="<? echo $course['id'] ?>" name="id" id="btnEditImage">Sửa hình</button>
+                            <td class='shortcell'>
+                                <button value="<? echo $course['id'] ?>" name="id" id="btnChangeCourse" class='btnCRUD'>Sửa khoá học</button>
+                                <button value="<? echo $course['id'] ?>" name="id" id="btnDeleteCourse" class='btnCRUD'>Xoá khoá học</button>
+                                <button value="<? echo $course['id'] ?>" name="id" id="btnEditImage" class='btnCRUD'>Sửa hình</button>
                                 <?php if ($course['deleted'] == false) : ?>
-                                    <button value="<?php echo $course['id']; ?>" name="id" id="btnHideCourse">Ẩn khóa học</button>
+                                    <button value="<?php echo $course['id']; ?>" name="id" id="btnHideCourse" class='btnCRUD'>Ẩn khóa học</button>
                                 <?php else : ?>
-                                    <button value="<?php echo $course['id']; ?>" name="id" id="btnShowCourse">Hiện khóa học</button>
+                                    <button value="<?php echo $course['id']; ?>" name="id" id="btnShowCourse" class='btnCRUD'>Hiện khóa học</button>
                                 <?php endif; ?>
                             </td>
                         <?php endif; ?>
@@ -111,11 +111,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
     </div>
 
     <?php if (Auth::isLoggedIn() && $_SESSION['role_id'] == 1) : ?>
-        <a href="addcourse.php">Thêm khoá học</a>
+        <a href="addcourse.php" class='hyperlink'>Thêm khoá học</a>
     <?php endif; ?>
 
 </body>
-<a href="index.php">Quay lại trang chủ</a>
+<a href="index.php" class='hyperlink'>Quay lại trang chủ</a>
 </html>
 
 <?php

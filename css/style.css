@@ -26,27 +26,26 @@ textarea {
 
 form {
     padding: 20px;
-    background: #2C3E50;
-    color: #fff;
+    color: black;
     -moz-border-radius: 4px;
     -webkit-border-radius: 4px;
     border-radius: 4px;
 }
 
 .btnSubmit {
-    background-color: #4CAF50;
+    background-color: #4c74af;
     color: white;
     padding: 12px 20px;
-    margin: 10px 0;
+    margin: 5px;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    float: right;
+
 }
 
 .btnReset {
     background-color: #c53030;
-    color: #454545;
+    color: white;
     padding: 12px 20px;
     margin: 10px 0;
     border: none;
@@ -60,22 +59,19 @@ form {
     background-color: #e74c3c;
 }
 
-a.forgot {
-    color: black;
+a.hyperlink {
+    color: blue;
     padding: 12px 20px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+
+ 
+    
 }
 
-a.forgot:hover {
-    color: white;
+a.hyperlink:hover {
+    color: red;
     padding: 12px 20px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+    
+    
 }
 
 a.register {
@@ -96,6 +92,24 @@ a.register:hover {
     cursor: pointer;
 }
 
+.shortcell {
+    text-align: center;
+}
+
+.btnCRUD {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid black;
+    margin: 2px;
+    width: 140px;
+    height: 40px;
+}
+
+.btnCRUD:hover {
+    background-color: gray;
+}
+
+
 @media screen and (max-width: 560px) {
     .row {
         margin-top: 0;
@@ -105,6 +119,12 @@ a.register:hover {
 
 form .error {
     color: #4CAF50;
+}
+
+table {
+    border-collapse: separate;
+    border: none;
+    margin: 10px;
 }
 
 

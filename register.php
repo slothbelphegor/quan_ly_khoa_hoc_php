@@ -91,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input class="btnReset" type="reset" value="Cancel">
             </p>
             <p>
-                <a class="forgot" href="login.php">Đã có tài khoản? Đăng nhập</a>
+                <a class="hyperlink" href="login.php">Đã có tài khoản? Đăng nhập</a>
             </p>
         </fieldset>
     </form>
