@@ -31,11 +31,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
         Course::getPaging($conn, $limit, ($currentpage - 1) * $limit);
 }
 ?>
-
 <form action="" method="get">
     <input type="text" name="search" id="search" placeholder="Tìm kiếm khóa học">
     <button type="submit" class='btnSubmit'>Tìm kiếm</button>
 </form>
+<? if(Auth::isAdmin()) : ?>
+<h1>Quản lý khoá học</h1>
+<? else :?>
+<h1>Các khoá học hiện hành</h1>
+<? endif; ?>
 <?php if (!empty($courses)) : ?>
     <table>
         <thead>

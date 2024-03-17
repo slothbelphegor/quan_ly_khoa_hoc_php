@@ -35,7 +35,8 @@
                 <a href="courses_management.php">Courses</a>
                 <? if ($_SESSION['role_id'] == 1) : ?>
                     <a href="user_management.php" class="text">Users</a>
-                    <a href="addcourse.php" class='hyperlink'>Thêm khoá học</a>
+                    <a href="addcourse.php" class='text'>Thêm khoá học</a>
+                    <a href="adduser.php" class='text'>Thêm người dùng</a>
                 <? elseif ($_SESSION['role_id'] == 2) : ?>
                     <a href="user_orders.php" class="text">Orders</a>
                 <? endif; ?>

@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <!--Muốn đẩy file lên server thì cần có enctype="multipart/form-data-->
     <form class='validation-form' name="frmADDCOURSE" method="post" id='frmADDCOURSE' enctype="multipart/form-data">
         <fieldset>
-            <legend>Add Course</legend>
+            <h2>Add course</h2>
             <p class='row'>
                 <label for="name">Title: </label>
                 <span class='error'>*</span>
