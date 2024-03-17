@@ -1,8 +1,7 @@
-
 <?php
 
 require "inc/init.php";
-layouts("header");  
+layouts("header");
 $conn = require "inc/db.php";
 
 ?>
@@ -16,34 +15,58 @@ $conn = require "inc/db.php";
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style_index.css">
     <script src="js/script.js"></script>
     <title>Quản lý khoá học</title>
 
-    
+
 </head>
 
 <body>
-    <?
-    if ($conn) {
-        /*echo "Kết nối thành công database<br>";
-        echo "<pre>";
-        print_r($_SESSION);
-        echo "</pre>";*/
-        
-        if (Auth::isLoggedIn() && isset($_SESSION['user_id']) === true) {
-            echo "Chào mừng bạn đến với trang web! <br>";
-            echo "<button id='logoutbtn'>Đăng xuất</button><br>";
-            /*echo "<a href='courses_management.php'>Các khoá học</a><br>";
-            echo "<a href='user_orders.php'>Danh sách khoá học đã mua</a>";*/
-        } else {
-            echo "Xin chào, bạn chưa đăng nhập! <br>";
-            echo "<a href='login.php'>Đăng nhập</a>";
-        }
+    <? if ($conn) : ?>
 
-    }
-    ?>
+
+
+
+        <div class="hero_section">
+            <div class="hero_content">
+                <div class="hero_main_text">
+                    Uy tín, chất lượng!
+                </div>
+                <div class="hero_sub_text">
+                    Với những khóa học từ các chuyên gia hàng đầu
+                </div>
+
+            </div>
+
+            <img src='images/meetings.jfif' class="hero_image" alt="Computer Image" width="600" height="'400">
+        </div>
+
+        <div class="ad_section">
+            <div class="ad_text">
+                <div class="ad_title">
+                    Số lượng có hạn!
+                </div>
+                <div class="ad_subtext">
+                    Hãy nhanh chóng đăng ký mua khóa học ngay hôm nay!
+                </div>
+            </div>
+            <button class="btn ad_btn" >Đăng ký</button>
+        </div>
+
+        <!-- <div class="quote_section">
+            <blockquote class="quote_content">
+                "Học tập là một việc phải tiếp tục suốt đời"
+            </blockquote>
+            <p class="quote_author">Hồ Chí Minh</p>
+        </div> -->
+
+
+
+    <? endif; ?>
 
 </body>
+
 </html>
 
 <? layouts("footer"); ?>
