@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
 <? layouts(); ?>
 <form action="" method="get">
     <input type="text" name="search" id="search" placeholder="Tìm kiếm khóa học">
-    <button type="submit" id="btnSearch">Tìm kiếm</button>
+    <button type="submit" class='btnSubmit'>Tìm kiếm</button>
 </form>
 <h1>Danh sách người dùng</h1>
 <?php if (!empty($users)) : ?>
@@ -56,9 +56,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
                     <td><?php echo $user['role_id'] == 1 ? 'Admin' : 'User'; ?></td>
                     <td>
                         <?php if ($user['is_active'] == false) : ?>
-                            <button value="<?php echo $user['id']; ?>" name="id" id="btnActive">Mở khoá</button>
+                            <button value="<?php echo $user['id']; ?>" name="id" id="btnActive" class="btnCRUD">Mở khoá</button>
                         <?php else : ?>
-                            <button value="<?php echo $user['id']; ?>" name="id" id="btnDeactive">Tạm khoá</button>
+                            <button value="<?php echo $user['id']; ?>" name="id" id="btnDeactive" class="btnCRUD">Tạm khoá</button>
                         <?php endif; ?>
                     </td>
 

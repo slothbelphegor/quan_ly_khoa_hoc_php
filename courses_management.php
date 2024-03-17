@@ -104,13 +104,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
         echo $page->getPagination();
         ?>
     </div>
-
+<!-- 
     <?php if (Auth::isLoggedIn() && $_SESSION['role_id'] == 1) : ?>
         <a href="addcourse.php" class='hyperlink'>Thêm khoá học</a>
-    <?php endif; ?>
+    <?php endif; ?> -->
 
 </body>
-<a href="index.php" class='hyperlink'>Quay lại trang chủ</a>
+<!-- <a href="index.php" class='hyperlink'>Quay lại trang chủ</a> -->
+
 </html>
 
 <?php

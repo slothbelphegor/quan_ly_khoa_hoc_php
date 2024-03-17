@@ -89,8 +89,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <input type='file' name='file' id='file' />
             </div>
             <p class='row'>
-                <input class='btn' type="submit" value="Save" />
-                <input class='btn' type="reset" value="Cancel" />
+                <input class='btnSubmit' type="submit" value="Save" />
+                <input class='btnReset' type="reset" value="Cancel" />
             </p>
 
         </fieldset>
