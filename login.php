@@ -61,10 +61,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input class="btnSubmit" type="submit" value="Đăng nhập">
         </p>
         <p>
-            <a class="forgot" href="forgot_password.php">Quên mật khẩu?</a>
+            <a class="hyperlink" href="forgot_password.php">Quên mật khẩu?</a>
         </p>
         <p>
-            <a class="register" href="register.php">Chưa có tài khoản? Đăng ký</a>
+            <a class="hyperlink" href="register.php">Chưa có tài khoản? Đăng ký</a>
         </p>
     </fieldset>
 </form>
