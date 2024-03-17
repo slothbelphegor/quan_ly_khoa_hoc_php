@@ -48,7 +48,7 @@ function generateRandomPassword($length = 8)
             <input name="email" id="email" type="text" placeholder="Email" autofocus required>
         </p>
         <p>
-            <input class='btn' type="submit" value="Lấy lại mật khẩu" />
+            <input class='btnSubmit' type="submit" value="Lấy lại mật khẩu" />
         </p>
     </fieldset>
 </form>
