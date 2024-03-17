@@ -24,9 +24,21 @@
     </a>
 
     <nav class="navbar">
-        <a href="index.php">Trang chủ</a>
-        <a href="courses_management.php">Khoá học</a>
-        <a href="user_orders.php">Lịch sử</a>
+        <a href="index.php">Home</a>
+        
+        <?if (Auth::isLoggedIn()) :?>
+            <a href="courses_management.php">Courses</a>
+            <? if ($_SESSION['role_id'] == 1) : ?>
+                <a href="user_management.php" class="text">Users</a>
+            <? elseif ($_SESSION['role_id'] == 2) :?>
+                <a href="user_orders.php" class="text">Orders</a>
+            <?endif;?>
+            <a href="logout.php" class="text">Logout</a>
+
+        <?else : ?>
+            <a href="login.php">Login</a>
+        <? endif; ?>
+        
         <!-- <a>Liên hệ</a> -->
         
     </nav>
