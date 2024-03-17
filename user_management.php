@@ -3,7 +3,7 @@ require "inc/init.php";
 $conn = require "inc/db.php";
 Auth::requireLogin();
 
-if(!Auth::isAdmin()){
+if (!Auth::isAdmin()) {
     Dialog::show('Bạn không có quyền truy cập trang web này');
     Redirect::to('index');
 }
@@ -62,5 +62,5 @@ $users = User::getAllUserInfo($conn);
 <?php else : ?>
     <p>Không tìm thấy kết quả phù hợp</p>
 <?php endif; ?>
-
+<a href="index.php">Quay lại trang chủ</a>
 <? layouts('footer');

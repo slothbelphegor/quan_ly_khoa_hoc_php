@@ -53,6 +53,7 @@ if ($userOrders !== null) {
         $page = new Pagination($config);
         echo $page->getPagination();
     ?>
+    <a href="index.php">Quay lại trang chủ</a>
 
     <?php
 }

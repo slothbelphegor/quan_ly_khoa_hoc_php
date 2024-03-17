@@ -113,11 +113,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
     <?php if (Auth::isLoggedIn() && $_SESSION['role_id'] == 1) : ?>
         <button id="addcoursebtn">Thêm khóa học</button>
     <?php endif; ?>
-    
-    <?php
-    Database::close($conn);
-    layouts("footer");
-    ?>
-</body>
 
+</body>
+<a href="index.php">Quay lại trang chủ</a>
 </html>
+
+<?php
+Database::close($conn);
+layouts("footer");
+?>

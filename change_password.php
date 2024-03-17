@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             Dialog::show('Mật khẩu mới và mật khẩu xác nhận không khớp');
         } else {
             $conn = require "inc/db.php";
-        
+
             if (User::authenticatebyemail($conn, $email, $password)) {
                 if (User::updatePassword($conn, $email, $newPassword)) {
                     Dialog::show('Đổi mật khẩu thành công. Vui lòng đăng nhập lại');
@@ -55,6 +55,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </p>
     </fieldset>
 </form>
+<a href="index.php">Quay lại trang chủ</a>
 
 <?php
 layouts("footer");
