@@ -2,7 +2,7 @@
 require 'inc/init.php';
 Auth::requireLogin();
 
-if(!Auth::isAdmin()){
+if (!Auth::isAdmin()) {
     Redirect::to('index');
 }
 // kiểm tra xem thật sự có id đó không (người dùng có thể can thiệp id)
@@ -48,10 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         Dialog::show($e->getMessage());
     }
 }
+?>
 
-
-
-require "inc/header.php"; ?>
+<? layouts('footer'); ?>
 
 <div class='content'>
     <form method='post' enctype="multipart/form-data" id='frmEDITIMAGE'>
@@ -76,4 +75,4 @@ require "inc/header.php"; ?>
     </form>
 </div>
 
-<? require 'inc/footer.php' ?>
+<? layouts('footer'); ?>

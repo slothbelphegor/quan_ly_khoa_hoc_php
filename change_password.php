@@ -55,7 +55,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </p>
     </fieldset>
 </form>
-<a href="index.php">Quay lại trang chủ</a>
 
 <?php
 layouts("footer");

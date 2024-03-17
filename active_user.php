@@ -5,7 +5,7 @@ $conn = require 'inc/db.php';
 
 Auth::requireLogin();
 
-if(!Auth::isAdmin()){
+if (!Auth::isAdmin()) {
     Redirect::to('index');
 }
 
@@ -21,8 +21,6 @@ if (isset($_GET['id'])) {
     Dialog::show('Input ID, please');
     return;
 }
-
-Auth::requireLogin();
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (User::activeUser($conn, $id)) {

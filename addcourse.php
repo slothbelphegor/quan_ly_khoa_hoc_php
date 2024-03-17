@@ -1,9 +1,8 @@
 <?
 require 'inc/init.php';
 Auth::requireLogin();
-Auth::requireLogin();
 
-if(!Auth::isAdmin()){
+if (!Auth::isAdmin()) {
     Redirect::to('index');
 }
 
@@ -41,15 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 
-<?
-//require 'inc/init.php';
-require 'inc/header.php' ?>
-
-<head>
-    <link rel='stylesheet' href='css/style.css' />
-    <script src="js/script.js"></script>
-    <title>Quan ly khoa hoc</title>
-</head>
+<? layouts(); ?>
 
 <div class='content'>
     <!--Muốn đẩy file lên server thì cần có enctype="multipart/form-data-->
@@ -106,4 +97,4 @@ require 'inc/header.php' ?>
     </form>
 </div>
 
-<? require 'inc/footer.php' ?>
+<? layouts('footer') ?>

@@ -38,12 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         Redirect::to('courses_management');
     }
 }
-
-
-
-
-require 'inc/header.php';
 ?>
+<? layouts(); ?>
 
 <div class="content">
     <form method='post' id='frmEDITCOURSE'>
@@ -91,4 +87,4 @@ require 'inc/header.php';
     </form>
 </div>
 
-<? require 'inc/footer.php' ?>
+<? layouts('footer'); ?>
