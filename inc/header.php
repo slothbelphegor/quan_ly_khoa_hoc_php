@@ -62,26 +62,4 @@
                 }
             }
         </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <marquee direction="right"><img src="images/felix.gif" width="125"></marquee>
