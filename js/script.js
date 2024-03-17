@@ -136,6 +136,26 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
+  var addCourseBtn = document.getElementById("#addcoursebtn");
+  if (addCourseBtn) {
+    addCourseBtn.addEventListener("click", function () {
+      // Chuyển hướng người dùng đến trang addcourse.php
+      window.location.href = "addcourse.php";
+    });
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  var registerBtn = document.querySelector(".ad_btn");
+  if (registerBtn) {
+    registerBtn.addEventListener("click", function () {
+      // Chuyển hướng người dùng đến trang addcourse.php
+      window.location.href = "register.php";
+    });
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
   var buttons = document.querySelectorAll("#btnEditImage");
   buttons.forEach(function (button) {
     button.addEventListener("click", function () {

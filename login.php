@@ -47,28 +47,44 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<form id="frmLOGIN" name="frmLOGIN" action="" method="post">
-    <fieldset>
-        <legend>Login Page</legend>
-        <p>
-            <label for="identifier">Email or username:</label>
-            <input name="identifier" id="identifier" type="text" placeholder="Email or username" autofocus required>
-        </p>
-        <p>
-            <label for="password">Password:</label>
-            <input name="password" id="password" type="password" placeholder="Password" required>
-        </p>
-        <p>
-            <input class="btnSubmit" type="submit" value="Đăng nhập">
-        </p>
-        <p>
-            <a class="forgot" href="forgot_password.php">Quên mật khẩu?</a>
-        </p>
-        <p>
-            <a class="register" href="register.php">Chưa có tài khoản? Đăng ký</a>
-        </p>
-    </fieldset>
-</form>
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/script.js"></script>
+    <title>Quan ly khoa hoc</title>
+
+</head>
+
+<body>
+    <form id="frmLOGIN" name="frmLOGIN" action="" method="post">
+        <fieldset>
+            <p>
+                <label for="identifier">Email or Phone number:</label>
+                <input name="identifier" id="identifier" type="text" placeholder="Email or Phone number" autofocus>
+            </p>
+            <p>
+                <label for="password">Password:</label>
+                <input name="password" id="password" type="password" placeholder="Password">
+            </p>
+            <p>
+                <input class="submitbtn" type="submit" value="Đăng nhập">
+            </p>
+            <p>
+                <a class="forgot" href="forgot_password.php">Quên mật khẩu?</a>
+            </p>
+            <p>
+                <a class="register" href="register.php">Chưa có tài khoản? Đăng ký</a>
+            </p>
+        </fieldset>
+    </form>
+</body>
 
 </html>
 

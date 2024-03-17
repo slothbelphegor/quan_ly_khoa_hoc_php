@@ -1,0 +1,104 @@
+body {
+    margin: 0;
+}
+
+.hero_section {
+
+    display: flex;
+    flex-direction: row;
+}
+
+.hero_section {
+    gap: 30px;
+}
+
+.header_links {
+    display: flex;
+    gap: 20px;
+}
+
+.header {
+    
+    justify-content: space-between;
+}
+
+.quote_section {
+    display: flex;
+    background-color: #e5e7eb;
+    padding-bottom: 100px;
+    flex-direction: column;
+    padding: 50px 50px;
+    font-family: 'Roboto';
+}
+
+.quote_content {
+    
+    font-size: 36px;
+    font-style: italic;
+    color: #1f2937; 
+    
+}
+
+
+.quote_author {
+    font-weight: bold;
+    font-style: italic;
+    align-self: flex-end;
+}
+
+.hero_content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 10px;
+}
+
+.hero_main_text {
+    font-size: 48px;
+    font-weight: bolder;
+
+}
+
+.hero_sub_text, .link {
+    font-size: 18px;
+
+}
+
+.hero_image {
+    flex: 1;
+}
+.btn, .ad_section {
+    background-color: #3882f6;
+    color: #e5e7eb;
+}
+
+.btn {
+    font-weight: bold;
+    border-radius: 5px;
+    border-color: white;
+    padding: 5px;
+    width: 100px;
+    border-style: solid;
+    justify-self: center;
+}
+.ad_section {
+    display: flex;
+    flex-direction: row;
+    margin: 60px 140px;
+    padding: 30px 100px;
+    border-radius: 8px;
+    justify-content: space-between;
+
+}
+
+.ad_text {
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.ad_title {
+    font-size: 18px;
+    font-weight: bold;
+}

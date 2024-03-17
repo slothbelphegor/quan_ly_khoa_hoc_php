@@ -5,10 +5,10 @@
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'lms');
 // Default user root
-define('DB_USER', 'ct06');
+define('DB_USER', 'root');
 // Default password 'mysql' 
-define('DB_PASS', '123456');
-define('DEBUG', true);
+define('DB_PASS', 'mysql');
+// define('DEBUG', true);
 
 define('WEB_HOST', 'http://' . $_SERVER['HTTP_HOST']);
 define('WEB_PATH', __DIR__);
