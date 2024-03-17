@@ -39,7 +39,7 @@ $conn = require "inc/db.php";
 
             </div>
 
-            <img src='images/meetings.jfif' class="hero_image" alt="Computer Image" width="600" height="'400">
+            <img src='images/meetings.jpg' class="hero_image" alt="Computer Image" width="600" height="'400">
         </div>
 
         <div class="ad_section">
