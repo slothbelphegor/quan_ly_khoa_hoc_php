@@ -51,7 +51,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input name="confirm_password" id="confirm_password" type="password" placeholder="Nhập lại mật khẩu mới" required>
         </p>
         <p>
-            <input class="submitbtn" type="submit" value="Đổi mật khẩu">
+            <input class="btnSubmit" type="submit" value="Đổi mật khẩu">
         </p>
     </fieldset>
 </form>

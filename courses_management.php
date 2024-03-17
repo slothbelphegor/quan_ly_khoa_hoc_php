@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
     </div>
 
     <?php if (Auth::isLoggedIn() && $_SESSION['role_id'] == 1) : ?>
-        <button id="addcoursebtn">Thêm khóa học</button>
+        <a href="addcourse.php">Thêm khoá học</a>
     <?php endif; ?>
 
 </body>

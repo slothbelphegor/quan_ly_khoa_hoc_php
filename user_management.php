@@ -31,7 +31,7 @@ $users = User::getAllUserInfo($conn);
             <tr>
                 <th>Tên</th>
                 <th>Email</th>
-                <th>Số điện thoại</th>
+                <th>Username</th>
                 <th>Địa chỉ</th>
                 <th>Trạng thái</th>
                 <th>Vai trò</th>

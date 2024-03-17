@@ -87,8 +87,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input name="repassword" id="repassword" type="password" placeholder="Confirm Password" data-rule-equalTo="#password">
             </p>
             <p>
-                <input class="submitbtn" type="submit" value="Save">
-                <input class="resetbtn" type="reset" value="Cancel">
+                <input class="btnSubmit" type="submit" value="Save">
+                <input class="btnReset" type="reset" value="Cancel">
             </p>
             <p>
                 <a class="forgot" href="login.php">Đã có tài khoản? Đăng nhập</a>

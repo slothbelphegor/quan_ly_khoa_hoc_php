@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input name="password" id="password" type="password" placeholder="Password" required>
         </p>
         <p>
-            <input class="submitbtn" type="submit" value="Đăng nhập">
+            <input class="btnSubmit" type="submit" value="Đăng nhập">
         </p>
         <p>
             <a class="forgot" href="forgot_password.php">Quên mật khẩu?</a>

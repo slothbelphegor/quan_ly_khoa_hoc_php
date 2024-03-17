@@ -97,8 +97,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </select>
             </p>
             <p>
-                <input class="submitbtn" type="submit" value="Save">
-                <input class="resetbtn" type="reset" value="Cancel">
+                <input class="btnSubmit" type="submit" value="Save">
+                <input class="btnReset" type="reset" value="Cancel">
             </p>
         </fieldset>
     </form>

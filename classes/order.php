@@ -180,7 +180,8 @@ class Order
     }
 
     //Hàm đếm số records cho từng user cụ thể
-    public static function countUserOrder($conn, $user_id) {
+    public static function countUserOrder($conn, $user_id)
+    {
 
         try {
             $sql = 'select count(o.id) from orders o
@@ -195,7 +196,7 @@ class Order
         }
     }
 
-    
+
 
     public static function getUserOrders($conn, $user_id)
     {
@@ -218,10 +219,10 @@ class Order
     // Hàm phân trang
     /*Chọn record cho trang thứ n: select * from db limit page_size, offset start
       Công thức tính start: start = (current_page - 1) * page_size */
-      public static function getPaging($conn, $limit, $offset,$user_id)
-      {
-          try {
-              $sql = "select u.name as user_name, c.name as course_name, 
+    public static function getPaging($conn, $limit, $offset, $user_id)
+    {
+        try {
+            $sql = "select u.name as user_name, c.name as course_name, 
               o.id as order_id, c.video as course_video
               from orders o
               join courses c on o.course_id = c.id
@@ -229,22 +230,37 @@ class Order
               where o.user_id = :user_id
                         limit :limit
                         offset :offset";
-              $stmt = $conn->prepare($sql);
-              $stmt->bindParam(':user_id', $user_id);
-              //limit: số record mỗi lần select
-              $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-              //offset: select từ record thứ mấy
-              $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-              $stmt->setFetchMode(PDO::FETCH_CLASS, 'Order');
-              $stmt->execute();
-              if ($stmt->execute()) {
-                  $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                  return $books;
-              }
-          } catch (PDOException $e) {
-              echo $e->getMessage();
-              return null;
-          }
-      }
+            $stmt = $conn->prepare($sql);
+            $stmt->bindParam(':user_id', $user_id);
+            //limit: số record mỗi lần select
+            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+            //offset: select từ record thứ mấy
+            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+            $stmt->setFetchMode(PDO::FETCH_CLASS, 'Order');
+            $stmt->execute();
+            if ($stmt->execute()) {
+                $books = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                return $books;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return null;
+        }
+    }
+    public function userHasBoughtCourse($conn, $user_id, $course_id)
+    {
+        $sql = "select count(*) as total from orders where user_id = :user_id and course_id = :course_id";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindValue(':course_id', $course_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
+        // Nếu tổng số đơn đặt hàng là lớn hơn 0, có nghĩa là người dùng đã mua khóa học
+        if ($result['total'] > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

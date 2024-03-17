@@ -110,35 +110,6 @@ function redirectToIndex() {
   window.location.href = "index.php";
 }
 
-const buyCourseBtns = document.querySelectorAll("#buy-course-btn");
-
-buyCourseBtns.forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const course_id = btn.dataset.course_id;
-
-    // Gửi thông tin khóa học đến server bằng Ajax
-    axios
-      .post("/buy_course.php", {
-        course_id,
-      })
-      .then((res) => {
-        // Xử lý phản hồi từ server
-        if (res.data.success) {
-          // Hiển thị thông báo thành công và cập nhật giao diện
-          alert("Mua khóa học thành công!");
-          // Cập nhật giao diện để cho biết người dùng đã sở hữu khóa học
-        } else {
-          // Hiển thị thông báo lỗi
-          alert("Mua khóa học thất bại!");
-        }
-      })
-      .catch((err) => {
-        // Hiển thị thông báo lỗi
-        alert("Có lỗi xảy ra khi mua khóa học!");
-      });
-  });
-});
-
 document.addEventListener("DOMContentLoaded", function () {
   var buttons = document.querySelectorAll("#btnBuyCourse");
   buttons.forEach(function (button) {
@@ -165,15 +136,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  var addCourseBtn = document.getElementById("addcoursebtn");
-  if (addCourseBtn) {
-    addCourseBtn.addEventListener("click", function () {
-      // Chuyển hướng người dùng đến trang addcourse.php
-      window.location.href = "addcourse.php";
-    });
-  }
-});
-document.addEventListener("DOMContentLoaded", function () {
   var buttons = document.querySelectorAll("#btnEditImage");
   buttons.forEach(function (button) {
     button.addEventListener("click", function () {
@@ -186,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // ham xu ly nut dang xuat
 document.addEventListener("DOMContentLoaded", function () {
-  var logoutBtn = document.getElementById("logoutbtn");
+  var logoutBtn = document.getElementById("btnLogOut");
   if (logoutBtn) {
     logoutBtn.addEventListener("click", function () {
       // Xác nhận trước khi đăng xuất
@@ -200,7 +162,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("DOMContentLoaded", function () {
-  var btn = document.getElementById("changepassbtn");
+  var btn = document.getElementById("btnChangePass");
   if (btn) {
     btn.addEventListener("click", function () {
       window.location.href = "change_password.php";
