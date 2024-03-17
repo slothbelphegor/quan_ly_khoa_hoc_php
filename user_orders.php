@@ -10,7 +10,7 @@ if (!$conn) {
 Auth::requireLogin();
 layouts();
 $user_id = $_SESSION["user_id"];
-$total = Order::countUserOrder($conn,$user_id);
+$total = Order::countUserOrder($conn, $user_id);
 $limit = PAGE_SIZE;
 $currentpage = $_GET['page'] ?? 1;
 $config = [
@@ -19,8 +19,6 @@ $config = [
     'full' => false,
 
 ];
-
-
 
 //$userOrders = Order::getUserOrders($conn, $user_id);
 $userOrders = Order::getPaging($conn, $limit, ($currentpage - 1) * $limit, $user_id);
@@ -43,46 +41,20 @@ if ($userOrders !== null) {
                     <td><?php echo $order['order_id']; ?></td>
                     <td><?php echo $order['user_name']; ?></td>
                     <td><?php echo $order['course_name']; ?></td>
-                    <td> <a href='<?php echo $order['course_video']; ?>'>Link</a></td>            
+                    <td> <a href='<?php echo $order['course_video']; ?>'>Link</a></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
     <div class='content'>
-    <?php
+        <?php
         $page = new Pagination($config);
         echo $page->getPagination();
-    ?>
-    <a href="index.php">Quay lại trang chủ</a>
+        ?>
 
     <?php
 }
 
-?>
+    ?>
 
-<!DOCTYPE html>
-<html lang="vi">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js"></script>
-    <title>Quản lý khoá học</title>
-</head>
-
-<body>
-    <!-- <form action="" method="post">
-        <label for="user_id">Nhập ID người dùng:</label>
-        <input type="number" id="user_id" name="user_id" required>
-        <button type="submit">Tìm kiếm</button>
-    </form> -->
-</body>
-
-
-</html>
-
-<? layouts("footer"); ?>
+    <? layouts("footer"); ?>

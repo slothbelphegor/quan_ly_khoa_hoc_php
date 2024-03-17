@@ -62,5 +62,4 @@ $users = User::getAllUserInfo($conn);
 <?php else : ?>
     <p>Không tìm thấy kết quả phù hợp</p>
 <?php endif; ?>
-<a href="index.php">Quay lại trang chủ</a>
 <? layouts('footer');

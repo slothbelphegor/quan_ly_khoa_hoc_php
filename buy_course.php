@@ -5,31 +5,6 @@ $conn = require 'inc/db.php';
 Auth::requireLogin();
 
 // Xử lý yêu cầu mua khóa học
-// if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-//     // echo "<pre>";
-//     // print_r($_POST);
-//     // echo "</pre>";
-//     // echo $_POST["id"];
-//     $course_id = $_GET['id'];
-
-//     $user_id = $_SESSION['user_id'];
-
-//     $course = Course::getByID($conn, $course_id);
-
-//     $total_amount = $course->price;
-
-//     $order = new Order($user_id, $course_id, $total_amount, "complete");
-//     if ($order->addOrder($conn)) {
-//         Dialog::show('Mua khoá học thành công');
-//         Redirect::to('courses_management');
-//     } else {
-//         Dialog::show('Lỗi! không mua thành công');
-//         Redirect::to('courses_management');
-//     }
-// }
-
-
-// Xử lý yêu cầu mua khóa học
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     // Kiểm tra xem đã gửi id của khóa học hay chưa
     if (isset($_GET['id'])) {
@@ -65,6 +40,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         Redirect::to('courses_management');
     }
 } else {
-    // Nếu không phải là phương thức POST, chuyển hướng về trang quản lý khóa học
     Redirect::to('courses_management');
 }

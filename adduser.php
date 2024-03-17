@@ -4,7 +4,7 @@ require "inc/init.php";
 
 Auth::requireLogin();
 //Bắt buộc là admin mới vào được trang này. Nếu muốn thêm tài khoản admin thì comment lại
-if(!Auth::isAdmin()){
+if (!Auth::isAdmin()) {
     Redirect::to('index');
 }
 
@@ -37,74 +37,56 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="vi">
+<h2>Add New User</h2>
+<form class="validation-form" id="frmADDUSER" name="afrmADDUSER" method="post">
+    <fieldset>
+        <legend>User Information</legend>
+        <p>
+            <label for="name">Full name:</label>
+            <input name="name" id="name" type="text" placeholder="Full name">
+        </p>
+        <p>
+            <label for="email">Email:</label>
+            <input name="email" id="email" type="email" placeholder="Email">
+        </p>
+        <p>
+            <label for="username">Username:</label>
+            <input name="username" id="username" type="text" placeholder="username">
+        </p>
+        <p>
+            <label for="address">Address:</label>
+            <input name="address" id="address" type="text" placeholder="Address">
+        </p>
+        <p>
+            <label for="password">Password:</label>
+            <input name="password" id="password" type="password" placeholder="Password">
+        </p>
+        <p>
+            <label for="repassword">Confirm Password:</label>
+            <input name="repassword" id="repassword" type="password" placeholder="Confirm Password">
+        </p>
+        <p>
+            <label for="is_active">Is active?</label>
+            <select name="is_active" id="is_active">
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+            </select>
+        </p>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-    <script src="js/script.js"></script>
-    <link rel="stylesheet" href="css/style.css">
+        <p>
+            <label for="role_id">Role?</label>
+            <select name="role_id" id="role_id">
+                <option value="1">Administrator</option>
+                <option value="2">User</option>
+            </select>
+        </p>
+        <p>
+            <input class="btnSubmit" type="submit" value="Save">
+            <input class="btnReset" type="reset" value="Cancel">
+        </p>
+    </fieldset>
+</form>
 
-    <title>Quan Ly Khoa Hoc</title>
-</head>
-
-<body>
-    <h2>Add New User</h2>
-    <form class="validation-form" id="frmADDUSER" name="afrmADDUSER" method="post">
-        <fieldset>
-            <legend>User Information</legend>
-            <p>
-                <label for="name">Full name:</label>
-                <input name="name" id="name" type="text" placeholder="Full name">
-            </p>
-            <p>
-                <label for="email">Email:</label>
-                <input name="email" id="email" type="email" placeholder="Email">
-            </p>
-            <p>
-                <label for="username">Username:</label>
-                <input name="username" id="username" type="text" placeholder="username">
-            </p>
-            <p>
-                <label for="address">Address:</label>
-                <input name="address" id="address" type="text" placeholder="Address">
-            </p>
-            <p>
-                <label for="password">Password:</label>
-                <input name="password" id="password" type="password" placeholder="Password">
-            </p>
-            <p>
-                <label for="repassword">Confirm Password:</label>
-                <input name="repassword" id="repassword" type="password" placeholder="Confirm Password">
-            </p>
-            <p>
-                <label for="is_active">Is active?</label>
-                <select name="is_active" id="is_active">
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                </select>
-            </p>
-
-            <p>
-                <label for="role_id">Role?</label>
-                <select name="role_id" id="role_id">
-                    <option value="1">Administrator</option>
-                    <option value="2">User</option>
-                </select>
-            </p>
-            <p>
-                <input class="btnSubmit" type="submit" value="Save">
-                <input class="btnReset" type="reset" value="Cancel">
-            </p>
-        </fieldset>
-    </form>
-</body>
-
-</html>
 <?php
 layouts("footer");
 ?>

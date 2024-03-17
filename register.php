@@ -42,62 +42,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="vi">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
-    <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js"></script>
-
-    <title>Quan Ly Khoa Hoc</title>
-</head>
-
-<body>
-    <h2>Register</h2>
-    <form class="validation-form" id="frmREGISTER" name="frmREGISTER" method="post">
-        <fieldset>
-            <legend>User Information</legend>
-            <p>
-                <label for="name">Full name:</label>
-                <input name="name" id="name" type="text" placeholder="Full name" autofocus>
-            </p>
-            <p>
-                <label for="email">Email:</label>
-                <input name="email" id="email" type="email" placeholder="Email">
-            </p>
-            <p>
-                <label for="username">Username:</label>
-                <input name="username" id="username" type="text" placeholder="username">
-            </p>
-            <p>
-                <label for="address">Address:</label>
-                <input name="address" id="address" type="text" placeholder="Address">
-            </p>
-            <p>
-                <label for="password">Password:</label>
-                <input name="password" id="password" type="password" placeholder="Password">
-            </p>
-            <p>
-                <label for="repassword">Confirm Password:</label>
-                <input name="repassword" id="repassword" type="password" placeholder="Confirm Password" data-rule-equalTo="#password">
-            </p>
-            <p>
-                <input class="btnSubmit" type="submit" value="Save">
-                <input class="btnReset" type="reset" value="Cancel">
-            </p>
-            <p>
-                <a class="forgot" href="login.php">Đã có tài khoản? Đăng nhập</a>
-            </p>
-        </fieldset>
-    </form>
-</body>
-
-</html>
+<h2>Register</h2>
+<form class="validation-form" id="frmREGISTER" name="frmREGISTER" method="post">
+    <fieldset>
+        <legend>User Information</legend>
+        <p>
+            <label for="name">Full name:</label>
+            <input name="name" id="name" type="text" placeholder="Full name" autofocus>
+        </p>
+        <p>
+            <label for="email">Email:</label>
+            <input name="email" id="email" type="email" placeholder="Email">
+        </p>
+        <p>
+            <label for="username">Username:</label>
+            <input name="username" id="username" type="text" placeholder="username">
+        </p>
+        <p>
+            <label for="address">Address:</label>
+            <input name="address" id="address" type="text" placeholder="Address">
+        </p>
+        <p>
+            <label for="password">Password:</label>
+            <input name="password" id="password" type="password" placeholder="Password">
+        </p>
+        <p>
+            <label for="repassword">Confirm Password:</label>
+            <input name="repassword" id="repassword" type="password" placeholder="Confirm Password" data-rule-equalTo="#password">
+        </p>
+        <p>
+            <input class="btnSubmit" type="submit" value="Save">
+            <input class="btnReset" type="reset" value="Cancel">
+        </p>
+        <p>
+            <a class="forgot" href="login.php">Đã có tài khoản? Đăng nhập</a>
+        </p>
+    </fieldset>
+</form>
 
 <?
 layouts("footer");
