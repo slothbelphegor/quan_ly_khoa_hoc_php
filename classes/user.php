@@ -96,6 +96,24 @@ class User
         }
     }
 
+    public static function seachUser($conn, $search)
+    {
+        try {
+            $sql = "select u.id, u.name, u.email, u.username, u.address, u.is_active, u.role_id from users u
+                    where (u.id like :search_term or u.name like :search_term or u.username like :search_term);";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindValue(':search_term', "%$search%", PDO::PARAM_STR);
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            if ($stmt->execute()) {
+                $users = $stmt->fetchAll();
+                return $users;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return null;
+        }
+    }
+
     public static function deactiveUser($conn, $id)
     {
         try {

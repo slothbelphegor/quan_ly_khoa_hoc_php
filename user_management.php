@@ -14,8 +14,12 @@ if (!$conn) {
 }
 
 Auth::requireLogin();
-
-$users = User::getAllUserInfo($conn);
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
+    $search = $_GET['search'];
+    $users = User::seachUser($conn, $search);
+}else{
+    $users = User::getAllUserInfo($conn);
+}
 
 // echo '<pre>';
 // print_r($users);
@@ -23,7 +27,10 @@ $users = User::getAllUserInfo($conn);
 
 ?>
 <? layouts(); ?>
-
+<form action="" method="get">
+    <input type="text" name="search" id="search" placeholder="Tìm kiếm khóa học">
+    <button type="submit" id="btnSearch">Tìm kiếm</button>
+</form>
 <h1>Danh sách người dùng</h1>
 <?php if (!empty($users)) : ?>
     <table>

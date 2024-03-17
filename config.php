@@ -8,7 +8,7 @@ define('DB_NAME', 'lms');
 define('DB_USER', 'root');
 // Default password 'mysql' 
 define('DB_PASS', 'mysql');
-// define('DEBUG', true);
+define('DEBUG', true);
 
 define('WEB_HOST', 'http://' . $_SERVER['HTTP_HOST']);
 define('WEB_PATH', __DIR__);
