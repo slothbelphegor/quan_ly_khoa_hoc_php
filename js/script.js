@@ -20,8 +20,8 @@ $(document).ready(function () {
       address: "required",
       password: {
         required: true,
-        minlength: 6,
-        pattern: "((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{6,64})",
+        minlength: 8,
+        pattern: "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$",
       },
       repassword: {
         required: true,
@@ -43,8 +43,8 @@ $(document).ready(function () {
       address: "Vui lòng nhập địa chỉ của bạn",
       password: {
         required: "Vui lòng nhập mật khẩu",
-        minlength: "Ít nhất 6 ký tự",
-        pattern: "Mật khẩu không hợp lệ"
+        minlength: "Ít nhất 8 ký tự",
+        pattern: "Mật khẩu phải bao gồm chữ hoa, chữ thường, chữ số và ký tự đặc biệt"
       },
       repassword: {
         required: "Vui lòng xác nhận mật khẩu",
@@ -138,8 +138,8 @@ $(document).ready(function () {
       address: "required",
       password: {
         required: true,
-        minlength: 6,
-        pattern: "((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{6,64})",
+        minlength: 8,
+        pattern: "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$",
       },
       repassword: {
         required: true,
@@ -161,8 +161,8 @@ $(document).ready(function () {
       address: "Vui lòng nhập địa chỉ của bạn",
       password: {
         required: "Vui lòng nhập mật khẩu",
-        minlength: "Ít nhất 6 ký tự",
-        pattern: "Mật khẩu không hợp lệ"
+        minlength: "Ít nhất 8 ký tự",
+        pattern: "Mật khẩu phải bao gồm chữ hoa, chữ thường, chữ số và ký tự đặc biệt"
       },
       repassword: {
         required: "Vui lòng xác nhận mật khẩu",
