@@ -38,7 +38,7 @@ function generateRandomPassword($length = 8)
 
 ?>
 
-<? layouts() ?>
+
 
 <form id="frmFORGOT" name="frmFORGOT" action="" method="post">
     <fieldset>
