@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 Dialog::show("Course added successful");
                 Redirect::to('index');
             } else {
-                // phải gỡ image khỏi form
+                // phải gỡ image khỏi server
                 unlink('uploads/$fullname');
                 Dialog::show("Cannot add course");
             }

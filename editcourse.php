@@ -42,9 +42,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <? layouts(); ?>
 
 <div class="content">
-    <form method='post' id='frmEDITCOURSE'>
+    <form  method='post' id='frmEDITCOURSE'>
         <fieldset>
-            <legend>Edit course</legend>
+            <h2>Edit course</h2>
             <p class='row'>
                 <label for="name">Name: </label>
                 <span class='error'>*</span>
@@ -80,8 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </select>
             </p>
             <p class='row'>
-                <input class='btn' type="submit" value="Update" />
-                <input class='btn' type="reset" value="Cancel" onClick='parent.location="courses_management.php"'/>
+                <input class="btnSubmit" type="submit" value="Update" />
+                <input class="btnReset" type="reset" value="Cancel" onClick='parent.location="courses_management.php"'/>
             </p>
         </fieldset>
     </form>

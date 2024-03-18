@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<? layouts('footer'); ?>
+<? layouts('header'); ?>
 
 <div class='content'>
     <form method='post' enctype="multipart/form-data" id='frmEDITIMAGE'>
@@ -67,8 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <input type='file' name='file' id='file' />
             </div>
             <div class="row">
-                <input class='btn' type='submit' value="Update" />
-                <input class='btn' type='button' value="Cancel" onClick='parent.location="courses_management.php"' />
+                <input class='btnSubmit' type='submit' value="Update" />
+                <input class='btnReset' type='button' value="Cancel" onClick='parent.location="courses_management.php"' />
 
             </div>
         </fieldset>
