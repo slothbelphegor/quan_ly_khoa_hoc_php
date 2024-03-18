@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <form id="frmChangePassword" name="frmChangePassword" action="" method="post">
     <fieldset>
-        <legend>Đổi mật khẩu</legend>
+        <h2>Đổi mật khẩu</h2>
         <p>
             <label for="email">Email:</label>
             <input name="email" id="email" type="email" placeholder="Email" required>

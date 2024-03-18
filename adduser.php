@@ -40,7 +40,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <h2>Add New User</h2>
 <form class="validation-form" id="frmADDUSER" name="afrmADDUSER" method="post">
     <fieldset>
-        <legend>User Information</legend>
         <p>
             <label for="name">Full name:</label>
             <input name="name" id="name" type="text" placeholder="Full name">

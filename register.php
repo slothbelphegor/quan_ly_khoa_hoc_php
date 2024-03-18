@@ -45,7 +45,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <h2>Register</h2>
 <form class="validation-form" id="frmREGISTER" name="frmREGISTER" method="post">
     <fieldset>
-        <legend>User Information</legend>
         <p>
             <label for="name">Full name:</label>
             <input name="name" id="name" type="text" placeholder="Full name" autofocus>

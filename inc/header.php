@@ -35,10 +35,12 @@
                 <a href="courses_management.php">Courses</a>
                 <? if ($_SESSION['role_id'] == 1) : ?>
                     <a href="user_management.php" class="text">Users</a>
-                    <a href="addcourse.php" class='hyperlink'>Thêm khoá học</a>
+                    <a href="addcourse.php" class='text'>Thêm khoá học</a>
+                    <a href="adduser.php" class='text'>Thêm người dùng</a>
                 <? elseif ($_SESSION['role_id'] == 2) : ?>
                     <a href="user_orders.php" class="text">Orders</a>
                 <? endif; ?>
+                <a href="change_password.php" class="text" >Change password</a>
                 <a href="logout.php" class="text" onclick="return confirmLogout();">Logout</a>
 
             <? else : ?>
@@ -61,26 +63,4 @@
                 }
             }
         </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         <marquee direction="right"><img src="images/felix.gif" width="125"></marquee>

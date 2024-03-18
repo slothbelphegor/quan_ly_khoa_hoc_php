@@ -25,7 +25,7 @@ $userOrders = Order::getPaging($conn, $limit, ($currentpage - 1) * $limit, $user
 
 if ($userOrders !== null) {
 ?>
-    <h1>Danh sách đơn hàng của người dùng</h1>
+    <h1>Danh sách đơn hàng của bạn</h1>
     <table>
         <thead>
             <tr>
