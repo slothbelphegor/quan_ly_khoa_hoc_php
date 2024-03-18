@@ -34,11 +34,13 @@
 
     </div>
 
-    <div class="credit"> Create by <span>?????</span> | all rights reserved! </div>
+    <div class="credit"> Created by <span>Nhóm 2</span> | All rights reserved! </div>
 
 </section>
-</section>
-</body>
+
+
+
+
 
 </html>
 <link rel="stylesheet" href="css/style2.css">
