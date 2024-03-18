@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } else {
                 // phải gỡ image khỏi form
                 unlink('uploads/$fullname');
-                Dialog::show("Cannot add book");
+                Dialog::show("Cannot add course");
             }
         }
     } catch (PDOException $e) {
