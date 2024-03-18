@@ -96,7 +96,7 @@ class User
         }
     }
 
-    public static function seachUser($conn, $search)
+    public static function searchUser($conn, $search)
     {
         try {
             $sql = "select u.id, u.name, u.email, u.username, u.address, u.is_active, u.role_id from users u

@@ -16,7 +16,7 @@ if (!$conn) {
 Auth::requireLogin();
 if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
     $search = $_GET['search'];
-    $users = User::seachUser($conn, $search);
+    $users = User::searchUser($conn, $search);
 }else{
     $users = User::getAllUserInfo($conn);
 }
