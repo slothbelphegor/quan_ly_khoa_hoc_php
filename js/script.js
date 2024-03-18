@@ -6,28 +6,46 @@ $(document).ready(function () {
   // Thêm logic kiểm tra ở đây
   $("#frmREGISTER").validate({
     rules: {
-      name: "required",
+      name: {
+        required: true,
+        minlength: 6,
+        pattern: "^[A-Za-z]*$"
+      },
       email: {
         required: true,
         email: true,
       },
+
       username: "required",
       address: "required",
-      password: "required",
+      password: {
+        required: true,
+        minlength: 6,
+        pattern: "((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{6,64})",
+      },
       repassword: {
         required: true,
         equalTo: "#password", // Đảm bảo giống với mật khẩu
       },
     },
     messages: {
-      name: "Vui lòng nhập họ tên đầy đủ của bạn",
+      name: {
+        required: "Vui lòng nhập họ tên",
+        minlength: "Ít nhất 6 ký tự",
+
+        pattern: "Giá trị tên không hợp lệ"
+      },
       email: {
         required: "Vui lòng nhập địa chỉ email",
         email: "Vui lòng nhập địa chỉ email hợp lệ",
       },
       username: "Vui lòng nhập tên người dùng",
       address: "Vui lòng nhập địa chỉ của bạn",
-      password: "Vui lòng nhập mật khẩu",
+      password: {
+        required: "Vui lòng nhập mật khẩu",
+        minlength: "Ít nhất 6 ký tự",
+        pattern: "Mật khẩu không hợp lệ"
+      },
       repassword: {
         required: "Vui lòng xác nhận mật khẩu",
         equalTo: "Mật khẩu không khớp",
@@ -41,6 +59,7 @@ $(document).ready(function () {
         success: function (response) {
           $("#frmREGISTER").hide(); // Ẩn form sau khi thêm thành công
           $(".success-message").text(response).show(); // Hiển thị thông báo thành công
+          alert("Thành công!");
           redirectToLogin();
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -51,32 +70,100 @@ $(document).ready(function () {
     },
   });
 });
+
+// $(document).ready(function () {
+//   // Thêm logic kiểm tra ở đây
+//   $("#frmEDITPROFILE").validate({
+//     rules: {
+//       name: {
+//         required: true,
+//         minlength: 6,
+//         pattern: "^[A-Za-z]*$"
+//       },
+//       email: {
+//         required: true,
+//         email: true,
+//       },
+//       address: "required",
+
+
+//     },
+//     messages: {
+//       name: {
+//         required: "Vui lòng nhập họ tên",
+//         minlength: "Ít nhất 6 ký tự",
+
+//         pattern: "Giá trị tên không hợp lệ"
+//       },
+//       email: {
+//         required: "Vui lòng nhập địa chỉ email",
+//         email: "Vui lòng nhập địa chỉ email hợp lệ",
+//       },
+//       address: "Vui lòng nhập địa chỉ của bạn",
+
+//     },
+//     submitHandler: function (form) {
+//       $.ajax({
+//         url: "myaccount.php",
+//         type: "POST",
+//         data: $(form).serialize(),
+//         success: function (response) {
+//           $("#frmEDITPROFILE").hide(); // Ẩn form sau khi thêm thành công
+//           $(".success-message").text(response).show(); // Hiển thị thông báo thành công
+//           alert("Thành công");
+//         },
+//         error: function (jqXHR, textStatus, errorThrown) {
+//           console.error("Lỗi:", textStatus, errorThrown);
+//           $(".error-message").text("Lỗi không xác định").show(); // Hiển thị thông báo lỗi chung
+//         },
+//       });
+//     },
+//   });
+// });
+
 $(document).ready(function () {
   // Thêm logic kiểm tra ở đây
   $("#frmADDUSER").validate({
     rules: {
-      name: "required",
+      name: {
+        required: true,
+        minlength: 6,
+        pattern: "^[A-Za-z]*$"
+      },
       email: {
         required: true,
         email: true,
       },
       username: "required",
       address: "required",
-      password: "required",
+      password: {
+        required: true,
+        minlength: 6,
+        pattern: "((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{6,64})",
+      },
       repassword: {
         required: true,
         equalTo: "#password", // Đảm bảo giống với mật khẩu
       },
     },
     messages: {
-      name: "Vui lòng nhập họ tên đầy đủ của bạn",
+      name: {
+        required: "Vui lòng nhập họ tên",
+        minlength: "Ít nhất 6 ký tự",
+
+        pattern: "Giá trị tên không hợp lệ"
+      },
       email: {
         required: "Vui lòng nhập địa chỉ email",
         email: "Vui lòng nhập địa chỉ email hợp lệ",
       },
       username: "Vui lòng nhập tên người dùng",
       address: "Vui lòng nhập địa chỉ của bạn",
-      password: "Vui lòng nhập mật khẩu",
+      password: {
+        required: "Vui lòng nhập mật khẩu",
+        minlength: "Ít nhất 6 ký tự",
+        pattern: "Mật khẩu không hợp lệ"
+      },
       repassword: {
         required: "Vui lòng xác nhận mật khẩu",
         equalTo: "Mật khẩu không khớp",
@@ -90,6 +177,7 @@ $(document).ready(function () {
         success: function (response) {
           $("#frmADDUSER").hide();
           $(".success-message").text(response).show();
+          alert("Thành công");
           redirectToLogin();
         },
         error: function (jqXHR, textStatus, errorThrown) {

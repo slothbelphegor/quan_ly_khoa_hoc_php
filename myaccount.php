@@ -13,16 +13,24 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 
 $user = User::getUserInfo($conn, $user_id);
-
+$nameError = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["name"];
     $email = $_POST["email"];
     $address = $_POST["address"];
+    if (!preg_match("/^[A-Za-z]*$/", $name)) {
+        $nameError = "Only characters are allowed";
+    }
 
-    if (User::updateUserInfo($conn, $user_id, $name, $email, $address)) {
-        Dialog::show('Cập nhật thông tin thành công');
-    } else {
-        Dialog::show('Cập nhật thông tin không thành công');
+    if ($nameError === '') {
+        if (User::updateUserInfo($conn, $user_id, $name, $email, $address)) {
+            Dialog::show('Cập nhật thông tin thành công');
+        } else {
+            Dialog::show('Cập nhật thông tin không thành công');
+        }
+    }
+    else {
+       Dialog::show($nameError);
     }
 }
 
