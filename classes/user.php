@@ -217,4 +217,20 @@ class User
             $conn = null;
         }
     }
+
+    public static function updateUserInfo($conn, $id, $name, $email, $address)
+    {
+        try {
+            $sql = "update users set name = :name, email = :email, address = :address where id = :id";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindValue(":name", $name, PDO::PARAM_STR);
+            $stmt->bindValue(":email", $email, PDO::PARAM_STR);
+            $stmt->bindValue(":address", $address, PDO::PARAM_STR);
+            $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
 }

@@ -44,16 +44,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
     <table>
         <thead>
             <tr>
-                <th>Tên</th>
-                <th>Mô tả</th>
-                <th>Giá</th>
-                <th>Hình ảnh</th>
-                <th>Thời lượng</th>
-                <th>Loại khóa học</th>
+                <th class="shortcell">Tên</th>
+                <th class="shortcell">Mô tả</th>
+                <th class="shortcell">Giá</th>
+                <th class="shortcell">Hình ảnh</th>
+                <th class="shortcell">Thời lượng</th>
+                <th class="shortcell">Loại khóa học</th>
                 <?php if (Auth::isLoggedIn() && $_SESSION['role_id'] == 2) : ?>
                     <th>Mua khóa học</th>
                 <?php elseif (Auth::isLoggedIn() && $_SESSION['role_id'] == 1) : ?>
-                    <th>Chức năng</th>
+                    <th class="shortcell">Chức năng</th>
                 <?php endif; ?>
             </tr>
         </thead>
@@ -98,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
 <div class='content'>
     <?php
     $page = new Pagination($config);
-    echo $page->getPagination();
+    echo $page->getPagination1();
     ?>
 </div>
 

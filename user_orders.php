@@ -49,7 +49,7 @@ if ($userOrders !== null) {
     <div class='content'>
         <?php
         $page = new Pagination($config);
-        echo $page->getPagination();
+        echo $page->getPagination1();
         ?>
 
     <?php

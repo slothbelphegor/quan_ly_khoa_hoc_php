@@ -33,6 +33,7 @@
 
             <? if (Auth::isLoggedIn()) : ?>
                 <a href="courses_management.php">Courses</a>
+                <a href="myaccount.php">My Account</a>
                 <? if ($_SESSION['role_id'] == 1) : ?>
                     <a href="user_management.php" class="text">Users</a>
                     <a href="addcourse.php" class='text'>Thêm khoá học</a>
