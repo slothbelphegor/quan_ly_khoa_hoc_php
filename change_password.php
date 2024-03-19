@@ -1,14 +1,22 @@
 <?php
 require "inc/init.php";
 layouts("header");
-
+$passwordError = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $password = $_POST["password"];
     $newPassword = $_POST["new_password"];
     $confirmPassword = $_POST["confirm_password"];
 
+    if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/", $newPassword)) {
+        $passwordError = "Mật khẩu phải chứa ít nhất 8 ký tự và bao gồm chữ hoa, chữ thường, chữ số và ký tự đặc biệt";
+    }
+
     if (!empty($email) && !empty($password) && !empty($newPassword) && !empty($confirmPassword)) {
+        if ($passwordError !== '') {
+            Dialog::show($passwordError);
+        }
+
         if ($newPassword !== $confirmPassword) {
             Dialog::show('Mật khẩu mới và mật khẩu xác nhận không khớp');
         } else {
@@ -19,10 +27,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     Dialog::show('Đổi mật khẩu thành công. Vui lòng đăng nhập lại');
                     Redirect::to('logout');
                 } else {
-                    echo "Đã xảy ra lỗi khi đổi mật khẩu";
+                    Dialog::show("Đã xảy ra lỗi khi đổi mật khẩu");
                 }
             } else {
-                echo "Thông tin đăng nhập không chính xác";
+                    Dialog::show("Email không chính xác");
+                    
             }
         }
     } else {
