@@ -16,7 +16,10 @@ $(document).ready(function () {
         email: true,
       },
 
-      username: "required",
+      username: {
+        required: true,
+        minlength: 6,
+      },
       address: "required",
       password: {
         required: true,
@@ -39,7 +42,7 @@ $(document).ready(function () {
         required: "Vui lòng nhập địa chỉ email",
         email: "Vui lòng nhập địa chỉ email hợp lệ",
       },
-      username: "Vui lòng nhập tên người dùng",
+      username: "Vui lòng nhập tên người dùng, ít nhất 6 ký tự",
       address: "Vui lòng nhập địa chỉ của bạn",
       password: {
         required: "Vui lòng nhập mật khẩu",
@@ -134,7 +137,10 @@ $(document).ready(function () {
         required: true,
         email: true,
       },
-      username: "required",
+      username: {
+        required: true,
+        minlength: 6,
+      },
       address: "required",
       password: {
         required: true,
@@ -157,7 +163,7 @@ $(document).ready(function () {
         required: "Vui lòng nhập địa chỉ email",
         email: "Vui lòng nhập địa chỉ email hợp lệ",
       },
-      username: "Vui lòng nhập tên người dùng",
+      username: "Vui lòng nhập tên người dùng, với độ dài từ 6 ký tự",
       address: "Vui lòng nhập địa chỉ của bạn",
       password: {
         required: "Vui lòng nhập mật khẩu",
