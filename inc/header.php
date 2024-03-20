@@ -41,7 +41,6 @@
                 <? elseif ($_SESSION['role_id'] == 2) : ?>
                     <a href="user_orders.php" class="text">Orders</a>
                 <? endif; ?>
-                <a href="change_password.php" class="text" >Change password</a>
                 <a href="logout.php" class="text" onclick="return confirmLogout();">Logout</a>
 
             <? else : ?>

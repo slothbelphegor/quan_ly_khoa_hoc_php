@@ -54,6 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <span class="value"><?php echo $user['address']; ?></span>
     </div>
     <button class="btnSubmit" id="btnEditProfile">Chỉnh sửa thông tin</button>
+    <button class="btnSubmit" id="btnChangePassword">Đổi mật khẩu</button>
 </div>
 
 
@@ -83,6 +84,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     document.getElementById('btnCancelEdit').addEventListener('click', function() {
         document.getElementById('frmEDITPROFILE').style.display = 'none';
         document.getElementById('user-info').style.display = 'block';
+    });
+    document.getElementById('btnChangePassword').addEventListener('click', function() {
+        window.location.href = "change_password.php";
     });
 </script>
 
