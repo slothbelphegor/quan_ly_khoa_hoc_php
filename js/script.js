@@ -8,8 +8,7 @@ $(document).ready(function () {
     rules: {
       name: {
         required: true,
-        minlength: 6,
-        pattern: "^[A-Za-z]*$"
+        pattern: "^[A-Za-z][a-zA-Z .]+$",
       },
       email: {
         required: true,
@@ -19,6 +18,8 @@ $(document).ready(function () {
       username: {
         required: true,
         minlength: 6,
+        maxlength: 20,
+        pattern:"^[A-Za-z0-9_.]+$"
       },
       address: "required",
       password: {
@@ -34,15 +35,18 @@ $(document).ready(function () {
     messages: {
       name: {
         required: "Vui lòng nhập họ tên",
-        minlength: "Ít nhất 6 ký tự",
-
-        pattern: "Giá trị tên không hợp lệ"
+        pattern: "Không được sử dụng ký tự đặc biệt, phải bắt đầu bằng chữ cái"
       },
       email: {
         required: "Vui lòng nhập địa chỉ email",
         email: "Vui lòng nhập địa chỉ email hợp lệ",
       },
-      username: "Vui lòng nhập tên người dùng, ít nhất 6 ký tự",
+      username: {
+        required: "Vui lòng nhập tên tài khoản",
+        minlength: "Ít nhất 6 ký tự",
+        maxlength: "Nhiều nhất 20 ký tự",
+        pattern:"Không chứa ký tự đặc biệt ngoại trừ dấu chấm và dấu gạch dưới"
+      },
       address: "Vui lòng nhập địa chỉ của bạn",
       password: {
         required: "Vui lòng nhập mật khẩu",
@@ -130,8 +134,7 @@ $(document).ready(function () {
     rules: {
       name: {
         required: true,
-        minlength: 6,
-        pattern: "^[A-Za-z]*$"
+        pattern: "^[A-Za-z][a-zA-Z .]+$",
       },
       email: {
         required: true,
@@ -140,6 +143,8 @@ $(document).ready(function () {
       username: {
         required: true,
         minlength: 6,
+        maxlength: 20,
+        pattern:"^[A-Za-z0-9_.]+$"
       },
       address: "required",
       password: {
@@ -155,15 +160,18 @@ $(document).ready(function () {
     messages: {
       name: {
         required: "Vui lòng nhập họ tên",
-        minlength: "Ít nhất 6 ký tự",
-
-        pattern: "Giá trị tên không hợp lệ"
+        pattern: "Không được sử dụng ký tự đặc biệt, phải bắt đầu bằng chữ cái"
       },
       email: {
         required: "Vui lòng nhập địa chỉ email",
         email: "Vui lòng nhập địa chỉ email hợp lệ",
       },
-      username: "Vui lòng nhập tên người dùng, với độ dài từ 6 ký tự",
+      username: {
+        required: "Vui lòng nhập tên tài khoản",
+        minlength: "Ít nhất 6 ký tự",
+        maxlength: "Nhiều nhất 20 ký tự",
+        pattern:"Không chứa ký tự đặc biệt ngoại trừ dấu chấm và dấu gạch dưới"
+      },
       address: "Vui lòng nhập địa chỉ của bạn",
       password: {
         required: "Vui lòng nhập mật khẩu",
