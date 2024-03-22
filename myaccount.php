@@ -18,8 +18,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["name"];
     $email = $_POST["email"];
     $address = $_POST["address"];
-    if (!preg_match("/^[A-Za-z]*$/", $name)) {
-        $nameError = "Only characters are allowed";
+    if (!preg_match("/^[A-Za-z][a-zA-Z .]+$/", $name)) {
+        $nameError = "Tên chứa kí tự không hợp lệ";
     }
 
     if ($nameError === '') {
