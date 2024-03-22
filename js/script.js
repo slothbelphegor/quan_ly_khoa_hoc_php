@@ -237,15 +237,15 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  var addCourseBtn = document.getElementById("#addcoursebtn");
-  if (addCourseBtn) {
-    addCourseBtn.addEventListener("click", function () {
-      // Chuyển hướng người dùng đến trang addcourse.php
-      window.location.href = "addcourse.php";
-    });
-  }
-});
+// document.addEventListener("DOMContentLoaded", function () {
+//   var addCourseBtn = document.getElementById("#addcoursebtn");
+//   if (addCourseBtn) {
+//     addCourseBtn.addEventListener("click", function () {
+//       // Chuyển hướng người dùng đến trang addcourse.php
+//       window.location.href = "addcourse.php";
+//     });
+//   }
+// });
 
 document.addEventListener("DOMContentLoaded", function () {
   var registerBtn = document.querySelector(".ad_btn");
@@ -291,6 +291,16 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  var btn = document.getElementById("btnAddCourse");
+  if (btn) {
+    btn.addEventListener("click", function () {
+      window.location.href = "addcourse.php";
+    });
+  }
+});
+
 
 document.addEventListener("DOMContentLoaded", function () {
   var buttons = document.querySelectorAll("#btnDeleteCourse");

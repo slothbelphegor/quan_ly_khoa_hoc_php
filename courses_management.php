@@ -101,7 +101,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['search'])) {
     echo $page->getPagination1();
     ?>
 </div>
-
+<?php if ($_SESSION['role_id'] == 1) : ?>
+    <button class="btnSubmit" id="btnAddCourse">Thêm khóa học</button>
+<?endif;?>
 
 <?php
 Database::close($conn);

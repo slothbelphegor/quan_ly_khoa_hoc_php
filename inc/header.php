@@ -36,7 +36,6 @@
                 <a href="myaccount.php">My Account</a>
                 <? if ($_SESSION['role_id'] == 1) : ?>
                     <a href="user_management.php" class="text">Users</a>
-                    <a href="addcourse.php" class='text'>Add Course</a>
                     <a href="adduser.php" class='text'>Add User</a>
                 <? elseif ($_SESSION['role_id'] == 2) : ?>
                     <a href="user_orders.php" class="text">Orders</a>
