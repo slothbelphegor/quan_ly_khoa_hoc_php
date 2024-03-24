@@ -179,8 +179,26 @@ class User
             // Truy vấn cập nhật mật khẩu trong cơ sở dữ liệu
             $sql = "update users set password = :password where id = :id";
             $stmt = $conn->prepare($sql);
-            $stmt->bindValue(":password", $hashedPassword);
-            $stmt->bindValue(":id", $id);
+            $stmt->bindValue(":password", $hashedPassword, PDO::PARAM_STR);
+            $stmt->bindValue(":id", $id, PDO::PARAM_INT);
+
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            $e->getMessage();
+            return false;
+        }
+    }
+
+    public static function updatePasswordByEmail($conn, $email, $newPassword)
+    {
+        try {
+            $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+            // Truy vấn cập nhật mật khẩu trong cơ sở dữ liệu
+            $sql = "update users set password = :password where email = :email";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindValue(":password", $hashedPassword, PDO::PARAM_STR);
+            $stmt->bindValue(":email", $email, PDO::PARAM_STR);
 
             return $stmt->execute();
         } catch (PDOException $e) {
