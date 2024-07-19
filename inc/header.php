@@ -8,7 +8,8 @@
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
     <link rel="stylesheet" href="css/style.css">
-    <script src="js/script.js"></script>
+    <!-- change the querystring whenever you change the JavaScript -->
+    <script src="js/script.js?v1"></script>
     <title>Quản lý khoá học</title>
 
     <!-- font awesome cdn link -->
@@ -31,23 +32,20 @@
         <nav class="navbar">
             <a href="index.php">Home</a>
 
-            <? if (Auth::isLoggedIn()) : ?>
-                <a href="courses_management.php">Courses</a>
-                <a href="myaccount.php">My Account</a>
-                <? if ($_SESSION['role_id'] == 1) : ?>
-                    <a href="user_management.php" class="text">Users</a>
-                    <a href="adduser.php" class='text'>Add User</a>
-                <? elseif ($_SESSION['role_id'] == 2) : ?>
+            <?php if (Auth::isLoggedIn()) : ?>
+            <a href="myaccount.php">My Account</a>
+                <?php if (Auth::isAdmin()) : ?>
+                    <a href="user_management.php" class="text">User Management</a>
+                <?php elseif (Auth::isUser()) : ?>
+                    <a href="courses_management.php">Courses</a>
                     <a href="user_orders.php" class="text">Orders</a>
-                <? endif; ?>
+                <?php elseif (Auth::isManager()) : ?>
+                    <a href="courses_management.php">Courses</a>
+                <?php endif; ?>
                 <a href="logout.php" class="text" onclick="return confirmLogout();">Logout</a>
-
             <? else : ?>
-                <a href=" login.php">Login</a>
-            <? endif; ?>
-
-            <!-- <a>Liên hệ</a> -->
-
+                <a href="login.php">Login</a>
+            <?php endif; ?>
         </nav>
 
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

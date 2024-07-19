@@ -3,6 +3,10 @@
 require "inc/init.php";
 layouts();
 
+
+
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $conn = require 'inc/db.php';
     // Kiểm tra xem người dùng đã nhập email hay chưa
@@ -14,11 +18,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (User::emailExists($conn, $email)) {
             // Tạo mật khẩu mới ngẫu nhiên
             $newPassword = generateRandomPassword();
-
+            Mail::sendMail('shinpham.mg5@gmail.com',$email,"New Password",$newPassword);
+            
+            
             // Cập nhật mật khẩu mới vào cơ sở dữ liệu
             User::updatePasswordByEmail($conn, $email, $newPassword);
 
-            echo "Mật khẩu mới của bạn là: $newPassword";
         } else {
             Dialog::show('Email không tồn tại trong hệ thống');
         }

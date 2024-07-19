@@ -96,13 +96,18 @@ class User
         }
     }
 
-    public static function searchUser($conn, $search)
+    public static function getPaging($conn, $limit, $offset)
     {
         try {
-            $sql = "select u.id, u.name, u.email, u.username, u.address, u.is_active, u.role_id from users u
-                    where (u.id like :search_term or u.name like :search_term or u.username like :search_term);";
+            $sql = "select u.id, u.name, u.email, u.username, u.address, u.is_active, u.role_id 
+            from users u
+            limit :limit
+            offset :offset;";
             $stmt = $conn->prepare($sql);
-            $stmt->bindValue(':search_term', "%$search%", PDO::PARAM_STR);
+            //limit: số record mỗi lần select
+            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+            //offset: select từ record thứ mấy
+            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
             $stmt->setFetchMode(PDO::FETCH_ASSOC);
             if ($stmt->execute()) {
                 $users = $stmt->fetchAll();
@@ -113,6 +118,101 @@ class User
             return null;
         }
     }
+
+    public static function searchUser($conn, $search, $limit, $offset)
+    {
+        try {
+            $sql = "select u.id, u.name, u.email, u.username, u.address, u.is_active, u.role_id from users u
+                    where (u.id like :search_term or u.name like :search_term or u.username like :search_term)
+                    limit :limit
+                    offset :offset;";
+            $stmt = $conn->prepare($sql);
+            $stmt->bindValue(':search_term', "%$search%", PDO::PARAM_STR);
+            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            if ($stmt->execute()) {
+                $users = $stmt->fetchAll();
+                return $users;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return null;
+        }
+    }
+
+    public static function searchByRoleAndStatus($conn, $search, $role_id, $status, $limit, $offset)
+    {
+        try {
+            // Thiết lập mặc định cho role_id và status nếu chúng không được xác định
+            if (empty($role_id)) {
+                $role_id = '';
+            }
+            if (empty($status)) {
+                $status = '';
+            }
+
+            $sql = "select u.id, u.name, u.email, u.username, u.address, u.is_active, u.role_id 
+                from users u
+                where (u.role_id = :role or :role = '')
+                and (u.is_active = :status)
+                and (u.id like :search_term or u.name like :search_term or u.username like :search_term)
+                limit :limit
+                offset :offset;";
+
+            $stmt = $conn->prepare($sql);
+
+            $search = isset($_GET['search']) ? $_GET['search'] : '';
+
+            $stmt->bindValue(':role', $role_id, PDO::PARAM_INT);
+            $stmt->bindValue(':status', $status, PDO::PARAM_INT);
+            $stmt->bindValue(':search_term', "%$search%", PDO::PARAM_STR);
+            //limit: số record mỗi lần select
+            $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+            //offset: select từ record thứ mấy
+            $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+            $stmt->setFetchMode(PDO::FETCH_ASSOC);
+            if ($stmt->execute()) {
+                $users = $stmt->fetchAll();
+                return $users;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return null;
+        }
+    }
+    public static function searchByRole($conn, $search, $role_id, $limit, $offset)
+    {
+        $sql = "select u.id, u.name, u.email, u.username, u.address, u.is_active, u.role_id 
+            from users u
+            where (u.id like :search_term or u.name like :search_term or u.username like :search_term)";
+
+        if (!empty($role_id)) {
+            $sql .= " and u.role_id = :role";
+        }
+
+        $sql .= " limit :limit offset :offset;";
+
+        $stmt = $conn->prepare($sql);
+
+        $search = isset($_GET['search']) ? $_GET['search'] : '';
+        
+        if (!empty($role_id)) {
+            $stmt->bindValue(':role', $role_id, PDO::PARAM_INT);
+        }
+
+        $stmt->bindValue(':search_term', "%$search%", PDO::PARAM_STR);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        if ($stmt->execute()) {
+            $users = $stmt->fetchAll();
+            return $users;
+        }
+    }
+
+
 
     public static function deactiveUser($conn, $id)
     {
@@ -142,7 +242,7 @@ class User
     public static function isUserActive($conn, $identifier)
     {
         try {
-            $sql = "select is_active from users where email = :email OR username = :username";
+            $sql = "select is_active from users where email = :email or username = :username";
             $stmt = $conn->prepare($sql);
             $stmt->bindValue(':email', $identifier, PDO::PARAM_STR);
             $stmt->bindValue(':username', $identifier, PDO::PARAM_STR);
@@ -249,6 +349,31 @@ class User
         } catch (PDOException $e) {
             echo $e->getMessage();
             return false;
+        }
+    }
+
+    //Hàm đếm số records
+    public static function countUsers($conn)
+    {
+
+        try {
+            $sql = "select count(id) from users where role_id = 2";
+            return $conn->query($sql)->fetchColumn();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return -1;
+        }
+    }
+
+    public static function countAll($conn)
+    {
+
+        try {
+            $sql = "select count(id) from users";
+            return $conn->query($sql)->fetchColumn();
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return -1;
         }
     }
 }

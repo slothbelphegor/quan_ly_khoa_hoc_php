@@ -12,12 +12,11 @@ layouts();
 $user_id = $_SESSION["user_id"];
 $total = Order::countUserOrder($conn, $user_id);
 $limit = PAGE_SIZE;
-$currentpage = $_GET['page'] ?? 1;
+$currentpage = isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] >= 1 ? $_GET['page'] : 1;
 $config = [
     'total' => $total,
     'limit' => $limit,
     'full' => false,
-
 ];
 
 //$userOrders = Order::getUserOrders($conn, $user_id);
@@ -33,6 +32,7 @@ if ($userOrders !== null) {
                 <th>Tên người dùng</th>
                 <th>Tên khóa học</th>
                 <th>Video</th>
+                <th>Hủy đăng ký</th>
             </tr>
         </thead>
         <tbody>
@@ -42,6 +42,13 @@ if ($userOrders !== null) {
                     <td><?php echo $order['user_name']; ?></td>
                     <td><?php echo $order['course_name']; ?></td>
                     <td> <a href='<?php echo $order['course_video']; ?>'>Link</a></td>
+                    <td>
+                        <button value="<?php echo $order['order_id'] ?>" 
+                        name="id" 
+                        class="btnDeleteOrder btnCRUD">
+                            Hủy đăng ký
+                        </button>  
+                    </td> 
                 </tr>
             <?php endforeach; ?>
         </tbody>

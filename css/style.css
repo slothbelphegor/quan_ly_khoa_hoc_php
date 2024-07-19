@@ -60,30 +60,15 @@ form {
     background-color: #e74c3c;
 }
 
-#btnSearch {
-    background-color: #4CAF50;
-    color: white;
-    padding: 12px 20px;
-    margin: 10px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    display: flex;
-    /* float: right; */
-}
-
 a.hyperlink {
     color: blue;
     padding: 12px 20px;
-
-
 
 }
 
 a.hyperlink:hover {
     color: red;
     padding: 12px 20px;
-
 
 }
 
@@ -148,6 +133,7 @@ td img {
     border-radius: 50%;
 
     vertical-align: middle;
+    position: relative;
 }
 
 table,
@@ -165,6 +151,7 @@ thead th {
     background-color: #d5d1defe;
     cursor: pointer;
     text-transform: capitalize;
+    z-index: 2;
 }
 
 tbody tr:nth-child(even) {
@@ -203,3 +190,4 @@ tbody tr.hide td img {
     height: 0;
     transition: .2s ease-in-out .5s;
 }
+

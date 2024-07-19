@@ -8,6 +8,9 @@ if (!Auth::isAdmin()) {
     Redirect::to('index');
 }
 
+$conn = require "inc/db.php";
+$roles = Role::getRole($conn);
+
 layouts();
 // Nhan nut submit r moi chay
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -20,7 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $role_id = $_POST["role_id"];
 
     if ($name != '' && $email != '' && $username != '' && $address != '' && $password != '') {
-        $conn = require "inc/db.php";
         // Tao object user thuoc class User
         $user = new User($name, $email, $username, $address, $password, $is_active, $role_id);
 
@@ -75,8 +77,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <p>
             <label for="role_id">Role?</label>
             <select name="role_id" id="role_id">
-                <option value="1">Administrator</option>
-                <option value="2">User</option>
+                <?php foreach ($roles as $role) : ?>
+                    <option value=<? echo $role['id'] ?>><? echo $role['name'] ?></option>
+                <?php endforeach; ?>
             </select>
         </p>
         <p>

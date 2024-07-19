@@ -268,6 +268,19 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+// ham xu ly nut cancel trong cac form
+document.addEventListener("DOMContentLoaded", function () {
+  var buttons = document.querySelectorAll(".btnReset");
+  buttons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      history.back();
+    });
+  });
+});
+
+
+
+
 // ham xu ly nut dang xuat
 document.addEventListener("DOMContentLoaded", function () {
   var logoutBtn = document.getElementById("btnLogOut");
@@ -301,6 +314,15 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+  var btn = document.getElementById("btnAddUser");
+  if (btn) {
+    btn.addEventListener("click", function () {
+      window.location.href = "adduser.php";
+    });
+  }
+});
+
 
 document.addEventListener("DOMContentLoaded", function () {
   var buttons = document.querySelectorAll("#btnDeleteCourse");
@@ -316,6 +338,23 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  var buttons = document.querySelectorAll(".btnDeleteOrder");
+  buttons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      var confirmDEL = confirm("SURE!?");
+      if (confirmDEL) {
+        // Lấy giá trị id của order từ thuộc tính value của nút
+        var orderId = this.value;
+        // Chuyển hướng sang trang delete_order.php với tham số id
+        window.location.href = "delete_order.php?id=" + orderId;
+      }
+    });
+  });
+});
+
+
 
 document.addEventListener("DOMContentLoaded", function () {
   var buttons = document.querySelectorAll("#btnHideCourse");

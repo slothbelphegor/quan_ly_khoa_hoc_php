@@ -8,7 +8,10 @@ class Pagination
         'limit' => 0, //số record trên 1 trang
         'full' => true, //trang có đầy record không
         'querystring' => 'page', //biến trên url có thể là biến bất kì, sẽ trở thành biến page khi dc xử lý
-        'search' => '' //cụm từ tìm kiếm
+        'search' => '', //cụm từ tìm kiếm
+        'category' => '', //Để phân trang theo category
+        'role' => '', //Để phân trang theo role
+        'status' => '' //Để phân trang theo role
     ];
 
     public function getConfig()
@@ -30,6 +33,18 @@ class Pagination
         if (isset($_GET['search'])) {
             $config['search'] = $_GET['search'];
         } else $config['search'] = '';
+
+        if (isset($_GET['category'])) {
+            $config['category'] = $_GET['category'];
+        } else $config['category'] = '';
+        
+        if (isset($_GET['role'])) {
+            $config['role'] = $_GET['role'];
+        } else $config['role'] = '';
+        
+        if (isset($_GET['status'])) {
+            $config['status'] = $_GET['status'];
+        } else $config['status'] = '';
         //đổi thành cấu hình do người dùng gửi vào
         $this->config = $config;
     }
@@ -39,6 +54,32 @@ class Pagination
         if (isset($_GET['search'])) {
             $search = urlencode($this->config['search']);
             return "&search=" . $search;
+        }
+        return '';
+    }
+
+    private function addCategoryToUrl()
+    {
+        if (isset($_GET['category'])) {
+            $category = urlencode($this->config['category']);
+            return "&category=" . $category;
+        }
+        return '';
+    }
+
+    private function addRoleToUrl()
+    {
+        if (isset($_GET['role'])) {
+            $role = urlencode($this->config['role']);
+            return "&role=" . $role;
+        }
+        return '';
+    }
+    private function addStatusToURL()
+    {
+        if (isset($_GET['status'])) {
+            $status = urlencode($this->config['status']);
+            return "&status=" . $status;
         }
         return '';
     }
@@ -84,6 +125,9 @@ class Pagination
             $this->config['querystring'] . '=' .
             ($this->getCurrentPage() - 1) .
             $this->addSearchToUrl() .
+            $this->addCategoryToUrl() .
+            $this->addRoleToUrl() .
+            $this->addStatusToUrl() .
             "'>Previous</a></li>";
     }
     //lấy trang sau
@@ -98,6 +142,9 @@ class Pagination
             $this->config['querystring'] . '=' .
             ($this->getCurrentPage() + 1) .
             $this->addSearchToUrl() .
+            $this->addCategoryToUrl() .
+            $this->addRoleToUrl() .
+            $this->addStatusToUrl() .
             "'>Next</a></li>";
     }
     //vẽ thanh chuyển trang
@@ -123,6 +170,9 @@ class Pagination
                         $this->config['querystring'] . '=' .
                         $i .
                         $this->addSearchToUrl() .
+                        $this->addCategoryToUrl() .
+                        $this->addRoleToUrl() .
+                        $this->addStatusToUrl() .
                         '">' . $i . '</a></li>';
                 }
             }
@@ -139,6 +189,9 @@ class Pagination
                         $this->config['querystring'] . '=' .
                         $i .
                         $this->addSearchToUrl() .
+                        $this->addCategoryToUrl() .
+                        $this->addRoleToUrl() .
+                        $this->addStatusToUrl() .
                         '">' . $i . '</a></li>';
                 }
             }
@@ -156,6 +209,10 @@ class Pagination
         $data = '';
         $totalPages = $this->gettotalPage();
         $currentPage = $this->getCurrentPage();
+
+        if ($currentPage < 1) {
+            $currentPage = 1;
+        }
 
         if (!$this->config['full']) {
             $data .= $this->getPageLink(1);
@@ -182,12 +239,20 @@ class Pagination
 
 
         return '<ul class="main-nav">' .
+            // $this->getPrePage() .
+            // $data .
+            // $this->getNextPage() .
+            // '<li class="item"><form action="' . $_SERVER['PHP_SELF'] . '" method="GET">' .
+            // '<input type="text" name="' . $this->config['querystring'] . '" class="page-input" value="' . $currentPage . '">' .
+            // '<input type="submit" value="Go" class="go-button"></form></li>' .
+            // '</ul>';
             $this->getPrePage() .
             $data .
             $this->getNextPage() .
-            '<li class="item"><form action="' . $_SERVER['PHP_SELF'] . '" method="GET">' .
-            '<input type="text" name="' . $this->config['querystring'] . '" class="page-input" value="' . $currentPage . '">' .
-            '<input type="submit" value="Go" class="go-button"></form></li>' .
+            '<li class="item"><form action="' . $_SERVER['PHP_SELF'] . '" method="GET" onsubmit="return validatePageInput();">' .
+            '<input type="text" name="' . $this->config['querystring'] . '" id="pageInput" class="page-input" value="' . $currentPage . '">' .
+            '<input type="submit" value="Go" class="go-button">' .
+            '</form></li>' .
             '</ul>';
     }
 
@@ -200,15 +265,26 @@ class Pagination
                 $_SERVER['PHP_SELF'] . '?' .
                 $this->config['querystring'] . '=' . $page .
                 $this->addSearchToUrl() .
+                $this->addCategoryToUrl() .
+                $this->addRoleToUrl() .
+                $this->addStatusToUrl() .
                 '">' . $page . '</a></li>';
         }
     }
-    
 }
-
-
-
 ?>
+
+<script>
+    function validatePageInput() {
+        var pageInput = document.getElementById("pageInput").value;
+        if (isNaN(pageInput) || pageInput < 1) {
+            document.getElementById("pageInput").value = 1
+        }
+        return true;
+    }
+</script>
+
+
 <style>
     .main-nav {
         list-style: none;

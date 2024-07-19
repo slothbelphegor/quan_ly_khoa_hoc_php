@@ -4,7 +4,7 @@ require 'inc/init.php';
 $conn = require 'inc/db.php';
 Auth::requireLogin();
 
-if (!Auth::isAdmin()) {
+if (!Auth::isManager()) {
     Redirect::to('index');
 }
 if (isset($_GET['id'])) {

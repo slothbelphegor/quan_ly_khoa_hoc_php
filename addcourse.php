@@ -2,7 +2,7 @@
 require 'inc/init.php';
 Auth::requireLogin();
 
-if (!Auth::isAdmin()) {
+if (!Auth::isManager()) {
     Redirect::to('index');
 }
 

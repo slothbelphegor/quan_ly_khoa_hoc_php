@@ -3,9 +3,13 @@
 require 'inc/init.php';
 $conn = require 'inc/db.php';
 
+if (!isset($_SESSION['courses_management_access'])) {
+    header("Location: index.php");
+}
+
 Auth::requireLogin();
 
-if (!Auth::isAdmin()) {
+if (!Auth::isManager()) {
     Redirect::to('index');
 }
 

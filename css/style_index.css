@@ -24,10 +24,9 @@ body {
 
 .quote_section {
     display: flex;
-    background-color: #e5e7eb;
+    background-color: initial;
     padding-bottom: 100px;
     flex-direction: column;
-    padding: 50px 50px;
     font-family: 'Roboto';
 }
 
